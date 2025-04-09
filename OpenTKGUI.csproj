@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="OpenTK" Version="4.9.3" />
+		<PackageReference Include="OpenTK.GLControl" Version="4.0.2" />
+		<PackageReference Include="StbImageSharp" Version="2.30.15" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- Shaders -->
+		<EmbeddedResource Include="Resources\Shaders\Objeto3D.vert" />
+		<EmbeddedResource Include="Resources\Shaders\Objeto3D.frag" />
+		<EmbeddedResource Include="Resources\Shaders\Axis.vert" />
+		<EmbeddedResource Include="Resources\Shaders\Axis.frag" />
+		<EmbeddedResource Include="Resources\Shaders\CrossHair.vert" />
+		<EmbeddedResource Include="Resources\Shaders\CrossHair.frag" />
+		<!-- Images -->
+		<EmbeddedResource Include="Resources\Images\Wood.jpg" />
+		<EmbeddedResource Include="Resources\Images\Wall.png" />
+		<EmbeddedResource Include="Resources\Images\BlueMetal.jpg" />
+		<EmbeddedResource Include="Resources\Images\Bricks.jpg" />
+		<!-- Config -->
+		<EmbeddedResource Include="Resources\Config\U.jsonc" />
+		<EmbeddedResource Include="Resources\Config\Cube.jsonc" />
+		<EmbeddedResource Include="Resources\Config\Pyramid.jsonc" />
+		<EmbeddedResource Include="Resources\Config\Sphere.jsonc" />
+		<EmbeddedResource Include="Resources\Config\Cylinder.jsonc" />
+	</ItemGroup>
+</Project>
