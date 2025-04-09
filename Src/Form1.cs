@@ -98,7 +98,7 @@ namespace OpenTKGUI
                 u == null ||
                 cubo == null ||
                 piramide == null ||
-                axis == null 
+                axis == null
             ) return;
 
             u.Position = new Vector3(_x, _y, _z);
@@ -192,5 +192,14 @@ namespace OpenTKGUI
             base.OnMouseMove(e);
         }
 
+        private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Cargar el Archivo Json
+        }
+
+        private void guardarComoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Guardar el Archivo Json
+        }
     }
 }
