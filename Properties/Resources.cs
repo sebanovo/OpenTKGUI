@@ -9,12 +9,12 @@ public class Resources
 {
     public class Images
     {
-        public static ImageResult Wood => LoadEmbeddedImage("OpenTKGUI.Resources.Images.Wood.jpg");
-        public static ImageResult BlueMetal => LoadEmbeddedImage("OpenTKGUI.Resources.Images.BlueMetal.jpg");
-        public static ImageResult Wall => LoadEmbeddedImage("OpenTKGUI.Resources.Images.Wall.png");
-        public static ImageResult Bricks => LoadEmbeddedImage("OpenTKGUI.Resources.Images.Bricks.jpg");
+        public static string Wood => "OpenTKGUI.Resources.Images.Wood.jpg";
+        public static string BlueMetal => "OpenTKGUI.Resources.Images.BlueMetal.jpg";
+        public static string Wall => "OpenTKGUI.Resources.Images.Wall.png";
+        public static string Bricks => "OpenTKGUI.Resources.Images.Bricks.jpg";
 
-        private static ImageResult LoadEmbeddedImage(string textureResourceName)
+        public static ImageResult LoadEmbeddedImage(string textureResourceName)
         {
             Stream stream = Assembly.GetExecutingAssembly()?.GetManifestResourceStream(textureResourceName)
                             ?? throw new Exception($"Texture resource {textureResourceName} not found.");

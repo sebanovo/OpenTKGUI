@@ -15,7 +15,7 @@ public class Entity
     private Texture _texture;
     private ArcRotateCamera _camera;
 
-    public Entity(Resources.Config.ShapeData shapeData, string vertexCode, string fragmentCode, ImageResult textureImage, ArcRotateCamera camera)
+    public Entity(Resources.Config.ShapeData shapeData, string vertexCode, string fragmentCode, string textureImage, ArcRotateCamera camera)
     {
         _shader = new(vertexCode, fragmentCode);
         _texture = new(textureImage);

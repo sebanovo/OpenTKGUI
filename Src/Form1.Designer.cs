@@ -33,6 +33,8 @@
             archivoToolStripMenuItem = new ToolStripMenuItem();
             abrirToolStripMenuItem = new ToolStripMenuItem();
             guardarComoToolStripMenuItem = new ToolStripMenuItem();
+            openFileDialog1 = new OpenFileDialog();
+            saveFileDialog1 = new SaveFileDialog();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -75,16 +77,20 @@
             // abrirToolStripMenuItem
             // 
             abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
-            abrirToolStripMenuItem.Size = new Size(224, 26);
+            abrirToolStripMenuItem.Size = new Size(189, 26);
             abrirToolStripMenuItem.Text = "Abrir";
             abrirToolStripMenuItem.Click += abrirToolStripMenuItem_Click;
             // 
             // guardarComoToolStripMenuItem
             // 
             guardarComoToolStripMenuItem.Name = "guardarComoToolStripMenuItem";
-            guardarComoToolStripMenuItem.Size = new Size(224, 26);
+            guardarComoToolStripMenuItem.Size = new Size(189, 26);
             guardarComoToolStripMenuItem.Text = "Guardar Como";
             guardarComoToolStripMenuItem.Click += guardarComoToolStripMenuItem_Click;
+            // 
+            // openFileDialog1
+            // 
+            openFileDialog1.FileName = "openFileDialog1";
             // 
             // Form1
             // 
@@ -109,5 +115,7 @@
         private ToolStripMenuItem archivoToolStripMenuItem;
         private ToolStripMenuItem abrirToolStripMenuItem;
         private ToolStripMenuItem guardarComoToolStripMenuItem;
+        private OpenFileDialog openFileDialog1;
+        private SaveFileDialog saveFileDialog1;
     }
 }

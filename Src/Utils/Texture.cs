@@ -1,5 +1,6 @@
 using System.Reflection;
 using OpenTK.Graphics.OpenGL4;
+using OpenTKGUI.Properties;
 using StbImageSharp;
 
 namespace OpenTKGUI.Src.Utils;
@@ -7,14 +8,16 @@ namespace OpenTKGUI.Src.Utils;
 public class Texture
 {
     public int Handle { get; private set; }
-    public Texture(ImageResult textureResourceName)
+    public string Name { get; private set; }
+    public Texture(string textureResourceName)
     {
+        Name = textureResourceName;
+        ImageResult imageResult = Resources.Images.LoadEmbeddedImage(textureResourceName);
+
         Handle = GL.GenTexture();
         GL.BindTexture(TextureTarget.Texture2D, Handle);
         StbImage.stbi__vertically_flip_on_load_global = 1;
-
-
-        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, textureResourceName.Width, textureResourceName.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, textureResourceName.Data);
+        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, imageResult.Width, imageResult.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, imageResult.Data);
         GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
 
         GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.LinearMipmapLinear); // Para mipmaps

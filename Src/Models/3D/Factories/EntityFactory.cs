@@ -12,7 +12,7 @@ public static class EntityFactory
     (
         string nombre,
         Resources.Config.ShapeData shapeData,
-        ImageResult textureImage,
+        string textureImage,
         ArcRotateCamera camera
     )
     {
