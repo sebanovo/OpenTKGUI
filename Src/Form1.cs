@@ -13,6 +13,8 @@ using System.Windows.Forms;
 using static OpenTKGUI.Properties.Resources.Config;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Security.Cryptography;
+using System.Xml.Linq;
+using System.Text.Json.Serialization;
 
 
 namespace OpenTKGUI
@@ -58,51 +60,125 @@ namespace OpenTKGUI
             _sw.Start();
 
             // Iniciatialize  Shapes
-            var U = EntityFactory.CreateFromShapeData(
-                "U",
-                Resources.Config.U,
-                Resources.Images.Wood,
-                _camera
-            );
+            // var U = EntityFactory.CreateFromShapeData(
+            //     "U",
+            //     Resources.Config.U,
+            //     Resources.Images.Wood,
+            //     _camera
+            // );
 
-            var Cubo = EntityFactory.CreateFromShapeData(
-               "Cubo",
-               Resources.Config.Cube,
-               Resources.Images.Bricks,
-               _camera
-           );
+            // var Cubo = EntityFactory.CreateFromShapeData(
+            //    "Cubo",
+            //    Resources.Config.Cube,
+            //    Resources.Images.Bricks,
+            //    _camera
+            //);
 
-            var Piramide = EntityFactory.CreateFromShapeData(
-               "Piramide",
-               Resources.Config.Pyramid,
-               Resources.Images.Wall,
-               _camera
-           );
-            var Ejes = new Axis(_camera);
+            // var Piramide = EntityFactory.CreateFromShapeData(
+            //    "Piramide",
+            //    Resources.Config.Pyramid,
+            //    Resources.Images.Wall,
+            //    _camera
+            //);
+            // var Ejes = new Axis(_camera);
 
-            var Esfera = EntityFactory.CreateFromShapeData(
-                "Esfera",
-                Resources.Config.Sphere,
+            // var Esfera = EntityFactory.CreateFromShapeData(
+            //     "Esfera",
+            //     Resources.Config.Sphere,
+            //     Resources.Images.BlueMetal,
+            //     _camera
+            // );
+            Parte parteEsfera = new Parte(
+                "parteEsfera",
+                Resources.Config.Sphere.Vertices,
+                Resources.Config.Sphere.Indices,
                 Resources.Images.BlueMetal,
                 _camera
+             );
+
+            Objeto esfera = new Objeto(
+                "Esfera",
+                parteEsfera
             );
 
-            var Cilindro = EntityFactory.CreateFromShapeData(
-                "Cilindro",
-                Resources.Config.Cylinder,
+            Parte parteU1 = new(
+                "u1",
+                Resources.Config.Cube.Vertices,
+                Resources.Config.Cube.Indices,
+                Resources.Images.Wood,
+                _camera
+             );
+
+            parteU1.Transformation.Position = new Vector3(-0.4f, 0.0f, 0.0f);
+            parteU1.Transformation.Scale = new Vector3(1.0f, 3.0f, 1.0f);
+
+            Parte parteU2 = new(
+                "u2",
+                Resources.Config.Cube.Vertices,
+                Resources.Config.Cube.Indices,
+                Resources.Images.Wood,
+                _camera
+             );
+
+
+            parteU2.Transformation.Position = new Vector3(0.4f, 0.0f, 0.0f);
+            parteU2.Transformation.Scale = new Vector3(1.0f, 3.0f, 1.0f);
+
+
+            Parte parteCubo = new(
+                "cubo",
+                Resources.Config.Cube.Vertices,
+                Resources.Config.Cube.Indices,
                 Resources.Images.Wood,
                 _camera
             );
 
-            _escenario = new()
-            {
-                Ejes = Ejes
-            };
-            //_escenario.AddObjeto(U);
-            //_escenario.AddObjeto(Cubo);
-            //_escenario.AddObjeto(Piramide);
-            //_escenario.AddObjeto(Esfera);
-            //_escenario.AddObjeto(Cilindro);
+            parteCubo.Transformation.Position = new Vector3(0.0f, -0.4f, 0.0f);
+
+            Objeto u = new();
+            u.Name = "U";
+            u.Add(parteU1);
+            u.Add(parteU2);
+            u.Add(parteCubo);
+
+            Parte parteCilindro = new Parte(
+                "parteCilindro",
+                Resources.Config.Cylinder.Vertices,
+                Resources.Config.Cylinder.Indices,
+                Resources.Images.Wood,
+                _camera
+            );
+            parteCilindro.Transformation.Position = new Vector3(0.0f, -0.5f, 0.0f);
+
+            Objeto cilindro = new Objeto(
+                "Cilindro",
+                parteCilindro
+            );
+
+            Parte partePiramide = new Parte(
+                "partePiramide",
+                Resources.Config.Pyramid.Vertices,
+                Resources.Config.Pyramid.Indices,
+                Resources.Images.Wall,
+                _camera
+            );
+
+            partePiramide.Transformation.Position = new Vector3(1.0f, 0.0f, 0.0f);
+
+            Objeto piramide = new Objeto(
+                "Piramide",
+                partePiramide
+             );
+
+
+            _escenario = new Escenario();
+
+            //_escenario.Add(u);
+
+            //_escenario.Add(cubo);
+            //_escenario.Add(piramide);
+            //_escenario.Add(esfera);
+            //_escenario.Add(cilindro);
         }
 
         private void glControl1_Paint(object? sender, PaintEventArgs e)
@@ -127,28 +203,30 @@ namespace OpenTKGUI
             //    cilindro == null
             //) return;
 
-            //u.Position = new Vector3(_x, _y, _z);
-            //u.Rotation = new Vector3((float)_sw.Elapsed.TotalSeconds * 100, 0.0f, 0.0f);
+            //u.GetParte("Default").Transformation.Position = new Vector3(_x, _y, _z);
+            //u.GetParte("Default").Transformation.Rotation = new Vector3(0.0f, (float)_sw.Elapsed.TotalSeconds * 100, 0.0f);
             //u.Draw();
 
-            //cubo.Position = new Vector3(-1.0f, 0.0f, 0.0f);
-            //cubo.Rotation = new Vector3(0.0f, (float)_sw.Elapsed.TotalSeconds * 100, 0.0f);
+            //cubo.GetParte("Default").Transformation.Position = new Vector3(_x, _y, _z);
+            //cubo.GetParte("Default").Transformation.Rotation = new Vector3(0.0f, (float)_sw.Elapsed.TotalSeconds * 100, 0.0f);
+            //cubo.Draw();
+
+            //cubo.Transformation.Position = new Vector3(-1.0f, 0.0f, 0.0f);
+            //cubo.Transformation.Rotation = new Vector3(0.0f, (float)_sw.Elapsed.TotalSeconds * 100, 0.0f);
             //cubo.Draw();
 
             //piramide.Position = new Vector3(1.0f, 0.0f, 0.0f);
             //piramide.Rotation = new Vector3(0.0f, 0.0f, (float)_sw.Elapsed.TotalSeconds * 100);
             //piramide.Draw();
 
-            //esfera.Position = new Vector3(_x, _y, _z);
-            //esfera.Draw();
+            //esfera.GetParte("parteEsfera").Transformation.Position = new Vector3(_x, _y, _z);
+            //esfera.GetParte("parteEsfera").Draw();
 
-            //cilindro.Position = new Vector3(_x, _y, _z);
-            //cilindro.Rotation = new Vector3(100.0f, 0.0f, 0.0f);
-            //cilindro.Draw();
+            //cilindro.GetParte("parteCilindro").Transformation.Position = new Vector3(_x, _y, _z);
+            //cilindro.GetParte("parteCilindro").Transformation.Rotation = new Vector3(1488.0f, 0.0f, 0.0f);
+            //cilindro.GetParte("parteCilindro").Draw();
 
-            var axis = _escenario.Ejes;
-            axis.Draw();
-            _escenario.Render();
+            _escenario.Draw();
             glControl1.SwapBuffers();
         }
 
@@ -226,11 +304,18 @@ namespace OpenTKGUI
             base.OnMouseMove(e);
         }
 
-        public class ModelData
+        public class ModelDataObj
         {
-            public string Nombre { get; set; }
-            public Position Position { get; set; }
+            public string Name { get; set; }
+            public Transformation1 Transformation { get; set; }
+            public List<ModelParte> Partes { get; set; }
+        }
+
+        public class ModelParte
+        {
+            public string Name { get; set; }
             public string Texture { get; set; }
+            public Transformation1 Transformation { get; set; }
             public List<Vertice> Vertices { get; set; }
             public List<uint> Indices { get; set; }
         }
@@ -247,29 +332,60 @@ namespace OpenTKGUI
                 foreach (var fileName in openFileDialog1.FileNames)
                 {
                     string jsonContent = File.ReadAllText(fileName);
-                    var modelData = JsonSerializer.Deserialize<ModelData>(jsonContent);
-                    if (modelData == null) return; 
-
-                    var objeto = new Objeto3D(modelData.Nombre, _camera);
-                    objeto.Position = new Vector3
+                    var modelData = JsonSerializer.Deserialize<ModelDataObj>(jsonContent);
+                    if (modelData == null) return;
+                    foreach(var parte in modelData.Partes)
                     {
-                        X = modelData.Position.X,
-                        Y = modelData.Position.Y,
-                        Z = modelData.Position.Z
-                    };
+                        List<float> listaVertices = [];
+                        foreach (var vertice in parte.Vertices)
+                        {
+                            listaVertices.Add(vertice.X);
+                            listaVertices.Add(vertice.Y);
+                            listaVertices.Add(vertice.Z);
+                            listaVertices.Add(vertice.U);
+                            listaVertices.Add(vertice.V);
+                        }
+                        Parte newParte = new Parte(parte.Name, listaVertices, parte.Indices, parte.Texture, _camera);
 
-                    var shader = new Shader(Resources.Shaders.Objeto3DVert, Resources.Shaders.Objeto3DFrag);
-                    var texture = new Texture(modelData.Texture);
-                    var parte = new Parte(shader, texture);
-                    var cara = new Cara(modelData.Vertices, [..modelData.Indices]);
-                    cara.Centrar();
+                        newParte.Transformation.Position = new Vector3(
+                                parte.Transformation.Position.X,
+                                parte.Transformation.Position.Y,
+                                parte.Transformation.Position.Z
+                        );
 
-                    parte.AddCara(cara);
-                    objeto.Partes.Add(parte);
-                    objeto.Load();
+                        newParte.Transformation.Rotation = new Vector3(
+                                parte.Transformation.Rotation.X,
+                                parte.Transformation.Rotation.Y,
+                                parte.Transformation.Rotation.Z
+                        );
 
-                    // Añadir al escenario
-                    _escenario.AddObjeto(objeto);
+                        newParte.Transformation.Scale = new Vector3(
+                                parte.Transformation.Scale.X,
+                                parte.Transformation.Scale.Y,
+                                parte.Transformation.Scale.Z
+                        );
+
+                        Objeto newObject = new Objeto(
+                            modelData.Name,
+                           newParte 
+                        );
+                        newObject.Transformation.Scale = new Vector3(
+                            modelData.Transformation.Scale.X,
+                            modelData.Transformation.Scale.Y,
+                            modelData.Transformation.Scale.Z
+                        );
+                        newObject.Transformation.Position = new Vector3(
+                            modelData.Transformation.Position.X,
+                            modelData.Transformation.Position.Y,
+                            modelData.Transformation.Position.Z
+                        );
+                        newObject.Transformation.Rotation = new Vector3(
+                            modelData.Transformation.Rotation.X,
+                            modelData.Transformation.Rotation.Y,
+                            modelData.Transformation.Rotation.Z
+                        );
+                        _escenario.Add(newObject);
+                    }
                 }
             }
             catch (Exception ex)
@@ -278,7 +394,14 @@ namespace OpenTKGUI
             }
         }
 
-        public class Position 
+        public class Transformation1
+        {
+            public Punto Position { get; set; }
+            public Punto Rotation { get; set; }
+            public Punto Scale { get; set; }
+        }
+
+        public class Punto 
         {
             public float X { get; set; }
             public float Y { get; set; }
@@ -292,7 +415,7 @@ namespace OpenTKGUI
             saveFileDialog1.Title = "Guardar modelo en JSON";
             saveFileDialog1.DefaultExt = "json";
             saveFileDialog1.AddExtension = true;
-            if(_escenario.Objetos.Count == 0)
+            if (_escenario.Objetos.Count == 0)
             {
                 MessageBox.Show("No hay objetos para guardar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -300,42 +423,85 @@ namespace OpenTKGUI
 
             foreach (var objeto in _escenario.Objetos)
             {
-                if(saveFileDialog1.ShowDialog() != DialogResult.OK) return;
+                if (saveFileDialog1.ShowDialog() != DialogResult.OK) return;
                 string filePath = saveFileDialog1.FileName;
                 var FileName = Path.GetFileNameWithoutExtension(filePath);
-                List<Vertice> vertices = [];
-                List<uint> indices = [];
+           
+                List<ModelParte> listModelParte = [];
                 foreach (var parte in objeto.Partes)
                 {
-                    foreach (var cara in parte.Caras)
+                    List<Vertice> listaVertices = [];
+                    for(int i = 0; i < parte.Vertices.Count; i += 5)
                     {
-                        foreach(var vertice in cara.Vertices)
+                        if (i + 4 >= parte.Vertices.Count) break;
+                        listaVertices.Add(new Vertice()
                         {
-                            vertices.Add(new Vertice()
-                            {
-                                X = vertice.X,
-                                Y = vertice.Y,
-                                Z = vertice.Z,
-                                U = vertice.U,
-                                V = vertice.V
-                            });
-                        }
+                            X = parte.Vertices[i],
+                            Y = parte.Vertices[i + 1],
+                            Z = parte.Vertices[i + 2],
+                            U = parte.Vertices[i + 3],
+                            V = parte.Vertices[i + 4]
+                        });
                     }
-                    indices.AddRange(parte.Caras.SelectMany(c => c.Indices));
+
+                    listModelParte.Add(
+                        new ModelParte
+                        {
+                            Name = parte.Name,
+                            Texture = parte.Texture,
+                            Transformation = new Transformation1()
+                            {
+                                Position = new Punto()
+                                {
+                                    X = parte.Transformation.Position.X,
+                                    Y = parte.Transformation.Position.Y,
+                                    Z = parte.Transformation.Position.Z
+                                },
+                                Rotation = new Punto()
+                                {
+                                    X = parte.Transformation.Rotation.X,
+                                    Y = parte.Transformation.Rotation.Y,
+                                    Z = parte.Transformation.Rotation.Z
+                                },
+                                Scale = new Punto()
+                                {
+                                    X = parte.Transformation.Scale.X,
+                                    Y = parte.Transformation.Scale.Y,
+                                    Z = parte.Transformation.Scale.Z
+                                }
+                            },
+                            Vertices = listaVertices,
+                            Indices = parte.Indices
+                        }
+                     );
                 }
 
-                var combinedData = new ModelData
+                var combinedData = new ModelDataObj
                 {
-                    Nombre = FileName,
-                    Position = new Position 
+                    Name = FileName,
+                    Transformation = new Transformation1
                     {
-                        X = objeto.Position.X,
-                        Y = objeto.Position.Y,
-                        Z = objeto.Position.Z
+                        Position = new Punto()
+                        {
+                            X = objeto.Transformation.Position.X,
+                            Y = objeto.Transformation.Position.Y,
+                            Z = objeto.Transformation.Position.Z
+                        },
+                        Rotation = new Punto()
+                        {
+                            X = objeto.Transformation.Rotation.X,
+                            Y = objeto.Transformation.Rotation.Y,
+                            Z = objeto.Transformation.Rotation.Z
+                        },
+                        Scale = new Punto()
+                        {
+                            X = objeto.Transformation.Scale.X,
+                            Y = objeto.Transformation.Scale.Y,
+                            Z = objeto.Transformation.Scale.Z
+                        }
+
                     },
-                    Texture = objeto.Partes[0].Texture.Name,
-                    Vertices = vertices,
-                    Indices = indices
+                    Partes = listModelParte
                 };
 
                 var options = new JsonSerializerOptions { WriteIndented = true };

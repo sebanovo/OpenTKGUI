@@ -7,8 +7,8 @@ public class Vertice
     public float X { get; set; }
     public float Y { get; set; }
     public float Z { get; set; }
-    public float U { get; set; } // Coordenada de textura
-    public float V { get; set; } // Coordenada de textura
+    public float U { get; set; } 
+    public float V { get; set; }
 
     public Vertice() { }
     public Vertice(float x, float y, float z, float u, float v)

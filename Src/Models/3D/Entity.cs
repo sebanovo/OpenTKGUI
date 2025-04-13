@@ -20,8 +20,8 @@ public class Entity
         _shader = new(vertexCode, fragmentCode);
         _texture = new(textureImage);
         _camera = camera;
-        _vertices = CenterVerticesXYZ(shapeData.Vertices);
-        _indices = shapeData.Indices;
+        _vertices = CenterVerticesXYZ([..shapeData.Vertices]);
+        _indices = shapeData.Indices.ToArray();
     }
 
     private static float[] CenterVerticesXYZ(float[] vertices)

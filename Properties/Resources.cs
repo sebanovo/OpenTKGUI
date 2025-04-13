@@ -45,8 +45,8 @@ public class Resources
     {
         public class ShapeData
         {
-            public float[] Vertices { get; set; } = [];
-            public uint[] Indices { get; set; } = [];
+            public List<float> Vertices { get; set; } = [];
+            public List<uint> Indices { get; set; } = [];
         }
 
         public static ShapeData U => LoadShapeConfig("OpenTKGUI.Resources.Config.U.jsonc");
@@ -68,16 +68,21 @@ public class Resources
                 ReadCommentHandling = JsonCommentHandling.Skip
             };
 
-            ShapeData? shape = JsonSerializer.Deserialize<ShapeData>(stream, options)
-                ?? throw new InvalidDataException($"Invalid JSON format in {resourceName}");
+            ShapeData? shape = (JsonSerializer.Deserialize<ShapeData>(stream, options)
+                ?? throw new InvalidDataException($"Invalid JSON format in {resourceName}"))
+                ?? throw new InvalidDataException($"Failed to deserialize {resourceName}");
 
-            if (shape.Vertices == null || shape.Vertices.Length == 0)
+            if (shape.Vertices.Count == 0 )
             {
                 throw new InvalidDataException($"No vertices found in {resourceName}");
+
             }
 
-            shape.Indices ??= [];
+            if (shape.Vertices.Count == 0)
+            {
+                throw new InvalidDataException($"No vertices found in {resourceName}");
 
+            }
             return shape;
         }
     }

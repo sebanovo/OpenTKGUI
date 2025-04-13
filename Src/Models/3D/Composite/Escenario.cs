@@ -7,36 +7,14 @@ namespace OpenTKGUI.Src.Models._3D.Composite;
 
 public class Escenario
 {
-    public List<Objeto3D> Objetos { get; } = [];
+    public List<Objeto> Objetos { get; } = [];
 
-    private Axis _ejes;
-    public Axis Ejes
-    {
-        get => _ejes;
-        set
-        {
-            _ejes = value;
-            _ejes.Load();
-        }
-    }
-
-    private CrossHair _crossHair;
-    public CrossHair CrossHair
-    {
-        get => _crossHair;
-        set
-        {
-            _crossHair = value;
-            _crossHair.Load();
-        }
-    }
-
-    public void AddObjeto(Objeto3D objeto)
+    public void Add(Objeto objeto)
     {
         Objetos.Add(objeto);
     }
 
-    public void Render()
+    public void Draw()
     {
         foreach (var objeto in Objetos)
         {
@@ -44,11 +22,10 @@ public class Escenario
         }
     }
 
-    public Objeto3D GetObjeto(string nombre)
+    public Objeto GetObjeto(string name)
     {
-        var obj = Objetos.FirstOrDefault(o => o.Nombre == nombre)
-                ?? throw new Exception("No se encontro el nombre del objeto");
-        return obj;
+        var obj =  Objetos.Find(o => o.Name == name);
+        return obj ?? throw new Exception($"No se encontro el objeto {name}");
     }
 
     public void Dispose()
@@ -57,6 +34,5 @@ public class Escenario
         {
             objeto.Dispose();
         }
-        _ejes.Dispose();
     }
 }
