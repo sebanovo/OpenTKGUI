@@ -54,40 +54,9 @@ namespace OpenTKGUI
             }
         }
 
-        private void glControl1_Load(object sender, EventArgs e)
+        public void InicializarFormas()
         {
-            _timer.Start();
-            _sw.Start();
-
-            // Iniciatialize  Shapes
-            // var U = EntityFactory.CreateFromShapeData(
-            //     "U",
-            //     Resources.Config.U,
-            //     Resources.Images.Wood,
-            //     _camera
-            // );
-
-            // var Cubo = EntityFactory.CreateFromShapeData(
-            //    "Cubo",
-            //    Resources.Config.Cube,
-            //    Resources.Images.Bricks,
-            //    _camera
-            //);
-
-            // var Piramide = EntityFactory.CreateFromShapeData(
-            //    "Piramide",
-            //    Resources.Config.Pyramid,
-            //    Resources.Images.Wall,
-            //    _camera
-            //);
-            // var Ejes = new Axis(_camera);
-
-            // var Esfera = EntityFactory.CreateFromShapeData(
-            //     "Esfera",
-            //     Resources.Config.Sphere,
-            //     Resources.Images.BlueMetal,
-            //     _camera
-            // );
+            // formas inicializasas
             Parte parteEsfera = new Parte(
                 "parteEsfera",
                 Resources.Config.Sphere.Vertices,
@@ -171,7 +140,7 @@ namespace OpenTKGUI
              );
 
 
-            _escenario = new Escenario();
+            _escenario = new Escenario(_camera);
 
             //_escenario.Add(u);
 
@@ -179,6 +148,13 @@ namespace OpenTKGUI
             //_escenario.Add(piramide);
             //_escenario.Add(esfera);
             //_escenario.Add(cilindro);
+        }
+
+        private void glControl1_Load(object sender, EventArgs e)
+        {
+            _timer.Start();
+            _sw.Start();
+            InicializarFormas();
         }
 
         private void glControl1_Paint(object? sender, PaintEventArgs e)
@@ -193,15 +169,6 @@ namespace OpenTKGUI
             //var piramide = _escenario.GetObjeto("Piramide");
             //var esfera = _escenario.GetObjeto("Esfera");
             //var cilindro = _escenario.GetObjeto("Cilindro");
-
-            //if (
-            //    u == null ||
-            //    cubo == null ||
-            //    piramide == null ||
-            //    axis == null ||
-            //    esfera == null ||
-            //    cilindro == null
-            //) return;
 
             //u.GetParte("Default").Transformation.Position = new Vector3(_x, _y, _z);
             //u.GetParte("Default").Transformation.Rotation = new Vector3(0.0f, (float)_sw.Elapsed.TotalSeconds * 100, 0.0f);
@@ -227,6 +194,7 @@ namespace OpenTKGUI
             //cilindro.GetParte("parteCilindro").Draw();
 
             _escenario.Draw();
+            _escenario.DrawEjes();
             glControl1.SwapBuffers();
         }
 
@@ -334,7 +302,25 @@ namespace OpenTKGUI
                     string jsonContent = File.ReadAllText(fileName);
                     var modelData = JsonSerializer.Deserialize<ModelDataObj>(jsonContent);
                     if (modelData == null) return;
-                    foreach(var parte in modelData.Partes)
+                    Objeto newObject = new ();
+                    newObject.Name = modelData.Name;
+                    newObject.Transformation.Scale = new Vector3(
+                        modelData.Transformation.Scale.X,
+                        modelData.Transformation.Scale.Y,
+                        modelData.Transformation.Scale.Z
+                    );
+                    newObject.Transformation.Position = new Vector3(
+                        modelData.Transformation.Position.X,
+                        modelData.Transformation.Position.Y,
+                        modelData.Transformation.Position.Z
+                    );
+                    newObject.Transformation.Rotation = new Vector3(
+                        modelData.Transformation.Rotation.X,
+                        modelData.Transformation.Rotation.Y,
+                        modelData.Transformation.Rotation.Z
+                    );
+
+                    foreach (var parte in modelData.Partes)
                     {
                         List<float> listaVertices = [];
                         foreach (var vertice in parte.Vertices)
@@ -364,28 +350,9 @@ namespace OpenTKGUI
                                 parte.Transformation.Scale.Y,
                                 parte.Transformation.Scale.Z
                         );
-
-                        Objeto newObject = new Objeto(
-                            modelData.Name,
-                           newParte 
-                        );
-                        newObject.Transformation.Scale = new Vector3(
-                            modelData.Transformation.Scale.X,
-                            modelData.Transformation.Scale.Y,
-                            modelData.Transformation.Scale.Z
-                        );
-                        newObject.Transformation.Position = new Vector3(
-                            modelData.Transformation.Position.X,
-                            modelData.Transformation.Position.Y,
-                            modelData.Transformation.Position.Z
-                        );
-                        newObject.Transformation.Rotation = new Vector3(
-                            modelData.Transformation.Rotation.X,
-                            modelData.Transformation.Rotation.Y,
-                            modelData.Transformation.Rotation.Z
-                        );
-                        _escenario.Add(newObject);
+                        newObject.Add(newParte);
                     }
+                    _escenario.Add(newObject);
                 }
             }
             catch (Exception ex)

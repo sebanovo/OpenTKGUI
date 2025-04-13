@@ -24,6 +24,7 @@ public class Axis
     ];
     ArcRotateCamera _camera;
 
+    public Axis() { }
     public Axis(ArcRotateCamera camera)
     {
         _camera = camera;
