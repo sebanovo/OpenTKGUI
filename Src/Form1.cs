@@ -142,7 +142,7 @@ namespace OpenTKGUI
 
             _escenario = new Escenario(_camera);
 
-            //_escenario.Add(u);
+            _escenario.Add(u);
 
             //_escenario.Add(cubo);
             //_escenario.Add(piramide);
@@ -164,14 +164,16 @@ namespace OpenTKGUI
             GL.ClearColor(backGroundColor);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            //var u = _escenario.GetObjeto("U");
+            var u = _escenario.GetObjeto("U");
             //var cubo = _escenario.GetObjeto("Cubo");
             //var piramide = _escenario.GetObjeto("Piramide");
             //var esfera = _escenario.GetObjeto("Esfera");
             //var cilindro = _escenario.GetObjeto("Cilindro");
 
-            //u.GetParte("Default").Transformation.Position = new Vector3(_x, _y, _z);
-            //u.GetParte("Default").Transformation.Rotation = new Vector3(0.0f, (float)_sw.Elapsed.TotalSeconds * 100, 0.0f);
+            //u.GetParte("u1").Transformation.Rotation = new Vector3(0.0f, (float)_sw.Elapsed.TotalSeconds * 100, 0.0f);
+            //u.GetParte("u2").Transformation.Rotation = new Vector3(0.0f, (float)_sw.Elapsed.TotalSeconds * 100, 0.0f);
+            //u.GetParte("cubo").Transformation.Rotation = new Vector3(0.0f, (float)_sw.Elapsed.TotalSeconds * 100, 0.0f);
+            //u.Transformation.Rotation = new Vector3(0.0f, (float)_sw.Elapsed.TotalSeconds * 100, 0.0f);
             //u.Draw();
 
             //cubo.GetParte("Default").Transformation.Position = new Vector3(_x, _y, _z);

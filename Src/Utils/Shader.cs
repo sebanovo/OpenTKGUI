@@ -52,7 +52,7 @@ public class Shader
 
     public Shader SetMat4(string name, Matrix4 value)
     {
-        GL.UniformMatrix4(GL.GetUniformLocation(ID, name), true, ref value);
+        GL.UniformMatrix4(GL.GetUniformLocation(ID, name), false, ref value);
         return this;
     }
 

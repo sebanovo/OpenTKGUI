@@ -10,8 +10,7 @@ uniform mat4 projection;
 
 void main()
 {
-    // gl_Position = transform * vec4(aPosition, 1.0) * model * view * projection;
-    mat4 MVP = model * view * projection;
     TexCoord = aTexCoord;
-    gl_Position =  vec4(aPosition, 1.0) * MVP;
+    mat4 PVM = projection * view * model;
+    gl_Position = PVM * vec4(aPosition, 1.0);
 }
