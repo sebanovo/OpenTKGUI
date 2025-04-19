@@ -15,6 +15,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Security.Cryptography;
 using System.Xml.Linq;
 using System.Text.Json.Serialization;
+using OpenTK.Platform.Windows;
 
 
 namespace OpenTKGUI
@@ -132,7 +133,7 @@ namespace OpenTKGUI
                 _camera
             );
 
-            partePiramide.Transformation.Position = new Vector3(1.0f, 0.0f, 0.0f);
+            partePiramide.Transformation.Position = new Vector3(0.0f, 0.0f, 0.0f);
 
             Objeto piramide = new Objeto(
                 "Piramide",
@@ -142,10 +143,12 @@ namespace OpenTKGUI
 
             _escenario = new Escenario(_camera);
 
-            _escenario.Add(u);
+            u.Transformation.Position = new Vector3(-1.5f, 1.0f, 0.0f);
+            piramide.Transformation.Position = new Vector3(1.0f, 1.0f, 0.0f);
 
+            _escenario.Add(u);
+            _escenario.Add(piramide);
             //_escenario.Add(cubo);
-            //_escenario.Add(piramide);
             //_escenario.Add(esfera);
             //_escenario.Add(cilindro);
         }
@@ -165,37 +168,41 @@ namespace OpenTKGUI
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             var u = _escenario.GetObjeto("U");
+            var piramide = _escenario.GetObjeto("Piramide");
             //var cubo = _escenario.GetObjeto("Cubo");
-            //var piramide = _escenario.GetObjeto("Piramide");
             //var esfera = _escenario.GetObjeto("Esfera");
             //var cilindro = _escenario.GetObjeto("Cilindro");
 
-            //u.GetParte("u1").Transformation.Rotation = new Vector3(0.0f, (float)_sw.Elapsed.TotalSeconds * 100, 0.0f);
-            //u.GetParte("u2").Transformation.Rotation = new Vector3(0.0f, (float)_sw.Elapsed.TotalSeconds * 100, 0.0f);
-            //u.GetParte("cubo").Transformation.Rotation = new Vector3(0.0f, (float)_sw.Elapsed.TotalSeconds * 100, 0.0f);
-            //u.Transformation.Rotation = new Vector3(0.0f, (float)_sw.Elapsed.TotalSeconds * 100, 0.0f);
-            //u.Draw();
+            double totalSeconds = _sw.Elapsed.TotalSeconds;
+            Vector3 rotation = new Vector3(
+                0.0f, 
+                (float)totalSeconds * 100,
+                0.0f
+            );
+            Vector3 translation = new Vector3(
+                Convert.ToSingle(Math.Cos(totalSeconds)),
+                0.0f,
+                0.0f
+            );
+            Vector3 scalation = new Vector3(Convert.ToSingle(Math.Cos(totalSeconds)) / 100);
 
-            //cubo.GetParte("Default").Transformation.Position = new Vector3(_x, _y, _z);
-            //cubo.GetParte("Default").Transformation.Rotation = new Vector3(0.0f, (float)_sw.Elapsed.TotalSeconds * 100, 0.0f);
-            //cubo.Draw();
-
-            //cubo.Transformation.Position = new Vector3(-1.0f, 0.0f, 0.0f);
-            //cubo.Transformation.Rotation = new Vector3(0.0f, (float)_sw.Elapsed.TotalSeconds * 100, 0.0f);
-            //cubo.Draw();
-
-            //piramide.Position = new Vector3(1.0f, 0.0f, 0.0f);
-            //piramide.Rotation = new Vector3(0.0f, 0.0f, (float)_sw.Elapsed.TotalSeconds * 100);
+            this.Text = scalation.X.ToString();
             //piramide.Draw();
+            //u.Escalar(scalation);
 
-            //esfera.GetParte("parteEsfera").Transformation.Position = new Vector3(_x, _y, _z);
-            //esfera.GetParte("parteEsfera").Draw();
+            //u.GetParte("u1").Trasladar(translation);
+            //u.GetParte("u2").Trasladar(translation);
+            //piramide.GetParte("partePiramide").Trasladar(scalation);
 
-            //cilindro.GetParte("parteCilindro").Transformation.Position = new Vector3(_x, _y, _z);
-            //cilindro.GetParte("parteCilindro").Transformation.Rotation = new Vector3(1488.0f, 0.0f, 0.0f);
-            //cilindro.GetParte("parteCilindro").Draw();
-
+            //_escenario.Escalar(scalation);
+            //_escenario.Trasladar(translation);
+            _escenario.Rotar(rotation);
             _escenario.Draw();
+           
+
+
+
+
             _escenario.DrawEjes();
             glControl1.SwapBuffers();
         }

@@ -1,7 +1,6 @@
-using System;
+ï»¿using System;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
-using OpenTKGUI.Properties;
 using OpenTKGUI.Src.Utils;
 using static OpenTKGUI.Properties.Resources;
 
@@ -25,7 +24,6 @@ public class Parte
     public string Texture { get; }
     private Texture TextureObj { get; }
     private ArcRotateCamera Camera { get; }
-
     public Parte() { }
 
     public Parte(string name, List<float> vertices, List<uint> indices, string texture, ArcRotateCamera camera)
@@ -33,16 +31,15 @@ public class Parte
         Name = name;
         Vertices.AddRange(CenterVerticesXYZ([..vertices]));
         Indices.AddRange(indices);
-
         Texture = texture;
         TextureObj = new Texture(Texture);
         Camera = camera;
         Load();
     }
 
-    private static float[] CenterVerticesXYZ(float[] vertices)
+    private float[] CenterVerticesXYZ(float[] vertices)
     {
-        // 1. Extraer todas las coordenadas X, Y, Z (cada vértice tiene 5 valores: x, y, z, u, v)
+        // 1. Extraer todas las coordenadas X, Y, Z (cada vÃ©rtice tiene 5 valores: x, y, z, u, v)
         int vertexCount = vertices.Length / 5;
         float[] xCoords = new float[vertexCount];
         float[] yCoords = new float[vertexCount];
@@ -56,12 +53,12 @@ public class Parte
             zCoords[i] = vertices[baseIndex + 2];
         }
 
-        // 2. Calcular centros geométricos
+        // 2. Calcular centros geomÃ©tricos
         float centerX = (xCoords.Min() + xCoords.Max()) / 2f;
         float centerY = (yCoords.Min() + yCoords.Max()) / 2f;
         float centerZ = (zCoords.Min() + zCoords.Max()) / 2f;
 
-        // 3. Crear nuevo array de vértices centrados
+        // 3. Crear nuevo array de vÃ©rtices centrados
         float[] centeredVertices = new float[vertices.Length];
         for (int i = 0; i < vertices.Length; i++)
         {
@@ -79,7 +76,6 @@ public class Parte
 
     public void Load()
     {
-
         _vao = GL.GenVertexArray();
         GL.BindVertexArray(_vao);
 
@@ -97,17 +93,39 @@ public class Parte
         GL.EnableVertexAttribArray(1);
     }
 
-    private Matrix4 CalculateModelMatrix()
+    public Matrix4 CalculateModelMatrix()
     {
-        return Matrix4.CreateScale(Transformation.Scale) *
-               Matrix4.CreateRotationX(MathHelper.DegreesToRadians(Transformation.Rotation.X)) *
-               Matrix4.CreateRotationY(MathHelper.DegreesToRadians(Transformation.Rotation.Y)) *
-               Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(Transformation.Rotation.Z)) *
-               Matrix4.CreateTranslation(Transformation.Position);
+        return
+        Matrix4.CreateScale(Transformation.Scale) *
+        Matrix4.CreateRotationX(MathHelper.DegreesToRadians(Transformation.Rotation.X)) *
+        Matrix4.CreateRotationY(MathHelper.DegreesToRadians(Transformation.Rotation.Y)) *
+        Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(Transformation.Rotation.Z)) *
+        Matrix4.CreateTranslation(Transformation.Position);
     }
 
-    public void Draw()
+    public void Escalar(Vector3 scalation)
     {
+        Transformation.Scale = new Vector3
+        (
+            Transformation.Scale.X + scalation.X,
+            Transformation.Scale.Y + scalation.Y,
+            Transformation.Scale.Z + scalation.Z
+        );
+    }
+
+    public void Trasladar(Vector3 translation)
+    {
+        Transformation.Position = translation;
+    }
+    public void Rotar(Vector3 rotation)
+    {
+        Transformation.Rotation = rotation;
+    }
+
+    public void Draw(Matrix4? modelPadre = null)
+    {
+        modelPadre ??= Matrix4.Identity;
+        Matrix4 finalModel = CalculateModelMatrix() * (Matrix4)modelPadre;
         GL.BindVertexArray(_vao);
         GL.Enable(EnableCap.DepthTest);
 
@@ -116,13 +134,14 @@ public class Parte
 
         Shader
             .SetInt("u_Texture", 0)
-            .SetMat4("model", CalculateModelMatrix())
+            .SetMat4("model", finalModel)
             .SetMat4("view", Camera.GetViewMatrix())
             .SetMat4("projection", Camera.GetProjectionMatrix());
 
         GL.BindBuffer(BufferTarget.ElementArrayBuffer, _ebo);
         GL.DrawElements(PrimitiveType.Triangles, Indices.Count, DrawElementsType.UnsignedInt, 0);
     }
+
     public void Dispose()
     {
         GL.DeleteBuffer(_vbo);
@@ -131,35 +150,3 @@ public class Parte
         TextureObj.Dispose();
     }
 }
-
-//public class Parte
-//{
-//    public List<Cara> Caras { get; } = [];
-//    public Texture Texture { get; }
-//    public Shader Shader { get; }
-
-//    public Parte(Texture texture)
-//    {
-//        Texture = texture;
-//        Shader = new Shader(Resources.Shaders.Objeto3DVert, Resources.Shaders.Objeto3DFrag);
-//    }
-
-//    public Parte(Shader shader, Texture texture)
-//    {
-//        Shader = shader;
-//        Texture = texture;
-//    }
-
-//    public void AddCara(Cara cara)
-//    {
-//        Caras.Add(cara);
-//    }
-
-//    public void CentrarParte()
-//    {
-//        foreach (var cara in Caras)
-//        {
-//            cara.Centrar();
-//        }
-//    }
-//}
