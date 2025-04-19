@@ -174,28 +174,30 @@ namespace OpenTKGUI
             //var cilindro = _escenario.GetObjeto("Cilindro");
 
             double totalSeconds = _sw.Elapsed.TotalSeconds;
-            Vector3 rotation = new Vector3(
-                0.0f, 
-                (float)totalSeconds * 100,
-                0.0f
-            );
-            Vector3 translation = new Vector3(
-                Convert.ToSingle(Math.Cos(totalSeconds)),
+            Vector3 rotacion = new Vector3(
+                //(float)totalSeconds * 100,
                 0.0f,
+                0.0f,
+                1.0f
+            );
+            Vector3 traslacion = new Vector3(
+                0.0f,
+                Convert.ToSingle(Math.Sin(totalSeconds)) / 100,
                 0.0f
             );
-            Vector3 scalation = new Vector3(Convert.ToSingle(Math.Cos(totalSeconds)) / 100);
+            Vector3 escalacion = new Vector3(Convert.ToSingle(Math.Cos(totalSeconds)) / 100);
 
-            //piramide.Draw();
-            //u.Escalar(scalation);
+            u.GetParte("u1").Rotar(rotacion);
+            //u.Rotar(rotacion);
 
-            //u.GetParte("u1").Trasladar(translation);
-            //u.GetParte("u2").Trasladar(translation);
-            //piramide.GetParte("partePiramide").Trasladar(scalation);
+            //u.Trasladar(traslacion);
+            //u.GetParte("u2").Trasladar(traslacion);
+            //piramide.GetParte("partePiramide").Trasladar(escalacion);
 
-            //_escenario.Escalar(scalation);
-            //_escenario.Trasladar(translation);
-            _escenario.Rotar(rotation);
+            //_escenario.Escalar(escalacion);
+            //_escenario.Trasladar(traslacion);
+            //_escenario.Rotar(rotacion);
+            _escenario.Rotar(rotacion);
             _escenario.Draw();
            
 

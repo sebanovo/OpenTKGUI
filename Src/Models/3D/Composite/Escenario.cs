@@ -42,12 +42,22 @@ public class Escenario
 
     public void Trasladar(Vector3 translation)
     {
-        Transformation.Position = translation;
+        Transformation.Position = new Vector3
+        (
+            Transformation.Position.X + translation.X,
+            Transformation.Position.Y + translation.Y,
+            Transformation.Position.Z + translation.Z
+        );
     }
 
     public void Rotar(Vector3 rotation)
     {
-        Transformation.Rotation = rotation;
+        Transformation.Rotation = new Vector3
+        (
+            Transformation.Rotation.X + rotation.X,
+            Transformation.Rotation.Y + rotation.Y,
+            Transformation.Rotation.Z + rotation.Z
+        );
     }
 
     public void Draw()

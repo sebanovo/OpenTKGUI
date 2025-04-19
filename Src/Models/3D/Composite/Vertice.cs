@@ -8,7 +8,7 @@ public class Vertice
     public float Y { get; set; }
     public float Z { get; set; }
     public float U { get; set; } 
-    public float V { get; set; }
+    public float V { get; set; } 
 
     public Vertice() { }
     public Vertice(float x, float y, float z, float u, float v)
