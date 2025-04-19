@@ -186,7 +186,6 @@ namespace OpenTKGUI
             );
             Vector3 scalation = new Vector3(Convert.ToSingle(Math.Cos(totalSeconds)) / 100);
 
-            this.Text = scalation.X.ToString();
             //piramide.Draw();
             //u.Escalar(scalation);
 
