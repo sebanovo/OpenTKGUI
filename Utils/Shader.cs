@@ -2,7 +2,7 @@ using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 using System.Reflection;
 
-namespace OpenTKGUI.Src.Utils;
+namespace OpenTKGUI.Utils;
 
 public class Shader
 {

@@ -1,6 +1,6 @@
 using System;
 
-namespace OpenTKGUI.Src.Models._3D.Composite;
+namespace OpenTKGUI.Estructura;
 
 public class Vertice
 {

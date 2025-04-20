@@ -1,6 +1,6 @@
 using OpenTK.Mathematics;
 
-namespace OpenTKGUI.Src.Models._3D.Composite;
+namespace OpenTKGUI.Estructura;
 public class Objeto
 {
     public string Name = "Default";

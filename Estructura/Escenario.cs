@@ -1,7 +1,7 @@
 using OpenTK.Mathematics;
-using OpenTKGUI.Src.Utils;
+using OpenTKGUI.Utils;
 
-namespace OpenTKGUI.Src.Models._3D.Composite;
+namespace OpenTKGUI.Estructura;
 
 public class Escenario
 {

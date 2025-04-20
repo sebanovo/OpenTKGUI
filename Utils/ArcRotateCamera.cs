@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenTKGUI.Src.Utils
+namespace OpenTKGUI.Utils
 {
     public class ArcRotateCamera
     {
@@ -76,8 +76,8 @@ namespace OpenTKGUI.Src.Utils
         public void ProcessMouseDown(Vector2 mousePos, MouseButtons button)
         {
             _lastMousePos = new Vector2(-mousePos.X, mousePos.Y);
-            _isRotating = (button == MouseButtons.Left);
-            _isPanning = (button == MouseButtons.Middle);
+            _isRotating = button == MouseButtons.Left;
+            _isPanning = button == MouseButtons.Middle;
         }
 
         public void ProcessMouseUp()

@@ -1,9 +1,8 @@
 using System.Reflection;
 using OpenTK.Graphics.OpenGL4;
-using OpenTKGUI.Properties;
 using StbImageSharp;
 
-namespace OpenTKGUI.Src.Utils;
+namespace OpenTKGUI.Utils;
 
 public class Texture
 {

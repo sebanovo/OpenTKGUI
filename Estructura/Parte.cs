@@ -1,11 +1,11 @@
 ﻿using System;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
-using OpenTKGUI.Src.Utils;
+using OpenTKGUI.Utils;
 using static System.Runtime.InteropServices.JavaScript.JSType;
-using static OpenTKGUI.Properties.Resources;
+using static OpenTKGUI.Resources;
 
-namespace OpenTKGUI.Src.Models._3D.Composite;
+namespace OpenTKGUI.Estructura;
 public class Transformation
 {
     public Vector3 Position { get; set; } = Vector3.Zero;

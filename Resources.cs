@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Text.Json;
 using StbImageSharp;
 
-namespace OpenTKGUI.Properties;
+namespace OpenTKGUI;
 
 public class Resources
 {
@@ -29,8 +29,6 @@ public class Resources
         public static string Objeto3DFrag => LoadEmbeddedShader("OpenTKGUI.Resources.Shaders.Objeto3D.frag");
         public static string AxisVert => LoadEmbeddedShader("OpenTKGUI.Resources.Shaders.Axis.vert");
         public static string AxisFrag => LoadEmbeddedShader("OpenTKGUI.Resources.Shaders.Axis.frag");
-        public static string CrossHairVert => LoadEmbeddedShader("OpenTKGUI.Resources.Shaders.CrossHair.vert");
-        public static string CrossHairFrag => LoadEmbeddedShader("OpenTKGUI.Resources.Shaders.CrossHair.frag");
 
         private static string LoadEmbeddedShader(string resourceName)
         {

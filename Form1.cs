@@ -1,21 +1,17 @@
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
-using OpenTKGUI.Src.Models._2D;
-using OpenTKGUI.Src.Models._3D;
-using OpenTKGUI.Src.Utils;
-using OpenTKGUI.Properties;
 using System.Diagnostics;
 using OpenTK.Windowing.Common;
-using OpenTKGUI.Src.Models._3D.Composite;
-using OpenTKGUI.Src.Models._3D.Factories;
 using System.Text.Json;
 using System.Windows.Forms;
-using static OpenTKGUI.Properties.Resources.Config;
+using static OpenTKGUI.Resources.Config;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Security.Cryptography;
 using System.Xml.Linq;
 using System.Text.Json.Serialization;
 using OpenTK.Platform.Windows;
+using OpenTKGUI.Utils;
+using OpenTKGUI.Estructura;
 
 
 namespace OpenTKGUI

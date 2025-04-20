@@ -1,9 +1,8 @@
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
-using OpenTKGUI.Src.Utils;
-using OpenTKGUI.Properties;
+using OpenTKGUI.Utils;
 
-namespace OpenTKGUI.Src.Models._3D;
+namespace OpenTKGUI.Estructura;
 
 public class Axis
 {

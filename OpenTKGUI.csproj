@@ -20,8 +20,6 @@
 		<EmbeddedResource Include="Resources\Shaders\Objeto3D.frag" />
 		<EmbeddedResource Include="Resources\Shaders\Axis.vert" />
 		<EmbeddedResource Include="Resources\Shaders\Axis.frag" />
-		<EmbeddedResource Include="Resources\Shaders\CrossHair.vert" />
-		<EmbeddedResource Include="Resources\Shaders\CrossHair.frag" />
 		<!-- Images -->
 		<EmbeddedResource Include="Resources\Images\Wood.jpg" />
 		<EmbeddedResource Include="Resources\Images\Wall.png" />
