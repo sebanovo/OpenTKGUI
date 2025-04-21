@@ -1,5 +1,3 @@
-using System;
-
 namespace OpenTKGUI.Estructura;
 
 public class Vertice

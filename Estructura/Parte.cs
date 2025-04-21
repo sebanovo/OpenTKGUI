@@ -2,7 +2,6 @@
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 using OpenTKGUI.Utils;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using static OpenTKGUI.Resources;
 
 namespace OpenTKGUI.Estructura;

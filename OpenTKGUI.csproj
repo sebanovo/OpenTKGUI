@@ -32,4 +32,10 @@
 		<EmbeddedResource Include="Resources\Config\Sphere.jsonc" />
 		<EmbeddedResource Include="Resources\Config\Cylinder.jsonc" />
 	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="Objetos\**\*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
 </Project>
