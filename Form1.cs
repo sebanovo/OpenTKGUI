@@ -66,11 +66,11 @@ namespace OpenTKGUI
             GL.ClearColor(backGroundColor);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            var u = _escenario.GetObjeto("U");
-            var piramide = _escenario.GetObjeto("Piramide");
-            //var cubo = _escenario.GetObjeto("Cubo");
-            //var esfera = _escenario.GetObjeto("Esfera");
-            //var cilindro = _escenario.GetObjeto("Cilindro");
+            IModelo u = _escenario.Get("U");
+            IModelo piramide = _escenario.Get("Piramide");
+            //IModelo cubo = _escenario.GetObjeto("Cubo");
+            //IModelo esfera = _escenario.GetObjeto("Esfera");
+            //IModelo cilindro = _escenario.GetObjeto("Cilindro");
 
             double totalSeconds = _sw.Elapsed.TotalSeconds;
             Vector3 rotacion = new Vector3(
@@ -86,22 +86,18 @@ namespace OpenTKGUI
             );
             Vector3 escalacion = new Vector3(Convert.ToSingle(Math.Cos(totalSeconds)) / 100);
 
-            u.GetParte("u1").Rotar(rotacion);
+            //u.Get("u1").Rotar(rotacion);
             //u.Rotar(rotacion);
 
             //u.Trasladar(traslacion);
-            //u.GetParte("u2").Trasladar(traslacion);
-            //piramide.GetParte("partePiramide").Trasladar(escalacion);
+            //u.Get("u2").Trasladar(traslacion);
+            //piramide.Get("partePiramide").Trasladar(escalacion);
 
             //_escenario.Escalar(escalacion);
             //_escenario.Trasladar(traslacion);
-            //_escenario.Rotar(rotacion);
             _escenario.Rotar(rotacion);
             _escenario.Draw();
            
-
-
-
 
             _escenario.DrawEjes();
             glControl1.SwapBuffers();
@@ -220,7 +216,7 @@ namespace OpenTKGUI
             {
                 if (saveFileDialog1.ShowDialog() != DialogResult.OK) return;
                 string filePath = saveFileDialog1.FileName;
-                ModeloObjeto combinedData = Modelo.GenerarModelo(objeto, filePath);
+                ModeloObjeto combinedData = Modelo.GenerarModelo((Objeto)objeto, filePath);
 
                 var options = new JsonSerializerOptions { WriteIndented = true };
                 File.WriteAllText(filePath, JsonSerializer.Serialize(combinedData, options));

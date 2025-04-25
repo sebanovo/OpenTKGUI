@@ -1,9 +1,9 @@
 using OpenTK.Mathematics;
 
 namespace OpenTKGUI.Estructura;
-public class Objeto
+public class Objeto : IModelo
 {
-    public string Name = "Default";
+    public string Name { get; set;  } = "Default";
     public Dictionary<string, Parte> Partes = [];
     public Transformation Transformation { get; } = new Transformation();
 
@@ -14,9 +14,9 @@ public class Objeto
         Add(parte);
     }
 
-    public void Add(Parte parte)
+    public void Add(IModelo parte)
     {
-        Partes.Add(parte.Name, parte);
+        Partes.Add(parte.Name, (Parte)parte);
     }
 
     public void Escalar(Vector3 scalation)
@@ -68,7 +68,7 @@ public class Objeto
        Matrix4.CreateTranslation(Transformation.Position);
     }
 
-    public Parte GetParte(string name = "Default")
+    public IModelo Get(string name = "Default")
     {
         if (Partes.TryGetValue(name, out var obj))
         {
