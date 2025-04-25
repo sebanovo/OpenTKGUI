@@ -12,24 +12,24 @@ public class Transformation
     public Vector3 Scale { get; set; } = Vector3.One;
 }
 
-public class Parte
+public class Parte : IModelo
 {
-
     private int _vao, _vbo, _ebo;
     public string Name { get; set; } = "Default";
     public Transformation Transformation { get; set; } = new Transformation();
     public List<float> Vertices { get; } = [];
-    public List<uint> Indices { get; set;  } = [];
+    public List<uint> Indices { get; set; } = [];
     public Shader Shader { get; } = new Shader(Shaders.Objeto3DVert, Shaders.Objeto3DFrag);
     public string Texture { get; }
     private Texture TextureObj { get; }
     private ArcRotateCamera Camera { get; }
+
     public Parte() { }
 
     public Parte(string name, List<float> vertices, List<uint> indices, string texture, ArcRotateCamera camera)
     {
         Name = name;
-        Vertices.AddRange(CenterVerticesXYZ([..vertices]));
+        Vertices.AddRange(CenterVerticesXYZ([.. vertices]));
         Indices.AddRange(indices);
         Texture = texture;
         TextureObj = new Texture(Texture);
@@ -130,7 +130,6 @@ public class Parte
             Transformation.Rotation.Y + rotation.Y,
             Transformation.Rotation.Z + rotation.Z
         );
-        //Transformation.Rotation = rotation;
     }
 
     public void Draw(Matrix4? modelPadre = null)
@@ -159,5 +158,13 @@ public class Parte
         GL.DeleteVertexArray(_vao);
         GL.DeleteBuffer(_ebo);
         TextureObj.Dispose();
+    }
+
+    public void Add(IModelo modelo) { }
+
+    public IModelo Get(string name)
+    {
+        IModelo modelo = null;
+        return modelo;
     }
 }

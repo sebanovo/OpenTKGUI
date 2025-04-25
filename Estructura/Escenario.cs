@@ -3,9 +3,9 @@ using OpenTKGUI.Utils;
 
 namespace OpenTKGUI.Estructura;
 
-public class Escenario
+public class Escenario : IModelo
 {
-
+    public string Name { get; set; } = "Escenario";
     public Dictionary<string, Objeto> Objetos { get; } = [];
     public Transformation Transformation { get; } = new Transformation();
     public Ejes Ejes;
@@ -20,13 +20,13 @@ public class Escenario
         return Objetos.ContainsKey(name);
     }
 
-    public void Add(Objeto objeto)
+    public void Add(IModelo objeto)
     {
         if (EsNombreRepetido(objeto.Name))
         {
             throw new Exception($"Ya existe un objeto con el nombre {objeto.Name}");
         }
-        Objetos.Add(objeto.Name, objeto);
+        Objetos.Add(objeto.Name, (Objeto)objeto);
     }
 
 
@@ -60,7 +60,7 @@ public class Escenario
         );
     }
 
-    public void Draw()
+    public void Draw(Matrix4? matrix = null)
     {
         foreach (var objeto in Objetos.Values)
         {
@@ -84,9 +84,9 @@ public class Escenario
         Ejes.Draw();
     }
 
-    public Objeto GetObjeto(string name)
+    public IModelo Get(string name)
     {
-        if(Objetos.TryGetValue(name, out var obj))
+        if (Objetos.TryGetValue(name, out var obj))
         {
             return obj;
         }
