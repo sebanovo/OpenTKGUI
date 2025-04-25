@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Text.Json;
 using OpenTKGUI.Utils;
 using OpenTKGUI.Estructura;
+using System.Windows.Forms;
 
 
 namespace OpenTKGUI
@@ -57,6 +58,144 @@ namespace OpenTKGUI
             _sw.Start();
             _escenario = new Escenario(_camera);
             InicializarFormas();
+            InicializarUIEscenario();
+        }
+
+        private void InicializarUIEscenario()
+        {
+            Vector3 position = _escenario.Transformation.Position;
+            Vector3 escalacion = _escenario.Transformation.Scale;
+            Vector3 rotacion = _escenario.Transformation.Rotation;
+            numericUpDown1.Minimum = decimal.MinValue; 
+            numericUpDown1.Maximum = decimal.MaxValue; 
+            numericUpDown2.Minimum = decimal.MinValue; 
+            numericUpDown2.Maximum = decimal.MaxValue; 
+            numericUpDown3.Minimum = decimal.MinValue; 
+            numericUpDown3.Maximum = decimal.MaxValue; 
+            numericUpDown4.Minimum = decimal.MinValue; 
+            numericUpDown4.Maximum = decimal.MaxValue; 
+            numericUpDown5.Minimum = decimal.MinValue; 
+            numericUpDown5.Maximum = decimal.MaxValue; 
+            numericUpDown6.Minimum = decimal.MinValue; 
+            numericUpDown6.Maximum = decimal.MaxValue; 
+            numericUpDown7.Minimum = decimal.MinValue; 
+            numericUpDown7.Maximum = decimal.MaxValue; 
+            numericUpDown8.Minimum = decimal.MinValue; 
+            numericUpDown8.Maximum = decimal.MaxValue; 
+            numericUpDown9.Minimum = decimal.MinValue; 
+            numericUpDown9.Maximum = decimal.MaxValue; 
+
+            numericUpDown1.DecimalPlaces = 1;
+            numericUpDown1.Increment = 0.1m;
+            numericUpDown2.DecimalPlaces = 1;
+            numericUpDown2.Increment = 0.1m;
+            numericUpDown3.DecimalPlaces = 1;
+            numericUpDown3.Increment = 0.1m;
+            numericUpDown4.DecimalPlaces = 1;
+            numericUpDown4.Increment = 0.1m;
+            numericUpDown5.DecimalPlaces = 1;
+            numericUpDown5.Increment = 0.1m;
+            numericUpDown6.DecimalPlaces = 1;
+            numericUpDown6.Increment = 0.1m;
+            numericUpDown7.DecimalPlaces = 1;
+            numericUpDown7.Increment = 1.0m;
+            numericUpDown8.DecimalPlaces = 1;
+            numericUpDown8.Increment = 1.0m;
+            numericUpDown9.DecimalPlaces = 1;
+            numericUpDown9.Increment = 1.0m;
+
+            numericUpDown1.Value = (decimal)position.X;
+            numericUpDown2.Value = (decimal)position.Y;
+            numericUpDown3.Value = (decimal)position.Z;
+
+            numericUpDown4.Value = (decimal)escalacion.X;
+            numericUpDown5.Value = (decimal)escalacion.Y;
+            numericUpDown6.Value = (decimal)escalacion.Z;
+
+            numericUpDown7.Value = (decimal)rotacion.X;
+            numericUpDown8.Value = (decimal)rotacion.Y;
+            numericUpDown9.Value = (decimal)rotacion.Z;
+
+            numericUpDown1.ValueChanged += (sender, e) =>
+            {
+                _escenario.Transformation.Position = new Vector3(
+                    (float)numericUpDown1.Value,
+                    _escenario.Transformation.Position.Y,
+                    _escenario.Transformation.Position.Z
+                );
+            };
+
+            numericUpDown2.ValueChanged += (sender, e) =>
+            {
+                _escenario.Transformation.Position = new Vector3(
+                    _escenario.Transformation.Position.X,
+                    (float)numericUpDown2.Value,
+                    _escenario.Transformation.Position.Z
+                );
+            };
+
+            numericUpDown3.ValueChanged += (sender, e) =>
+            {
+                _escenario.Transformation.Position = new Vector3(
+                    _escenario.Transformation.Position.X,
+                    _escenario.Transformation.Position.Y,
+                    (float)numericUpDown3.Value
+                );
+            };
+
+            numericUpDown4.ValueChanged += (sender, e) =>
+            {
+                _escenario.Transformation.Scale = new Vector3(
+                    (float)numericUpDown4.Value,
+                    _escenario.Transformation.Scale.Y,
+                    _escenario.Transformation.Scale.Z
+                );
+            };
+
+            numericUpDown5.ValueChanged += (sender, e) =>
+            {
+                _escenario.Transformation.Scale = new Vector3(
+                    _escenario.Transformation.Scale.X,
+                    (float)numericUpDown5.Value,
+                    _escenario.Transformation.Scale.Z
+                );
+            };
+
+            numericUpDown6.ValueChanged += (sender, e) =>
+            {
+                _escenario.Transformation.Scale = new Vector3(
+                    _escenario.Transformation.Scale.X,
+                    _escenario.Transformation.Scale.Y,
+                    (float)numericUpDown6.Value
+                );
+            };
+
+            numericUpDown7.ValueChanged += (sender, e) =>
+            {
+                _escenario.Transformation.Rotation = new Vector3(
+                    (float)numericUpDown7.Value,
+                    _escenario.Transformation.Rotation.Y,
+                    _escenario.Transformation.Rotation.Z
+                );
+            };
+
+            numericUpDown8.ValueChanged += (sender, e) =>
+            {
+                _escenario.Transformation.Rotation = new Vector3(
+                    _escenario.Transformation.Rotation.X,
+                    (float)numericUpDown8.Value,
+                    _escenario.Transformation.Rotation.Z
+                );
+            };
+
+            numericUpDown9.ValueChanged += (sender, e) =>
+            {
+                _escenario.Transformation.Rotation = new Vector3(
+                    _escenario.Transformation.Rotation.X,
+                    _escenario.Transformation.Rotation.Y,
+                    (float)numericUpDown9.Value
+                );
+            };
         }
 
         private void glControl1_Paint(object? sender, PaintEventArgs e)
@@ -86,7 +225,7 @@ namespace OpenTKGUI
             );
             Vector3 escalacion = new Vector3(Convert.ToSingle(Math.Cos(totalSeconds)) / 100);
 
-            u.GetParte("u1").Rotar(rotacion);
+            //u.GetParte("u1").Rotar(rotacion);
             //u.Rotar(rotacion);
 
             //u.Trasladar(traslacion);
@@ -96,9 +235,9 @@ namespace OpenTKGUI
             //_escenario.Escalar(escalacion);
             //_escenario.Trasladar(traslacion);
             //_escenario.Rotar(rotacion);
-            _escenario.Rotar(rotacion);
+            //_escenario.Rotar(rotacion);
             _escenario.Draw();
-           
+
 
 
 
@@ -202,7 +341,7 @@ namespace OpenTKGUI
                 MessageBox.Show($"Error al abrir el archivo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-     
+
         private void guardarComoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Guardar el Archivo Json

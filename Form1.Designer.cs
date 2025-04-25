@@ -35,7 +35,29 @@
             guardarComoToolStripMenuItem = new ToolStripMenuItem();
             openFileDialog1 = new OpenFileDialog();
             saveFileDialog1 = new SaveFileDialog();
+            numericUpDown1 = new NumericUpDown();
+            labelEscenario = new Label();
+            labelTraslacion = new Label();
+            numericUpDown2 = new NumericUpDown();
+            numericUpDown3 = new NumericUpDown();
+            numericUpDown6 = new NumericUpDown();
+            labelEscalacion = new Label();
+            numericUpDown5 = new NumericUpDown();
+            numericUpDown4 = new NumericUpDown();
+            numericUpDown7 = new NumericUpDown();
+            numericUpDown8 = new NumericUpDown();
+            labelRotacion = new Label();
+            numericUpDown9 = new NumericUpDown();
             menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown6).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown5).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown7).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown8).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown9).BeginInit();
             SuspendLayout();
             // 
             // glControl1
@@ -92,11 +114,123 @@
             // 
             openFileDialog1.FileName = "openFileDialog1";
             // 
+            // numericUpDown1
+            // 
+            numericUpDown1.Location = new Point(109, 82);
+            numericUpDown1.Name = "numericUpDown1";
+            numericUpDown1.Size = new Size(82, 27);
+            numericUpDown1.TabIndex = 2;
+            // 
+            // labelEscenario
+            // 
+            labelEscenario.AutoSize = true;
+            labelEscenario.Location = new Point(30, 49);
+            labelEscenario.Name = "labelEscenario";
+            labelEscenario.Size = new Size(72, 20);
+            labelEscenario.TabIndex = 3;
+            labelEscenario.Text = "Escenario";
+            // 
+            // labelTraslacion
+            // 
+            labelTraslacion.AutoSize = true;
+            labelTraslacion.Location = new Point(30, 84);
+            labelTraslacion.Name = "labelTraslacion";
+            labelTraslacion.Size = new Size(73, 20);
+            labelTraslacion.TabIndex = 4;
+            labelTraslacion.Text = "traslacion";
+            // 
+            // numericUpDown2
+            // 
+            numericUpDown2.Location = new Point(197, 82);
+            numericUpDown2.Name = "numericUpDown2";
+            numericUpDown2.Size = new Size(82, 27);
+            numericUpDown2.TabIndex = 5;
+            // 
+            // numericUpDown3
+            // 
+            numericUpDown3.Location = new Point(285, 82);
+            numericUpDown3.Name = "numericUpDown3";
+            numericUpDown3.Size = new Size(82, 27);
+            numericUpDown3.TabIndex = 6;
+            // 
+            // numericUpDown6
+            // 
+            numericUpDown6.Location = new Point(285, 136);
+            numericUpDown6.Name = "numericUpDown6";
+            numericUpDown6.Size = new Size(82, 27);
+            numericUpDown6.TabIndex = 7;
+            // 
+            // labelEscalacion
+            // 
+            labelEscalacion.AutoSize = true;
+            labelEscalacion.Location = new Point(30, 136);
+            labelEscalacion.Name = "labelEscalacion";
+            labelEscalacion.Size = new Size(78, 20);
+            labelEscalacion.TabIndex = 8;
+            labelEscalacion.Text = "escalacion";
+            // 
+            // numericUpDown5
+            // 
+            numericUpDown5.Location = new Point(197, 136);
+            numericUpDown5.Name = "numericUpDown5";
+            numericUpDown5.Size = new Size(82, 27);
+            numericUpDown5.TabIndex = 9;
+            // 
+            // numericUpDown4
+            // 
+            numericUpDown4.Location = new Point(109, 136);
+            numericUpDown4.Name = "numericUpDown4";
+            numericUpDown4.Size = new Size(82, 27);
+            numericUpDown4.TabIndex = 10;
+            // 
+            // numericUpDown7
+            // 
+            numericUpDown7.Location = new Point(109, 182);
+            numericUpDown7.Name = "numericUpDown7";
+            numericUpDown7.Size = new Size(82, 27);
+            numericUpDown7.TabIndex = 14;
+            // 
+            // numericUpDown8
+            // 
+            numericUpDown8.Location = new Point(197, 182);
+            numericUpDown8.Name = "numericUpDown8";
+            numericUpDown8.Size = new Size(82, 27);
+            numericUpDown8.TabIndex = 13;
+            // 
+            // labelRotacion
+            // 
+            labelRotacion.AutoSize = true;
+            labelRotacion.Location = new Point(30, 182);
+            labelRotacion.Name = "labelRotacion";
+            labelRotacion.Size = new Size(64, 20);
+            labelRotacion.TabIndex = 12;
+            labelRotacion.Text = "rotacion";
+            // 
+            // numericUpDown9
+            // 
+            numericUpDown9.Location = new Point(285, 182);
+            numericUpDown9.Name = "numericUpDown9";
+            numericUpDown9.Size = new Size(82, 27);
+            numericUpDown9.TabIndex = 11;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1153, 642);
+            Controls.Add(numericUpDown7);
+            Controls.Add(numericUpDown8);
+            Controls.Add(labelRotacion);
+            Controls.Add(numericUpDown9);
+            Controls.Add(numericUpDown4);
+            Controls.Add(numericUpDown5);
+            Controls.Add(labelEscalacion);
+            Controls.Add(numericUpDown6);
+            Controls.Add(numericUpDown3);
+            Controls.Add(numericUpDown2);
+            Controls.Add(labelTraslacion);
+            Controls.Add(labelEscenario);
+            Controls.Add(numericUpDown1);
             Controls.Add(glControl1);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
@@ -104,6 +238,15 @@
             Text = "Form1";
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown6).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown5).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown7).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown8).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown9).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -117,5 +260,18 @@
         private ToolStripMenuItem guardarComoToolStripMenuItem;
         private OpenFileDialog openFileDialog1;
         private SaveFileDialog saveFileDialog1;
+        private NumericUpDown numericUpDown1;
+        private Label labelEscenario;
+        private Label labelTraslacion;
+        private NumericUpDown numericUpDown2;
+        private NumericUpDown numericUpDown3;
+        private NumericUpDown numericUpDown6;
+        private Label labelEscalacion;
+        private NumericUpDown numericUpDown5;
+        private NumericUpDown numericUpDown4;
+        private NumericUpDown numericUpDown7;
+        private NumericUpDown numericUpDown8;
+        private Label labelRotacion;
+        private NumericUpDown numericUpDown9;
     }
 }
