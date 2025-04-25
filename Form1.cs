@@ -45,8 +45,6 @@ namespace OpenTKGUI
             Objeto u = Modelo.CargarObjeto("./Objetos/U.json", _camera);
             Objeto piramide = Modelo.CargarObjeto("./Objetos/Piramide.json", _camera);
             u.Transformation.Position = new Vector3(-1.5f, 1.0f, 0.0f);
-
-            u.Transformation.Position = new Vector3(-1.5f, 1.0f, 0.0f);
             piramide.Transformation.Position = new Vector3(1.0f, 1.0f, 0.0f);
 
             _escenario.Add(u);
