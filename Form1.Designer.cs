@@ -36,7 +36,6 @@
             openFileDialog1 = new OpenFileDialog();
             saveFileDialog1 = new SaveFileDialog();
             numericUpDown1 = new NumericUpDown();
-            labelEscenario = new Label();
             labelTraslacion = new Label();
             numericUpDown2 = new NumericUpDown();
             numericUpDown3 = new NumericUpDown();
@@ -121,15 +120,6 @@
             numericUpDown1.Name = "numericUpDown1";
             numericUpDown1.Size = new Size(82, 27);
             numericUpDown1.TabIndex = 2;
-            // 
-            // labelEscenario
-            // 
-            labelEscenario.AutoSize = true;
-            labelEscenario.Location = new Point(22, 40);
-            labelEscenario.Name = "labelEscenario";
-            labelEscenario.Size = new Size(72, 20);
-            labelEscenario.TabIndex = 3;
-            labelEscenario.Text = "Escenario";
             // 
             // labelTraslacion
             // 
@@ -222,7 +212,6 @@
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(182, 28);
             comboBox1.TabIndex = 15;
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // Form1
             // 
@@ -241,7 +230,6 @@
             Controls.Add(numericUpDown3);
             Controls.Add(numericUpDown2);
             Controls.Add(labelTraslacion);
-            Controls.Add(labelEscenario);
             Controls.Add(numericUpDown1);
             Controls.Add(glControl1);
             Controls.Add(menuStrip1);
@@ -273,7 +261,6 @@
         private OpenFileDialog openFileDialog1;
         private SaveFileDialog saveFileDialog1;
         private NumericUpDown numericUpDown1;
-        private Label labelEscenario;
         private Label labelTraslacion;
         private NumericUpDown numericUpDown2;
         private NumericUpDown numericUpDown3;

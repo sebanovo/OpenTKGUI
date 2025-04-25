@@ -17,7 +17,6 @@ namespace OpenTKGUI
         Stopwatch _sw;
 
         Color4 backGroundColor = new(0.2f, 0.3f, 0.3f, 1.0f);
-        float _x, _y, _z;
         public Form1()
         {
             InitializeComponent();
@@ -58,26 +57,60 @@ namespace OpenTKGUI
             _timer.Start();
             _sw.Start();
             _escenario = new Escenario(_camera);
-            comboBox1.SelectedIndex = 0;
             InicializarComboBox();
             InicializarFormas();
-            InicializarUIEscenario();
+            ActualizarUI();
         }
 
         private void InicializarComboBox()
         {
+            _modeloSeleccionado = _escenario;
+            comboBox1.SelectedIndex = 0;
             comboBox1.Items.Add("U");
             comboBox1.Items.Add("u1");
             comboBox1.Items.Add("u2");
             comboBox1.Items.Add("cubo");
             comboBox1.Items.Add("Piramide");
             comboBox1.Items.Add("partePiramide");
-            _modeloSeleccionado = _escenario;
+
+            comboBox1.SelectedIndexChanged += (sender, e) =>
+            {
+                string item = (string)comboBox1.SelectedItem;
+                if (item == "Escenario")
+                {
+                    _modeloSeleccionado = _escenario;
+                }
+                else if (item == "U")
+                {
+                    _modeloSeleccionado = _escenario.Get("U");
+                }
+                else if (item == "u1")
+                {
+                    _modeloSeleccionado = _escenario.Get("U").Get("u1");
+                }
+                else if (item == "u2")
+                {
+                    _modeloSeleccionado = _escenario.Get("U").Get("u2");
+                }
+                else if (item == "cubo")
+                {
+                    _modeloSeleccionado = _escenario.Get("U").Get("cubo");
+                }
+                else if (item == "Piramide")
+                {
+                    _modeloSeleccionado = _escenario.Get("Piramide");
+                }
+                else if (item == "partePiramide")
+                {
+                    _modeloSeleccionado = _escenario.Get("Piramide").Get("partePiramide");
+                }
+                ActualizarUI();
+            };
         }
 
         private IModelo _modeloSeleccionado;
 
-        private void InicializarUIEscenario()
+        private void ActualizarUI()
         {
             Vector3 position = _modeloSeleccionado.Transformation.Position;
             Vector3 escalacion = _modeloSeleccionado.Transformation.Scale;
@@ -134,7 +167,7 @@ namespace OpenTKGUI
 
             numericUpDown1.ValueChanged += (sender, e) =>
             {
-                    _modeloSeleccionado.Transformation.Position = new Vector3(
+                _modeloSeleccionado.Transformation.Position = new Vector3(
                     (float)numericUpDown1.Value,
                     _modeloSeleccionado.Transformation.Position.Y,
                     _modeloSeleccionado.Transformation.Position.Z
@@ -221,41 +254,27 @@ namespace OpenTKGUI
             GL.ClearColor(backGroundColor);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            IModelo u = _escenario.Get("U");
-            IModelo piramide = _escenario.Get("Piramide");
+            //IModelo u = _escenario.Get("U");
+            //IModelo piramide = _escenario.Get("Piramide");
             //IModelo cubo = _escenario.Get("Cubo");
             //IModelo esfera = _escenario.Get("Esfera");
             //IModelo cilindro = _escenario.Get("Cilindro");
 
-            double totalSeconds = _sw.Elapsed.TotalSeconds;
-            Vector3 rotacion = new Vector3(
-                //(float)totalSeconds * 100,
-                0.0f,
-                0.0f,
-                1.0f
-            );
-            Vector3 traslacion = new Vector3(
-                0.0f,
-                Convert.ToSingle(Math.Sin(totalSeconds)) / 100,
-                0.0f
-            );
-            Vector3 escalacion = new Vector3(Convert.ToSingle(Math.Cos(totalSeconds)) / 100);
+            //double totalSeconds = _sw.Elapsed.TotalSeconds;
+            //Vector3 rotacion = new Vector3(
+            //    //(float)totalSeconds * 100,
+            //    0.0f,
+            //    0.0f,
+            //    1.0f
+            //);
+            //Vector3 traslacion = new Vector3(
+            //    0.0f,
+            //    Convert.ToSingle(Math.Sin(totalSeconds)) / 100,
+            //    0.0f
+            //);
+            //Vector3 escalacion = new Vector3(Convert.ToSingle(Math.Cos(totalSeconds)) / 100);
 
-            //u.Get("u1").Rotar(rotacion);
-            //u.Rotar(rotacion);
-
-            //u.Trasladar(traslacion);
-            //u.Get("u2").Trasladar(traslacion);
-            //piramide.Get("partePiramide").Trasladar(escalacion);
-
-            //_escenario.Escalar(escalacion);
-            //_escenario.Trasladar(traslacion);
-            //_escenario.Rotar(rotacion);
-            //_escenario.Rotar(rotacion);
             _escenario.Draw();
-
-
-
 
 
             _escenario.DrawEjes();
@@ -284,23 +303,6 @@ namespace OpenTKGUI
                 Console.WriteLine("Line");
                 GL.PolygonMode(TriangleFace.FrontAndBack, PolygonMode.Line);
             }
-            if (keyData == Keys.Up)
-            {
-                _y += 1.0f;
-            }
-            if (keyData == Keys.Down)
-            {
-                _y -= 1.0f;
-            }
-            if (keyData == Keys.Left)
-            {
-                _x -= 1.0f;
-            }
-            if (keyData == Keys.Right)
-            {
-                _x += 1.0f;
-            }
-
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
@@ -380,41 +382,6 @@ namespace OpenTKGUI
                 var options = new JsonSerializerOptions { WriteIndented = true };
                 File.WriteAllText(filePath, JsonSerializer.Serialize(combinedData, options));
             }
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string item = (string)comboBox1.SelectedItem;
-            if (item == "Escenario")
-            {
-                _modeloSeleccionado = _escenario;
-            }
-            else if (item == "U")
-            {
-                _modeloSeleccionado = _escenario.Get("U");
-            }
-           else if (item == "u1")
-            {
-                _modeloSeleccionado = _escenario.Get("U").Get("u1");
-            }
-            else if (item == "u2")
-            {
-                _modeloSeleccionado = _escenario.Get("U").Get("u2");
-            }
-            else if (item == "cubo")
-            {
-                _modeloSeleccionado = _escenario.Get("U").Get("cubo");
-            }
-
-            else if (item == "Piramide")
-            {
-                _modeloSeleccionado = _escenario.Get("Piramide");
-            }
-            else if (item == "partePiramide")
-            {
-                _modeloSeleccionado = _escenario.Get("Piramide").Get("partePiramide");
-            }
-                     InicializarUIEscenario();
         }
     }
 }
