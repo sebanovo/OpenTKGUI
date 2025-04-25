@@ -4,7 +4,7 @@ namespace OpenTKGUI.Estructura;
 public class Objeto
 {
     public string Name = "Default";
-    public List<Parte> Partes { get; } = [];
+    public Dictionary<string, Parte> Partes = [];
     public Transformation Transformation { get; } = new Transformation();
 
     public Objeto () { }
@@ -16,7 +16,7 @@ public class Objeto
 
     public void Add(Parte parte)
     {
-        Partes.Add(parte);
+        Partes.Add(parte.Name, parte);
     }
 
     public void Escalar(Vector3 scalation)
@@ -52,7 +52,7 @@ public class Objeto
     public void Draw(Matrix4? modelPadre = null)
     {
         modelPadre ??= Matrix4.Identity;
-        foreach (var parte in Partes)
+        foreach (var parte in Partes.Values)
         {
             parte.Draw(CalculateModelMatrix() * (Matrix4)modelPadre);
         }
@@ -70,13 +70,16 @@ public class Objeto
 
     public Parte GetParte(string name = "Default")
     {
-        var obj = Partes.Find(o => o.Name == name);
-        return obj ?? throw new Exception($"No se encontro el objeto {name}");
+        if (Partes.TryGetValue(name, out var obj))
+        {
+            return obj;
+        }
+        throw new Exception($"No se encontro el objeto {name}");
     }
 
     public void Dispose()
     {
-        foreach (var parte in Partes)
+        foreach (var parte in Partes.Values)
         {
             parte.Dispose();
         }

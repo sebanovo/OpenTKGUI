@@ -4,27 +4,27 @@ using OpenTKGUI.Utils;
 
 namespace OpenTKGUI.Estructura;
 
-public class Axis
+public class Ejes 
 {
     public readonly Shader ShaderProgram;
     public int VBO, VAO;
     public readonly float[] Vertices = [
-        // axis x
+        // ejes x
         10.0f, 0.0f, 0.0f,
         -10.0f, 0.0f, 0.0f,
 
-        // axis y
+        // ejes y
         0.0f, 10.0f, 0.0f,
         0.0f, -10.0f, 0.0f,
 
-        // axis z
+        // ejes z
         0.0f, 0.0f, 10.0f,
         0.0f, 0.0f, -10.0f
     ];
     ArcRotateCamera _camera;
 
-    public Axis() { }
-    public Axis(ArcRotateCamera camera)
+    public Ejes() { }
+    public Ejes(ArcRotateCamera camera)
     {
         _camera = camera;
         ShaderProgram = new Shader(Resources.Shaders.AxisVert, Resources.Shaders.AxisFrag);

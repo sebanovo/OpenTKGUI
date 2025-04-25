@@ -102,7 +102,7 @@ class Modelo
         var FileName = Path.GetFileNameWithoutExtension(filePath);
 
         List<ModeloParte> partes = [];
-        foreach (var parte in objeto.Partes)
+        foreach (var parte in objeto.Partes.Values)
         {
             List<Vertice> listaVertices = [];
             for (int i = 0; i < parte.Vertices.Count; i += 5)

@@ -6,18 +6,18 @@ namespace OpenTKGUI.Estructura;
 public class Escenario
 {
 
-    public List<Objeto> Objetos { get; } = [];
+    public Dictionary<string, Objeto> Objetos { get; } = [];
     public Transformation Transformation { get; } = new Transformation();
-    public Axis Ejes;
+    public Ejes Ejes;
     public Escenario() { }
     public Escenario(ArcRotateCamera camera)
     {
-        Ejes = new Axis(camera);
+        Ejes = new Ejes(camera);
         Ejes.Load();
     }
     public bool EsNombreRepetido(string name)
     {
-        return Objetos.Any(o => o.Name == name);
+        return Objetos.ContainsKey(name);
     }
 
     public void Add(Objeto objeto)
@@ -26,7 +26,7 @@ public class Escenario
         {
             throw new Exception($"Ya existe un objeto con el nombre {objeto.Name}");
         }
-        Objetos.Add(objeto);
+        Objetos.Add(objeto.Name, objeto);
     }
 
 
@@ -62,7 +62,7 @@ public class Escenario
 
     public void Draw()
     {
-        foreach (var objeto in Objetos)
+        foreach (var objeto in Objetos.Values)
         {
             objeto.Draw(CalculateModelMatrix());
         }
@@ -86,13 +86,16 @@ public class Escenario
 
     public Objeto GetObjeto(string name)
     {
-        var obj =  Objetos.Find(o => o.Name == name);
-        return obj ?? throw new Exception($"No se encontro el objeto {name}");
+        if(Objetos.TryGetValue(name, out var obj))
+        {
+            return obj;
+        }
+        throw new Exception($"No se encontro el objeto {name}");
     }
 
     public void Dispose()
     {
-        foreach (var objeto in Objetos)
+        foreach (var objeto in Objetos.Values)
         {
             objeto.Dispose();
         }

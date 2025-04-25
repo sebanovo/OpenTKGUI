@@ -2,7 +2,6 @@ using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 using System.Diagnostics;
 using System.Text.Json;
-using OpenTK.Platform.Windows;
 using OpenTKGUI.Utils;
 using OpenTKGUI.Estructura;
 
@@ -12,7 +11,6 @@ namespace OpenTKGUI
     public partial class Form1 : Form
     {
         Escenario _escenario;
-        Axis _axis;
         ArcRotateCamera _camera;
         System.Windows.Forms.Timer _timer;
         Stopwatch _sw;
@@ -220,7 +218,7 @@ namespace OpenTKGUI
                 return;
             }
 
-            foreach (var objeto in _escenario.Objetos)
+            foreach (var objeto in _escenario.Objetos.Values)
             {
                 if (saveFileDialog1.ShowDialog() != DialogResult.OK) return;
                 string filePath = saveFileDialog1.FileName;
