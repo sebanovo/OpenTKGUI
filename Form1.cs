@@ -50,6 +50,7 @@ namespace OpenTKGUI
 
             _escenario.Add(u);
             _escenario.Add(piramide);
+
         }
 
         private void glControl1_Load(object sender, EventArgs e)
@@ -57,33 +58,48 @@ namespace OpenTKGUI
             _timer.Start();
             _sw.Start();
             _escenario = new Escenario(_camera);
+            comboBox1.SelectedIndex = 0;
+            InicializarComboBox();
             InicializarFormas();
             InicializarUIEscenario();
         }
 
+        private void InicializarComboBox()
+        {
+            comboBox1.Items.Add("U");
+            comboBox1.Items.Add("u1");
+            comboBox1.Items.Add("u2");
+            comboBox1.Items.Add("cubo");
+            comboBox1.Items.Add("Piramide");
+            comboBox1.Items.Add("partePiramide");
+            _modeloSeleccionado = _escenario;
+        }
+
+        private IModelo _modeloSeleccionado;
+
         private void InicializarUIEscenario()
         {
-            Vector3 position = _escenario.Transformation.Position;
-            Vector3 escalacion = _escenario.Transformation.Scale;
-            Vector3 rotacion = _escenario.Transformation.Rotation;
-            numericUpDown1.Minimum = decimal.MinValue; 
-            numericUpDown1.Maximum = decimal.MaxValue; 
-            numericUpDown2.Minimum = decimal.MinValue; 
-            numericUpDown2.Maximum = decimal.MaxValue; 
-            numericUpDown3.Minimum = decimal.MinValue; 
-            numericUpDown3.Maximum = decimal.MaxValue; 
-            numericUpDown4.Minimum = decimal.MinValue; 
-            numericUpDown4.Maximum = decimal.MaxValue; 
-            numericUpDown5.Minimum = decimal.MinValue; 
-            numericUpDown5.Maximum = decimal.MaxValue; 
-            numericUpDown6.Minimum = decimal.MinValue; 
-            numericUpDown6.Maximum = decimal.MaxValue; 
-            numericUpDown7.Minimum = decimal.MinValue; 
-            numericUpDown7.Maximum = decimal.MaxValue; 
-            numericUpDown8.Minimum = decimal.MinValue; 
-            numericUpDown8.Maximum = decimal.MaxValue; 
-            numericUpDown9.Minimum = decimal.MinValue; 
-            numericUpDown9.Maximum = decimal.MaxValue; 
+            Vector3 position = _modeloSeleccionado.Transformation.Position;
+            Vector3 escalacion = _modeloSeleccionado.Transformation.Scale;
+            Vector3 rotacion = _modeloSeleccionado.Transformation.Rotation;
+            numericUpDown1.Minimum = decimal.MinValue;
+            numericUpDown1.Maximum = decimal.MaxValue;
+            numericUpDown2.Minimum = decimal.MinValue;
+            numericUpDown2.Maximum = decimal.MaxValue;
+            numericUpDown3.Minimum = decimal.MinValue;
+            numericUpDown3.Maximum = decimal.MaxValue;
+            numericUpDown4.Minimum = decimal.MinValue;
+            numericUpDown4.Maximum = decimal.MaxValue;
+            numericUpDown5.Minimum = decimal.MinValue;
+            numericUpDown5.Maximum = decimal.MaxValue;
+            numericUpDown6.Minimum = decimal.MinValue;
+            numericUpDown6.Maximum = decimal.MaxValue;
+            numericUpDown7.Minimum = decimal.MinValue;
+            numericUpDown7.Maximum = decimal.MaxValue;
+            numericUpDown8.Minimum = decimal.MinValue;
+            numericUpDown8.Maximum = decimal.MaxValue;
+            numericUpDown9.Minimum = decimal.MinValue;
+            numericUpDown9.Maximum = decimal.MaxValue;
 
             numericUpDown1.DecimalPlaces = 1;
             numericUpDown1.Increment = 0.1m;
@@ -118,81 +134,81 @@ namespace OpenTKGUI
 
             numericUpDown1.ValueChanged += (sender, e) =>
             {
-                _escenario.Transformation.Position = new Vector3(
+                    _modeloSeleccionado.Transformation.Position = new Vector3(
                     (float)numericUpDown1.Value,
-                    _escenario.Transformation.Position.Y,
-                    _escenario.Transformation.Position.Z
+                    _modeloSeleccionado.Transformation.Position.Y,
+                    _modeloSeleccionado.Transformation.Position.Z
                 );
             };
 
             numericUpDown2.ValueChanged += (sender, e) =>
             {
-                _escenario.Transformation.Position = new Vector3(
-                    _escenario.Transformation.Position.X,
+                _modeloSeleccionado.Transformation.Position = new Vector3(
+                    _modeloSeleccionado.Transformation.Position.X,
                     (float)numericUpDown2.Value,
-                    _escenario.Transformation.Position.Z
+                    _modeloSeleccionado.Transformation.Position.Z
                 );
             };
 
             numericUpDown3.ValueChanged += (sender, e) =>
             {
-                _escenario.Transformation.Position = new Vector3(
-                    _escenario.Transformation.Position.X,
-                    _escenario.Transformation.Position.Y,
+                _modeloSeleccionado.Transformation.Position = new Vector3(
+                    _modeloSeleccionado.Transformation.Position.X,
+                    _modeloSeleccionado.Transformation.Position.Y,
                     (float)numericUpDown3.Value
                 );
             };
 
             numericUpDown4.ValueChanged += (sender, e) =>
             {
-                _escenario.Transformation.Scale = new Vector3(
+                _modeloSeleccionado.Transformation.Scale = new Vector3(
                     (float)numericUpDown4.Value,
-                    _escenario.Transformation.Scale.Y,
-                    _escenario.Transformation.Scale.Z
+                    _modeloSeleccionado.Transformation.Scale.Y,
+                    _modeloSeleccionado.Transformation.Scale.Z
                 );
             };
 
             numericUpDown5.ValueChanged += (sender, e) =>
             {
-                _escenario.Transformation.Scale = new Vector3(
-                    _escenario.Transformation.Scale.X,
+                _modeloSeleccionado.Transformation.Scale = new Vector3(
+                    _modeloSeleccionado.Transformation.Scale.X,
                     (float)numericUpDown5.Value,
-                    _escenario.Transformation.Scale.Z
+                    _modeloSeleccionado.Transformation.Scale.Z
                 );
             };
 
             numericUpDown6.ValueChanged += (sender, e) =>
             {
-                _escenario.Transformation.Scale = new Vector3(
-                    _escenario.Transformation.Scale.X,
-                    _escenario.Transformation.Scale.Y,
+                _modeloSeleccionado.Transformation.Scale = new Vector3(
+                    _modeloSeleccionado.Transformation.Scale.X,
+                    _modeloSeleccionado.Transformation.Scale.Y,
                     (float)numericUpDown6.Value
                 );
             };
 
             numericUpDown7.ValueChanged += (sender, e) =>
             {
-                _escenario.Transformation.Rotation = new Vector3(
+                _modeloSeleccionado.Transformation.Rotation = new Vector3(
                     (float)numericUpDown7.Value,
-                    _escenario.Transformation.Rotation.Y,
-                    _escenario.Transformation.Rotation.Z
+                    _modeloSeleccionado.Transformation.Rotation.Y,
+                    _modeloSeleccionado.Transformation.Rotation.Z
                 );
             };
 
             numericUpDown8.ValueChanged += (sender, e) =>
             {
-                _escenario.Transformation.Rotation = new Vector3(
-                    _escenario.Transformation.Rotation.X,
+                _modeloSeleccionado.Transformation.Rotation = new Vector3(
+                    _modeloSeleccionado.Transformation.Rotation.X,
                     (float)numericUpDown8.Value,
-                    _escenario.Transformation.Rotation.Z
+                    _modeloSeleccionado.Transformation.Rotation.Z
                 );
             };
 
             numericUpDown9.ValueChanged += (sender, e) =>
             {
-                _escenario.Transformation.Rotation = new Vector3(
-                    _escenario.Transformation.Rotation.X,
-                    _escenario.Transformation.Rotation.Y,
+                _modeloSeleccionado.Transformation.Rotation = new Vector3(
+                    _modeloSeleccionado.Transformation.Rotation.X,
+                    _modeloSeleccionado.Transformation.Rotation.Y,
                     (float)numericUpDown9.Value
                 );
             };
@@ -364,6 +380,41 @@ namespace OpenTKGUI
                 var options = new JsonSerializerOptions { WriteIndented = true };
                 File.WriteAllText(filePath, JsonSerializer.Serialize(combinedData, options));
             }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string item = (string)comboBox1.SelectedItem;
+            if (item == "Escenario")
+            {
+                _modeloSeleccionado = _escenario;
+            }
+            else if (item == "U")
+            {
+                _modeloSeleccionado = _escenario.Get("U");
+            }
+           else if (item == "u1")
+            {
+                _modeloSeleccionado = _escenario.Get("U").Get("u1");
+            }
+            else if (item == "u2")
+            {
+                _modeloSeleccionado = _escenario.Get("U").Get("u2");
+            }
+            else if (item == "cubo")
+            {
+                _modeloSeleccionado = _escenario.Get("U").Get("cubo");
+            }
+
+            else if (item == "Piramide")
+            {
+                _modeloSeleccionado = _escenario.Get("Piramide");
+            }
+            else if (item == "partePiramide")
+            {
+                _modeloSeleccionado = _escenario.Get("Piramide").Get("partePiramide");
+            }
+                     InicializarUIEscenario();
         }
     }
 }

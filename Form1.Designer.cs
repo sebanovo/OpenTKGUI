@@ -48,6 +48,7 @@
             numericUpDown8 = new NumericUpDown();
             labelRotacion = new Label();
             numericUpDown9 = new NumericUpDown();
+            comboBox1 = new ComboBox();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
@@ -116,7 +117,7 @@
             // 
             // numericUpDown1
             // 
-            numericUpDown1.Location = new Point(109, 82);
+            numericUpDown1.Location = new Point(101, 166);
             numericUpDown1.Name = "numericUpDown1";
             numericUpDown1.Size = new Size(82, 27);
             numericUpDown1.TabIndex = 2;
@@ -124,7 +125,7 @@
             // labelEscenario
             // 
             labelEscenario.AutoSize = true;
-            labelEscenario.Location = new Point(30, 49);
+            labelEscenario.Location = new Point(22, 40);
             labelEscenario.Name = "labelEscenario";
             labelEscenario.Size = new Size(72, 20);
             labelEscenario.TabIndex = 3;
@@ -133,7 +134,7 @@
             // labelTraslacion
             // 
             labelTraslacion.AutoSize = true;
-            labelTraslacion.Location = new Point(30, 84);
+            labelTraslacion.Location = new Point(22, 168);
             labelTraslacion.Name = "labelTraslacion";
             labelTraslacion.Size = new Size(73, 20);
             labelTraslacion.TabIndex = 4;
@@ -141,21 +142,21 @@
             // 
             // numericUpDown2
             // 
-            numericUpDown2.Location = new Point(197, 82);
+            numericUpDown2.Location = new Point(189, 166);
             numericUpDown2.Name = "numericUpDown2";
             numericUpDown2.Size = new Size(82, 27);
             numericUpDown2.TabIndex = 5;
             // 
             // numericUpDown3
             // 
-            numericUpDown3.Location = new Point(285, 82);
+            numericUpDown3.Location = new Point(277, 166);
             numericUpDown3.Name = "numericUpDown3";
             numericUpDown3.Size = new Size(82, 27);
             numericUpDown3.TabIndex = 6;
             // 
             // numericUpDown6
             // 
-            numericUpDown6.Location = new Point(285, 136);
+            numericUpDown6.Location = new Point(277, 220);
             numericUpDown6.Name = "numericUpDown6";
             numericUpDown6.Size = new Size(82, 27);
             numericUpDown6.TabIndex = 7;
@@ -163,7 +164,7 @@
             // labelEscalacion
             // 
             labelEscalacion.AutoSize = true;
-            labelEscalacion.Location = new Point(30, 136);
+            labelEscalacion.Location = new Point(22, 220);
             labelEscalacion.Name = "labelEscalacion";
             labelEscalacion.Size = new Size(78, 20);
             labelEscalacion.TabIndex = 8;
@@ -171,28 +172,28 @@
             // 
             // numericUpDown5
             // 
-            numericUpDown5.Location = new Point(197, 136);
+            numericUpDown5.Location = new Point(189, 220);
             numericUpDown5.Name = "numericUpDown5";
             numericUpDown5.Size = new Size(82, 27);
             numericUpDown5.TabIndex = 9;
             // 
             // numericUpDown4
             // 
-            numericUpDown4.Location = new Point(109, 136);
+            numericUpDown4.Location = new Point(101, 220);
             numericUpDown4.Name = "numericUpDown4";
             numericUpDown4.Size = new Size(82, 27);
             numericUpDown4.TabIndex = 10;
             // 
             // numericUpDown7
             // 
-            numericUpDown7.Location = new Point(109, 182);
+            numericUpDown7.Location = new Point(101, 266);
             numericUpDown7.Name = "numericUpDown7";
             numericUpDown7.Size = new Size(82, 27);
             numericUpDown7.TabIndex = 14;
             // 
             // numericUpDown8
             // 
-            numericUpDown8.Location = new Point(197, 182);
+            numericUpDown8.Location = new Point(189, 266);
             numericUpDown8.Name = "numericUpDown8";
             numericUpDown8.Size = new Size(82, 27);
             numericUpDown8.TabIndex = 13;
@@ -200,7 +201,7 @@
             // labelRotacion
             // 
             labelRotacion.AutoSize = true;
-            labelRotacion.Location = new Point(30, 182);
+            labelRotacion.Location = new Point(22, 266);
             labelRotacion.Name = "labelRotacion";
             labelRotacion.Size = new Size(64, 20);
             labelRotacion.TabIndex = 12;
@@ -208,16 +209,27 @@
             // 
             // numericUpDown9
             // 
-            numericUpDown9.Location = new Point(285, 182);
+            numericUpDown9.Location = new Point(277, 266);
             numericUpDown9.Name = "numericUpDown9";
             numericUpDown9.Size = new Size(82, 27);
             numericUpDown9.TabIndex = 11;
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Escenario" });
+            comboBox1.Location = new Point(22, 76);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(182, 28);
+            comboBox1.TabIndex = 15;
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1153, 642);
+            Controls.Add(comboBox1);
             Controls.Add(numericUpDown7);
             Controls.Add(numericUpDown8);
             Controls.Add(labelRotacion);
@@ -273,5 +285,6 @@
         private NumericUpDown numericUpDown8;
         private Label labelRotacion;
         private NumericUpDown numericUpDown9;
+        private ComboBox comboBox1;
     }
 }
