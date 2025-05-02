@@ -1,5 +1,4 @@
-﻿using System;
-using OpenTK.Graphics.OpenGL;
+﻿using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using OpenTKGUI.Utils;
 using static OpenTKGUI.Resources;
@@ -23,6 +22,7 @@ public class Parte : IModelo
     public string Texture { get; }
     private Texture TextureObj { get; }
     private ArcRotateCamera Camera { get; }
+    private readonly TextureUnit _textureUnit;
 
     public Parte() { }
 
@@ -32,7 +32,8 @@ public class Parte : IModelo
         Vertices.AddRange(CenterVerticesXYZ([..vertices]));
         Indices.AddRange(indices);
         Texture = texture;
-        TextureObj = new Texture(Texture);
+        TextureObj = TextureManager.LoadTexture(texture);
+        _textureUnit = TextureManager.GetNextTextureUnit();
         Camera = camera;
         Load();
     }
@@ -140,10 +141,12 @@ public class Parte : IModelo
         GL.Enable(EnableCap.DepthTest);
 
         Shader.Use();
-        TextureObj.Use();
+        //TextureObj.Use();
+        TextureObj.Use(_textureUnit);
 
         Shader
-            .SetInt("u_Texture", 0)
+            //.SetInt("u_Texture", 0)
+            .SetInt("u_Texture", TextureManager.ConvertUnitToInt(_textureUnit))
             .SetMat4("model", finalModel)
             .SetMat4("view", Camera.GetViewMatrix())
             .SetMat4("projection", Camera.GetProjectionMatrix());

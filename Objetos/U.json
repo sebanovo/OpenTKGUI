@@ -19,7 +19,7 @@
   },
   "Partes": [
     {
-      "Name": "u1",
+      "Name": "U.PaloIzquierdo",
       "Texture": "OpenTKGUI.Resources.Images.Wood.jpg",
       "Transformation": {
         "Position": {
@@ -332,7 +332,7 @@
       ]
     },
     {
-      "Name": "u2",
+      "Name": "U.PaloDerecho",
       "Texture": "OpenTKGUI.Resources.Images.Wood.jpg",
       "Transformation": {
         "Position": {
@@ -645,7 +645,7 @@
       ]
     },
     {
-      "Name": "cubo",
+      "Name": "U.Cubo",
       "Texture": "OpenTKGUI.Resources.Images.Wood.jpg",
       "Transformation": {
         "Position": {

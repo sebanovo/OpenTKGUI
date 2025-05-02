@@ -16,7 +16,6 @@ namespace OpenTKGUI
         Stopwatch _sw;
 
         Color4 backGroundColor = new(0.2f, 0.3f, 0.3f, 1.0f);
-        float _x, _y, _z;
         public Form1()
         {
             InitializeComponent();
@@ -42,13 +41,11 @@ namespace OpenTKGUI
 
         public void InicializarFormas()
         {
-            Objeto u = Modelo.CargarObjeto("./Objetos/U.json", _camera);
-            Objeto piramide = Modelo.CargarObjeto("./Objetos/Piramide.json", _camera);
-            u.Transformation.Position = new Vector3(-1.5f, 1.0f, 0.0f);
-            piramide.Transformation.Position = new Vector3(1.0f, 1.0f, 0.0f);
+            Objeto auto = Modelo.CargarObjeto("./Objetos/Auto.json", _camera);
+            Objeto autoDeforme = Modelo.CargarObjeto("./Objetos/autoDeforme.json", _camera);
 
-            _escenario.Add(u);
-            _escenario.Add(piramide);
+            _escenario.Add(auto);
+            _escenario.Add(autoDeforme);
         }
 
         private void glControl1_Load(object sender, EventArgs e)
@@ -66,39 +63,8 @@ namespace OpenTKGUI
             GL.ClearColor(backGroundColor);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            IModelo u = _escenario.Get("U");
-            IModelo piramide = _escenario.Get("Piramide");
-            //IModelo cubo = _escenario.GetObjeto("Cubo");
-            //IModelo esfera = _escenario.GetObjeto("Esfera");
-            //IModelo cilindro = _escenario.GetObjeto("Cilindro");
 
-            double totalSeconds = _sw.Elapsed.TotalSeconds;
-            Vector3 rotacion = new Vector3(
-                //(float)totalSeconds * 100,
-                0.0f,
-                0.0f,
-                1.0f
-            );
-            Vector3 traslacion = new Vector3(
-                0.0f,
-                Convert.ToSingle(Math.Sin(totalSeconds)) / 100,
-                0.0f
-            );
-            Vector3 escalacion = new Vector3(Convert.ToSingle(Math.Cos(totalSeconds)) / 100);
-
-            //u.Get("u1").Rotar(rotacion);
-            //u.Rotar(rotacion);
-
-            //u.Trasladar(traslacion);
-            //u.Get("u2").Trasladar(traslacion);
-            //piramide.Get("partePiramide").Trasladar(escalacion);
-
-            //_escenario.Escalar(escalacion);
-            //_escenario.Trasladar(traslacion);
-            _escenario.Rotar(rotacion);
             _escenario.Draw();
-           
-
             _escenario.DrawEjes();
             glControl1.SwapBuffers();
         }
@@ -125,23 +91,7 @@ namespace OpenTKGUI
                 Console.WriteLine("Line");
                 GL.PolygonMode(TriangleFace.FrontAndBack, PolygonMode.Line);
             }
-            if (keyData == Keys.Up)
-            {
-                _y += 1.0f;
-            }
-            if (keyData == Keys.Down)
-            {
-                _y -= 1.0f;
-            }
-            if (keyData == Keys.Left)
-            {
-                _x -= 1.0f;
-            }
-            if (keyData == Keys.Right)
-            {
-                _x += 1.0f;
-            }
-
+ 
             return base.ProcessCmdKey(ref msg, keyData);
         }
 

@@ -20,7 +20,7 @@
   "Partes": [
     {
       "Name": "Default",
-      "Texture": "OpenTKGUI.Resources.Images.Bricks.jpg",
+      "Texture": "OpenTKGUI.Resources.Images.Yellow.jpg",
       "Transformation": {
         "Scale": {
           "X": 1,

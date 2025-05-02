@@ -14,8 +14,16 @@ public class Objeto : IModelo
         Add(parte);
     }
 
+    private bool EsNombreRepetido(string name)
+    {
+        return Partes.ContainsKey(name);
+    }
     public void Add(IModelo parte)
     {
+        if (EsNombreRepetido(parte.Name))
+        {
+            throw new Exception($"Ya existe una parte con el nombre {parte.Name} en el Objeto {Name}");
+        }
         Partes.Add(parte.Name, (Parte)parte);
     }
 

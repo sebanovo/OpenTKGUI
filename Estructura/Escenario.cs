@@ -15,7 +15,7 @@ public class Escenario : IModelo
         Ejes = new Ejes(camera);
         Ejes.Load();
     }
-    public bool EsNombreRepetido(string name)
+    private bool EsNombreRepetido(string name)
     {
         return Objetos.ContainsKey(name);
     }
