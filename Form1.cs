@@ -12,6 +12,7 @@ namespace OpenTKGUI
     public partial class Form1 : Form
     {
         Escenario _escenario;
+        Libreto _libreto;
         ArcRotateCamera _camera;
         System.Windows.Forms.Timer _timer;
         Stopwatch _sw;
@@ -39,17 +40,98 @@ namespace OpenTKGUI
             }
         }
 
+
         public void InicializarFormas()
         {
             _escenario = new Escenario(_camera);
             Objeto auto = Modelo.CargarObjeto("./Objetos/Auto.json", _camera);
+
+            auto.Transformation.Position = new Vector3(3.0f, 0.2f, 0.0f);
             _escenario.Add(auto);
         }
+        public void InicializarLibreto()
+        {
+            _libreto = new Libreto();
+
+            var auto = _escenario.Get("Auto");
+
+            var escena = new Escena();
+            Animacion animacion = new Animacion();
+
+
+            // llantas rotacion
+            animacion.Add(new Rotar(auto.Get("Auto.RuedaDelanteraIzquierda"),
+                new Vector3(0.0f, 0.08f, 0.0f),
+                8, 10));
+            animacion.Add(new Rotar(auto.Get("Auto.ParteRuedaDelanteraIzquierda"),
+                new Vector3(0.0f, 0.08f, 0.0f),
+                8, 10));
+            animacion.Add(new Rotar(auto.Get("Auto.RuedaDelanteraIzquierda"),
+                new Vector3(0.0f, -0.08f, 0.0f),
+                10, 12));
+            animacion.Add(new Rotar(auto.Get("Auto.ParteRuedaDelanteraIzquierda"),
+                new Vector3(0.0f, -0.08f, 0.0f),
+                10, 12));
+            animacion.Add(new Rotar(auto.Get("Auto.RuedaDelanteraDerecha"),
+                new Vector3(0.0f, 0.08f, 0.0f),
+                8, 10));
+            animacion.Add(new Rotar(auto.Get("Auto.ParteRuedaDelanteraDerecha"),
+                new Vector3(0.0f, 0.08f, 0.0f),
+                8, 10));
+            animacion.Add(new Rotar(auto.Get("Auto.RuedaDelanteraDerecha"),
+                new Vector3(0.0f, -0.08f, 0.0f),
+                10, 12));
+            animacion.Add(new Rotar(auto.Get("Auto.ParteRuedaDelanteraDerecha"),
+                new Vector3(0.0f, -0.08f, 0.0f),
+                10, 12));
+            animacion.Add(new Rotar(auto.Get("Auto.RuedaDelanteraIzquierda"),
+                new Vector3(0.0f, 0.08f, 0.0f),
+                20, 22));
+            animacion.Add(new Rotar(auto.Get("Auto.ParteRuedaDelanteraIzquierda"),
+                new Vector3(0.0f, 0.08f, 0.0f),
+                20, 22));
+            animacion.Add(new Rotar(auto.Get("Auto.RuedaDelanteraIzquierda"),
+                new Vector3(0.0f, -0.08f, 0.0f),
+                22, 24));
+            animacion.Add(new Rotar(auto.Get("Auto.ParteRuedaDelanteraIzquierda"),
+                new Vector3(0.0f, -0.08f, 0.0f),
+                22, 24));
+            animacion.Add(new Rotar(auto.Get("Auto.RuedaDelanteraDerecha"),
+                new Vector3(0.0f, 0.08f, 0.0f),
+                20, 22));
+            animacion.Add(new Rotar(auto.Get("Auto.ParteRuedaDelanteraDerecha"),
+                new Vector3(0.0f, 0.08f, 0.0f),
+                20, 22));
+            animacion.Add(new Rotar(auto.Get("Auto.RuedaDelanteraDerecha"),
+                new Vector3(0.0f, -0.08f, 0.0f),
+                22, 24));
+            animacion.Add(new Rotar(auto.Get("Auto.ParteRuedaDelanteraDerecha"),
+                new Vector3(0.0f, -0.08f, 0.0f),
+                22, 24));
+
+            // auto rotacion
+            float vR = 0.55f;
+            animacion.Add(new Rotar(auto, new Vector3(0.0f, vR, 0.0f), 8, 12));
+            animacion.Add(new Rotar(auto, new Vector3(0.0f, vR, 0.0f), 20, 24));
+
+            // auto traslacion
+            float v = 0.01f;
+            animacion.Add(new Trasladar(auto, new Vector3(0.0f, 0.0f, -v), 1, 8));
+            animacion.Add(new Trasladar(auto, new Vector3(-v, 0.0f, -v), 8, 12));
+            animacion.Add(new Trasladar(auto, new Vector3(-v, 0.0f, 0.0f), 12, 20));
+            animacion.Add(new Trasladar(auto, new Vector3(-v, 0.0f, v), 20, 24));
+            animacion.Add(new Trasladar(auto, new Vector3(0.0f, 0.0f, v), 24, 32));
+
+            escena.Add(animacion);
+            _libreto.Add(escena);
+        }
+
 
         private void glControl1_Load(object sender, EventArgs e)
         {
             _timer.Start();
             InicializarFormas();
+            InicializarLibreto();
             _sw.Start();
         }
 
@@ -59,6 +141,10 @@ namespace OpenTKGUI
             // limpiar los buffers
             GL.ClearColor(backGroundColor);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+
+            long tiempo = (long)_sw.Elapsed.TotalSeconds;
+            Text = "Tiempo: " + tiempo.ToString();
+            _libreto.Play(tiempo);
 
             _escenario.Draw();
             _escenario.DrawEjes();
