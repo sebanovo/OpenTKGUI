@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Text.Json;
 using OpenTKGUI.Utils;
 using OpenTKGUI.Estructura;
+using OpenTKGUI.Animation;
 
 
 namespace OpenTKGUI
@@ -11,6 +12,7 @@ namespace OpenTKGUI
     public partial class Form1 : Form
     {
         Escenario _escenario;
+        Libreto _libreto;
         ArcRotateCamera _camera;
         System.Windows.Forms.Timer _timer;
         Stopwatch _sw;
@@ -28,6 +30,7 @@ namespace OpenTKGUI
 
             _camera = new ArcRotateCamera(Vector3.Zero, 2.0f, glControl1.ClientSize.Width / (float)glControl1.ClientSize.Height);
         }
+    
 
 
         private void glControl1_Resize(object sender, EventArgs e)
@@ -41,19 +44,16 @@ namespace OpenTKGUI
 
         public void InicializarFormas()
         {
+            _escenario = new Escenario(_camera);
             Objeto auto = Modelo.CargarObjeto("./Objetos/Auto.json", _camera);
-            Objeto autoDeforme = Modelo.CargarObjeto("./Objetos/autoDeforme.json", _camera);
-
             _escenario.Add(auto);
-            _escenario.Add(autoDeforme);
         }
 
         private void glControl1_Load(object sender, EventArgs e)
         {
             _timer.Start();
-            _sw.Start();
-            _escenario = new Escenario(_camera);
             InicializarFormas();
+            _sw.Start();
         }
 
         private void glControl1_Paint(object? sender, PaintEventArgs e)
@@ -62,7 +62,6 @@ namespace OpenTKGUI
             // limpiar los buffers
             GL.ClearColor(backGroundColor);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
 
             _escenario.Draw();
             _escenario.DrawEjes();
