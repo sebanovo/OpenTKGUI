@@ -9,16 +9,27 @@ namespace OpenTKGUI.Animation;
 class Animacion
 {
     public List<ITransformation> Transformaciones = [];
+    public Animacion()
+    {
+        Transformaciones = [];
+    }
+
+    public  Animacion (ITransformation transformacion)
+    {
+        Transformaciones = [];
+        Transformaciones.Add(transformacion);
+    }
+
     public void Add(ITransformation transformacion)
     {
         Transformaciones.Add(transformacion);
     }
-    public void play(long tiempo)
+
+    public void Play(long tiempo)
     {
         foreach(var transformacion in Transformaciones)
         {
-            transformacion.Execute(tiempo);
+            transformacion.Run(tiempo);
         }
     }
-
 }

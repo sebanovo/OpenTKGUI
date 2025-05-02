@@ -8,5 +8,5 @@ using System.Threading.Tasks;
 namespace OpenTKGUI.Animation;
 interface ITransformation
 {
-    public void Execute(long tiempo);
+    public void Run(long tiempo);
 }

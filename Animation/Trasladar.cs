@@ -20,7 +20,8 @@ class Trasladar : ITransformation
         this.t0 = t0;
         this.tf = tf;
     }
-    public void Execute(long tiempo)
+
+    public void Run(long tiempo)
     {
         if (tiempo >= t0 && tiempo <= tf)
         {

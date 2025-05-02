@@ -12,7 +12,6 @@ namespace OpenTKGUI
     public partial class Form1 : Form
     {
         Escenario _escenario;
-        Libreto _libreto;
         ArcRotateCamera _camera;
         System.Windows.Forms.Timer _timer;
         Stopwatch _sw;
@@ -30,8 +29,6 @@ namespace OpenTKGUI
 
             _camera = new ArcRotateCamera(Vector3.Zero, 2.0f, glControl1.ClientSize.Width / (float)glControl1.ClientSize.Height);
         }
-    
-
 
         private void glControl1_Resize(object sender, EventArgs e)
         {

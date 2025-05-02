@@ -7,16 +7,28 @@ using System.Threading.Tasks;
 namespace OpenTKGUI.Animation;
 class Libreto
 {
-    public List<Escena> Escenas = [];
+    public List<Escena> Escenas;
+    public Libreto()
+    {
+        Escenas = [];
+    }
+
+    public Libreto(Escena escena)
+    {
+        Escenas = [];
+        Escenas.Add(escena);
+    }
+    
     public void Add(Escena escena)
     {
         Escenas.Add(escena);
     }
-    public void play(long tiempo)
+
+    public void Play(long tiempo)
     {
         foreach (var escena in Escenas)
         {
-            escena.play(tiempo);
+            escena.Play(tiempo);
         }
     }
 }
