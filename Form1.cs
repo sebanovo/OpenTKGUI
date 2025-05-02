@@ -39,74 +39,69 @@ namespace OpenTKGUI
                 _camera.AspectRatio = glControl1.ClientSize.Width / (float)glControl1.ClientSize.Height;
             }
         }
-
-
         public void InicializarFormas()
         {
             _escenario = new Escenario(_camera);
             Objeto auto = Modelo.CargarObjeto("./Objetos/Auto.json", _camera);
 
-            auto.Transformation.Position = new Vector3(3.0f, 0.2f, 0.0f);
+            auto.Transformation.Position = new Vector3(3.0f, 0.5f, 0.0f);
             _escenario.Add(auto);
         }
+
         public void InicializarLibreto()
         {
-            _libreto = new Libreto();
-
             var auto = _escenario.Get("Auto");
-
-            var escena = new Escena();
             Animacion animacion = new Animacion();
 
-
             // llantas rotacion
+            float rL = 0.4f;
             animacion.Add(new Rotar(auto.Get("Auto.RuedaDelanteraIzquierda"),
-                new Vector3(0.0f, 0.08f, 0.0f),
+                new Vector3(0.0f, rL, 0.0f),
                 8, 10));
             animacion.Add(new Rotar(auto.Get("Auto.ParteRuedaDelanteraIzquierda"),
-                new Vector3(0.0f, 0.08f, 0.0f),
+                new Vector3(0.0f, rL, 0.0f),
                 8, 10));
             animacion.Add(new Rotar(auto.Get("Auto.RuedaDelanteraIzquierda"),
-                new Vector3(0.0f, -0.08f, 0.0f),
+                new Vector3(0.0f, -rL, 0.0f),
                 10, 12));
             animacion.Add(new Rotar(auto.Get("Auto.ParteRuedaDelanteraIzquierda"),
-                new Vector3(0.0f, -0.08f, 0.0f),
+                new Vector3(0.0f, -rL, 0.0f),
                 10, 12));
             animacion.Add(new Rotar(auto.Get("Auto.RuedaDelanteraDerecha"),
-                new Vector3(0.0f, 0.08f, 0.0f),
+                new Vector3(0.0f, rL, 0.0f),
                 8, 10));
             animacion.Add(new Rotar(auto.Get("Auto.ParteRuedaDelanteraDerecha"),
-                new Vector3(0.0f, 0.08f, 0.0f),
+                new Vector3(0.0f, rL, 0.0f),
                 8, 10));
             animacion.Add(new Rotar(auto.Get("Auto.RuedaDelanteraDerecha"),
-                new Vector3(0.0f, -0.08f, 0.0f),
+                new Vector3(0.0f, -rL, 0.0f),
                 10, 12));
             animacion.Add(new Rotar(auto.Get("Auto.ParteRuedaDelanteraDerecha"),
-                new Vector3(0.0f, -0.08f, 0.0f),
+                new Vector3(0.0f, -rL, 0.0f),
                 10, 12));
             animacion.Add(new Rotar(auto.Get("Auto.RuedaDelanteraIzquierda"),
-                new Vector3(0.0f, 0.08f, 0.0f),
+                new Vector3(0.0f, rL, 0.0f),
                 20, 22));
             animacion.Add(new Rotar(auto.Get("Auto.ParteRuedaDelanteraIzquierda"),
-                new Vector3(0.0f, 0.08f, 0.0f),
+                new Vector3(0.0f, rL, 0.0f),
                 20, 22));
             animacion.Add(new Rotar(auto.Get("Auto.RuedaDelanteraIzquierda"),
-                new Vector3(0.0f, -0.08f, 0.0f),
+                new Vector3(0.0f, -rL, 0.0f),
                 22, 24));
             animacion.Add(new Rotar(auto.Get("Auto.ParteRuedaDelanteraIzquierda"),
-                new Vector3(0.0f, -0.08f, 0.0f),
+                new Vector3(0.0f, -rL, 0.0f),
                 22, 24));
             animacion.Add(new Rotar(auto.Get("Auto.RuedaDelanteraDerecha"),
-                new Vector3(0.0f, 0.08f, 0.0f),
+                new Vector3(0.0f, rL, 0.0f),
                 20, 22));
             animacion.Add(new Rotar(auto.Get("Auto.ParteRuedaDelanteraDerecha"),
-                new Vector3(0.0f, 0.08f, 0.0f),
+                new Vector3(0.0f, rL, 0.0f),
                 20, 22));
             animacion.Add(new Rotar(auto.Get("Auto.RuedaDelanteraDerecha"),
-                new Vector3(0.0f, -0.08f, 0.0f),
+                new Vector3(0.0f, -rL, 0.0f),
                 22, 24));
             animacion.Add(new Rotar(auto.Get("Auto.ParteRuedaDelanteraDerecha"),
-                new Vector3(0.0f, -0.08f, 0.0f),
+                new Vector3(0.0f, -rL, 0.0f),
                 22, 24));
 
             // auto rotacion
@@ -122,8 +117,7 @@ namespace OpenTKGUI
             animacion.Add(new Trasladar(auto, new Vector3(-v, 0.0f, v), 20, 24));
             animacion.Add(new Trasladar(auto, new Vector3(0.0f, 0.0f, v), 24, 32));
 
-            escena.Add(animacion);
-            _libreto.Add(escena);
+            _libreto = new Libreto(new Escena(animacion));
         }
 
 
@@ -132,7 +126,6 @@ namespace OpenTKGUI
             _timer.Start();
             InicializarFormas();
             InicializarLibreto();
-            _sw.Start();
         }
 
         private void glControl1_Paint(object? sender, PaintEventArgs e)
@@ -143,8 +136,12 @@ namespace OpenTKGUI
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             long tiempo = (long)_sw.Elapsed.TotalSeconds;
-            Text = "Tiempo: " + tiempo.ToString();
+            labelTiempo.Text = "Tiempo: " + tiempo.ToString();
             _libreto.Play(tiempo);
+            if (_sw.Elapsed.TotalSeconds > 32)
+            {
+                _sw.Reset();
+            }
 
             _escenario.Draw();
             _escenario.DrawEjes();
@@ -173,7 +170,7 @@ namespace OpenTKGUI
                 Console.WriteLine("Line");
                 GL.PolygonMode(TriangleFace.FrontAndBack, PolygonMode.Line);
             }
- 
+
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
@@ -230,7 +227,7 @@ namespace OpenTKGUI
                 MessageBox.Show($"Error al abrir el archivo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-     
+
         private void guardarComoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Guardar el Archivo Json
@@ -253,6 +250,22 @@ namespace OpenTKGUI
                 var options = new JsonSerializerOptions { WriteIndented = true };
                 File.WriteAllText(filePath, JsonSerializer.Serialize(combinedData, options));
             }
+        }
+
+        private void PlayAnimationButton_Click(object sender, EventArgs e)
+        {
+            _sw.Start();
+        }
+
+        private void buttonResetAnimation_Click(object sender, EventArgs e)
+        {
+            var auto1 = _escenario.Get("Auto");
+            Objeto auto2 = Modelo.CargarObjeto("./Objetos/Auto.json", _camera);
+            auto1.Transformation.Position = auto2.Transformation.Position;
+            auto1.Transformation.Scale= auto2.Transformation.Scale;
+            auto1.Transformation.Rotation = auto2.Transformation.Rotation;
+            auto1.Transformation.Position = new Vector3(3.0f, 0.5f, 0.0f);
+            _sw.Reset();
         }
     }
 }

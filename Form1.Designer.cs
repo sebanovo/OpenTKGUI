@@ -35,6 +35,9 @@
             guardarComoToolStripMenuItem = new ToolStripMenuItem();
             openFileDialog1 = new OpenFileDialog();
             saveFileDialog1 = new SaveFileDialog();
+            labelTiempo = new Label();
+            buttonPlayAnimation = new Button();
+            buttonResetAnimation = new Button();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -92,11 +95,43 @@
             // 
             openFileDialog1.FileName = "openFileDialog1";
             // 
+            // labelTiempo
+            // 
+            labelTiempo.AutoSize = true;
+            labelTiempo.Location = new Point(126, 328);
+            labelTiempo.Name = "labelTiempo";
+            labelTiempo.Size = new Size(67, 20);
+            labelTiempo.TabIndex = 2;
+            labelTiempo.Text = "Tiempo: ";
+            // 
+            // buttonPlayAnimation
+            // 
+            buttonPlayAnimation.Location = new Point(126, 370);
+            buttonPlayAnimation.Name = "buttonPlayAnimation";
+            buttonPlayAnimation.Size = new Size(137, 50);
+            buttonPlayAnimation.TabIndex = 3;
+            buttonPlayAnimation.Text = "Play";
+            buttonPlayAnimation.UseVisualStyleBackColor = true;
+            buttonPlayAnimation.Click += PlayAnimationButton_Click;
+            // 
+            // buttonResetAnimation
+            // 
+            buttonResetAnimation.Location = new Point(126, 426);
+            buttonResetAnimation.Name = "buttonResetAnimation";
+            buttonResetAnimation.Size = new Size(137, 50);
+            buttonResetAnimation.TabIndex = 4;
+            buttonResetAnimation.Text = "Reset";
+            buttonResetAnimation.UseVisualStyleBackColor = true;
+            buttonResetAnimation.Click += buttonResetAnimation_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1153, 642);
+            Controls.Add(buttonResetAnimation);
+            Controls.Add(buttonPlayAnimation);
+            Controls.Add(labelTiempo);
             Controls.Add(glControl1);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
@@ -117,5 +152,8 @@
         private ToolStripMenuItem guardarComoToolStripMenuItem;
         private OpenFileDialog openFileDialog1;
         private SaveFileDialog saveFileDialog1;
+        private Label labelTiempo;
+        private Button buttonPlayAnimation;
+        private Button buttonResetAnimation;
     }
 }
