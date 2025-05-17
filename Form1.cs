@@ -43,9 +43,11 @@ namespace OpenTKGUI
         {
             _escenario = new Escenario(_camera);
             Objeto auto = Modelo.CargarObjeto("./Objetos/Auto.json", _camera);
+            Objeto suelo = Modelo.CargarObjeto("./Objetos/Suelo.json", _camera);
 
-            auto.Transformation.Position = new Vector3(3.0f, 0.5f, 0.0f);
+            auto.Transformation.Position = new Vector3(5.0f, 0.5f, 0.0f);
             _escenario.Add(auto);
+            _escenario.Add(suelo);
         }
 
         public void InicializarLibreto()
@@ -54,7 +56,7 @@ namespace OpenTKGUI
             Animacion animacion = new Animacion();
 
             // llantas rotacion
-            float rL = 0.4f;
+            float rL = 0.08f;
             animacion.Add(new Rotar(auto.Get("Auto.RuedaDelanteraIzquierda"),
                 new Vector3(0.0f, rL, 0.0f),
                 8, 10));

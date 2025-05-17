@@ -30,6 +30,9 @@
 		<EmbeddedResource Include="Resources\Images\White.jpg" />
 		<EmbeddedResource Include="Resources\Images\Yellow.jpg" />
 		<EmbeddedResource Include="Resources\Images\Gray.jpg" />
+		<EmbeddedResource Include="Resources\Images\Cesped.jpg" />
+		<EmbeddedResource Include="Resources\Images\AutoPista.jpg" />
+		<EmbeddedResource Include="Resources\Images\AutoPistaSinLinea.png" />
 		<!-- Config -->
 		<EmbeddedResource Include="Resources\Config\U.jsonc" />
 		<EmbeddedResource Include="Resources\Config\Cube.jsonc" />
