@@ -20,18 +20,30 @@
 		<EmbeddedResource Include="Resources\Shaders\Objeto3D.frag" />
 		<EmbeddedResource Include="Resources\Shaders\Axis.vert" />
 		<EmbeddedResource Include="Resources\Shaders\Axis.frag" />
-		<EmbeddedResource Include="Resources\Shaders\CrossHair.vert" />
-		<EmbeddedResource Include="Resources\Shaders\CrossHair.frag" />
 		<!-- Images -->
 		<EmbeddedResource Include="Resources\Images\Wood.jpg" />
 		<EmbeddedResource Include="Resources\Images\Wall.png" />
 		<EmbeddedResource Include="Resources\Images\BlueMetal.jpg" />
 		<EmbeddedResource Include="Resources\Images\Bricks.jpg" />
+		<EmbeddedResource Include="Resources\Images\Red.jpg" />
+		<EmbeddedResource Include="Resources\Images\Black.jpg" />
+		<EmbeddedResource Include="Resources\Images\White.jpg" />
+		<EmbeddedResource Include="Resources\Images\Yellow.jpg" />
+		<EmbeddedResource Include="Resources\Images\Gray.jpg" />
+		<EmbeddedResource Include="Resources\Images\Cesped.jpg" />
+		<EmbeddedResource Include="Resources\Images\AutoPista.jpg" />
+		<EmbeddedResource Include="Resources\Images\AutoPistaSinLinea.png" />
 		<!-- Config -->
 		<EmbeddedResource Include="Resources\Config\U.jsonc" />
 		<EmbeddedResource Include="Resources\Config\Cube.jsonc" />
 		<EmbeddedResource Include="Resources\Config\Pyramid.jsonc" />
 		<EmbeddedResource Include="Resources\Config\Sphere.jsonc" />
 		<EmbeddedResource Include="Resources\Config\Cylinder.jsonc" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<Content Include="Objetos\**\*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 </Project>
