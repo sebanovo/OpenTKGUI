@@ -83,41 +83,41 @@ namespace OpenTKGUI
                 10, 12));
             animacion.Add(new Rotar(auto.Get("Auto.RuedaDelanteraIzquierda"),
                 new Vector3(0.0f, rL, 0.0f),
-                20, 22));
+                30, 32));
             animacion.Add(new Rotar(auto.Get("Auto.ParteRuedaDelanteraIzquierda"),
                 new Vector3(0.0f, rL, 0.0f),
-                20, 22));
+                30, 32));
             animacion.Add(new Rotar(auto.Get("Auto.RuedaDelanteraIzquierda"),
                 new Vector3(0.0f, -rL, 0.0f),
-                22, 24));
+                32, 34));
             animacion.Add(new Rotar(auto.Get("Auto.ParteRuedaDelanteraIzquierda"),
                 new Vector3(0.0f, -rL, 0.0f),
-                22, 24));
+                32, 34));
             animacion.Add(new Rotar(auto.Get("Auto.RuedaDelanteraDerecha"),
                 new Vector3(0.0f, rL, 0.0f),
-                20, 22));
+                30, 32));
             animacion.Add(new Rotar(auto.Get("Auto.ParteRuedaDelanteraDerecha"),
                 new Vector3(0.0f, rL, 0.0f),
-                20, 22));
+                30, 32));
             animacion.Add(new Rotar(auto.Get("Auto.RuedaDelanteraDerecha"),
                 new Vector3(0.0f, -rL, 0.0f),
-                22, 24));
+                32, 34));
             animacion.Add(new Rotar(auto.Get("Auto.ParteRuedaDelanteraDerecha"),
                 new Vector3(0.0f, -rL, 0.0f),
-                22, 24));
+                32, 34));
 
             // auto rotacion
             float vR = 0.55f;
             animacion.Add(new Rotar(auto, new Vector3(0.0f, vR, 0.0f), 8, 12));
-            animacion.Add(new Rotar(auto, new Vector3(0.0f, vR, 0.0f), 20, 24));
+            animacion.Add(new Rotar(auto, new Vector3(0.0f, vR, 0.0f), 30, 34));
 
             // auto traslacion
             float v = 0.01f;
             animacion.Add(new Trasladar(auto, new Vector3(0.0f, 0.0f, -v), 1, 8));
             animacion.Add(new Trasladar(auto, new Vector3(-v, 0.0f, -v), 8, 12));
-            animacion.Add(new Trasladar(auto, new Vector3(-v, 0.0f, 0.0f), 12, 20));
-            animacion.Add(new Trasladar(auto, new Vector3(-v, 0.0f, v), 20, 24));
-            animacion.Add(new Trasladar(auto, new Vector3(0.0f, 0.0f, v), 24, 32));
+            animacion.Add(new Trasladar(auto, new Vector3(-v, 0.0f, 0.0f), 12, 30));
+            animacion.Add(new Trasladar(auto, new Vector3(-v, 0.0f, v), 30, 34));
+            animacion.Add(new Trasladar(auto, new Vector3(0.0f, 0.0f, v), 34, 42));
 
             _libreto = new Libreto(new Escena(animacion));
         }
@@ -140,7 +140,7 @@ namespace OpenTKGUI
             long tiempo = (long)_sw.Elapsed.TotalSeconds;
             labelTiempo.Text = "Tiempo: " + tiempo.ToString();
             _libreto.Play(tiempo);
-            if (_sw.Elapsed.TotalSeconds > 32)
+            if (_sw.Elapsed.TotalSeconds > 42)
             {
                 _sw.Reset();
             }
