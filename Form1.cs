@@ -266,7 +266,7 @@ namespace OpenTKGUI
             auto1.Transformation.Position = auto2.Transformation.Position;
             auto1.Transformation.Scale= auto2.Transformation.Scale;
             auto1.Transformation.Rotation = auto2.Transformation.Rotation;
-            auto1.Transformation.Position = new Vector3(3.0f, 0.5f, 0.0f);
+            auto1.Transformation.Position = new Vector3(5.0f, 0.5f, 0.0f);
             _sw.Reset();
         }
     }
