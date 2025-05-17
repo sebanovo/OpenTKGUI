@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 namespace OpenTKGUI.Animation;
 class Escena
 {
-    public List<Animacion> Animaciones;
+    public List<Accion> Animaciones;
     public Escena() { 
         Animaciones = []; 
     }
 
-    public Escena(Animacion animacion) {
+    public Escena(Accion animacion) {
         Animaciones = [];
         Animaciones.Add(animacion);
     }
 
-    public void Add(Animacion animacion)
+    public void Add(Accion animacion)
     {
         Animaciones.Add(animacion);
     }

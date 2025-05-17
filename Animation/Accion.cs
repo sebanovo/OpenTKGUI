@@ -6,15 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace OpenTKGUI.Animation;
-class Animacion
+class Accion
 {
     public List<ITransformation> Transformaciones = [];
-    public Animacion()
+    public Accion()
     {
         Transformaciones = [];
     }
 
-    public  Animacion (ITransformation transformacion)
+    public  Accion (ITransformation transformacion)
     {
         Transformaciones = [];
         Transformaciones.Add(transformacion);
