@@ -1,25 +1,38 @@
 ﻿using OpenTK.Graphics.OpenGL4;
 
 namespace OpenTKGUI.Utils;
+
 class TextureManager
 {
     private static readonly Dictionary<string, Texture> _texturas = new Dictionary<string, Texture>();
+    private static readonly Dictionary<string, TextureUnit> _texturaUnidades = new();
     private static int _nextUnit = 0;
 
     public static Texture LoadTexture(string textureName)
     {
         if (!_texturas.TryGetValue(textureName, out var texture))
         {
-            texture = new Texture(textureName);
-            _texturas.Add(textureName, texture);
+            texture = Texture.LoadFromResource(textureName);
+            _texturas[textureName] = texture;
         }
         return texture;
     }
 
-    public static TextureUnit GetNextTextureUnit()
+    public static TextureUnit GetNextTextureUnit(string textureName)
     {
-        var unit = TextureUnit.Texture0 + _nextUnit;
-        _nextUnit = (_nextUnit + 1) % 16;
+        if (_texturaUnidades.TryGetValue(textureName, out var unit))
+        {
+            return unit;
+        }
+
+        if (_nextUnit >= 16) // o usar GL.GetInteger(GL_MAX_TEXTURE_IMAGE_UNITS)
+        {
+            throw new Exception("Se excedió el número máximo de unidades de textura.");
+        }
+
+        unit = TextureUnit.Texture0 + _nextUnit;
+        _texturaUnidades[textureName] = unit;
+        _nextUnit++;
         return unit;
     }
 

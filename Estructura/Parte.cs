@@ -33,7 +33,7 @@ public class Parte : IModelo
         Indices.AddRange(indices);
         Texture = texture;
         TextureObj = TextureManager.LoadTexture(texture);
-        _textureUnit = TextureManager.GetNextTextureUnit();
+        _textureUnit = TextureManager.GetNextTextureUnit(texture);
         Camera = camera;
         Load();
     }
@@ -90,7 +90,7 @@ public class Parte : IModelo
 
         GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 5 * sizeof(float), 0);
         GL.EnableVertexAttribArray(0);
-        GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, false, 5 * sizeof(float), 3 * sizeof(float));
+        GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, 5 * sizeof(float), 3 * sizeof(float));
         GL.EnableVertexAttribArray(1);
     }
 
@@ -143,7 +143,6 @@ public class Parte : IModelo
         Shader.Use();
         //TextureObj.Use();
         TextureObj.Use(_textureUnit);
-
         Shader
             //.SetInt("u_Texture", 0)
             .SetInt("u_Texture", TextureManager.ConvertUnitToInt(_textureUnit))
@@ -160,7 +159,6 @@ public class Parte : IModelo
         GL.DeleteBuffer(_vbo);
         GL.DeleteVertexArray(_vao);
         GL.DeleteBuffer(_ebo);
-        TextureObj.Dispose();
     }
 
     public void Add(IModelo modelo) { }
