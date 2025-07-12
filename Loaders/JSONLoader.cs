@@ -3,6 +3,7 @@ using OpenTKGUI.Estructura;
 using System.Text.Json;
 
 namespace OpenTKGUI.Utils;
+
 public class ModeloObjeto
 {
     public string? Name { get; set; }

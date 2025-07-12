@@ -10,11 +10,11 @@ public class Texture(int ID)
 
     public static Texture LoadFromResource(string resourcePath)
     {
+        StbImage.stbi_set_flip_vertically_on_load(1);
         ImageResult imageResult = Resources.Images.LoadEmbeddedImage(resourcePath);
 
         int id  = GL.GenTexture();
         GL.BindTexture(TextureTarget.Texture2D, id);
-        StbImage.stbi__vertically_flip_on_load_global = 1;
         GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, imageResult.Width, imageResult.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, imageResult.Data);
         GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
 

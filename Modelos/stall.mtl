@@ -1,0 +1,7 @@
+newmtl Material
+Ka 1.000000 1.000000 1.000000  # Color ambiental (blanco)
+Kd 1.000000 1.000000 1.000000  # Color difuso (blanco)
+Ks 0.000000 0.000000 0.000000  # Color especular (negro)
+d 1.0                          # Opacidad total
+illum 2                        # Modelo de iluminación básico
+map_Kd stallTexture.png        # Textura difusa (¡asegúrate de que el nombre coincida!)

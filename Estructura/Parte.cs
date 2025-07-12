@@ -38,7 +38,7 @@ public class Parte : IModelo
         Load();
     }
 
-    private float[] CenterVerticesXYZ(float[] vertices)
+    private static float[] CenterVerticesXYZ(float[] vertices)
     {
         // 1. Extraer todas las coordenadas X, Y, Z (cada vértice tiene 5 valores: x, y, z, u, v)
         int vertexCount = vertices.Length / 5;
@@ -141,7 +141,7 @@ public class Parte : IModelo
         GL.Enable(EnableCap.DepthTest);
 
         Shader.Use();
-        //TextureObj.Use();
+        // TextureObj.Use();
         TextureObj.Use(_textureUnit);
         Shader
             //.SetInt("u_Texture", 0)
