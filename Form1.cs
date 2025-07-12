@@ -49,11 +49,13 @@ namespace OpenTKGUI
             // Objeto tm = JSONLoader.CargarObjeto("./Objetos/Stall.json", _camera);
             // _escenario.Add(tm);
 
-            // Objeto tm = JSONLoader.CargarObjeto("./Objetos/Stall.json", _camera);
+
+            Objeto tm = JSONLoader.CargarObjeto("./Objetos/Stall.json", _camera);
+            // Objeto tm = OBJLoader.Cargar("C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Modelos\\Rockwell B-1B Lancer.obj", _camera);
             // Objeto tm1 = JSONLoader.CargarObjeto("./Objetos/Stall.json", _camera);
             // tm1.Name = "Stall1";
             // tm1.Transformation.Position = new Vector3(2.0f, 1.0f, 1.0f);
-            // _escenario.Add(tm);
+            _escenario.Add(tm);
             // _escenario.Add(tm1);
             // _escenario.Add(auto);
 
@@ -244,7 +246,7 @@ namespace OpenTKGUI
             {
                 foreach (var fileName in openFileDialog1.FileNames)
                 {
-                    Objeto newObject = Modelo.CargarObjeto(fileName, _camera);
+                    Objeto newObject = JSONLoader.CargarObjeto(fileName, _camera);
                     _escenario.Add(newObject);
                 }
             }
@@ -271,7 +273,7 @@ namespace OpenTKGUI
             {
                 if (saveFileDialog1.ShowDialog() != DialogResult.OK) return;
                 string filePath = saveFileDialog1.FileName;
-                ModeloObjeto combinedData = Modelo.GenerarModelo((Objeto)objeto, filePath);
+                ModeloObjeto combinedData = JSONLoader.GenerarModelo((Objeto)objeto, filePath);
 
                 var options = new JsonSerializerOptions { WriteIndented = true };
                 File.WriteAllText(filePath, JsonSerializer.Serialize(combinedData, options));
@@ -286,7 +288,7 @@ namespace OpenTKGUI
         private void buttonResetAnimation_Click(object sender, EventArgs e)
         {
             var auto1 = _escenario.Get("Auto");
-            Objeto auto2 = Modelo.CargarObjeto("./Objetos/Auto.json", _camera);
+            Objeto auto2 = JSONLoader.CargarObjeto("./Objetos/Auto.json", _camera);
             auto1.Transformation.Position = auto2.Transformation.Position;
             auto1.Transformation.Scale = auto2.Transformation.Scale;
             auto1.Transformation.Rotation = auto2.Transformation.Rotation;

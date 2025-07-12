@@ -15,12 +15,11 @@ namespace OpenTKGUI
         public static Objeto Cargar(string path, ArcRotateCamera camera)
         {
             string readText = File.ReadAllText(path);
-            List<Vector3> vertices = new List<Vector3>();
-            List<Vector2> textures = new List<Vector2>();
-            List<Vector3> normales = new List<Vector3>();
+            List<Vector3> vertices = new(500000);
+            List<Vector2> textures = new(500000); List<Vector3> normales = new(500000);
+            List<float> verticesArray = new(500000 * 5);
+            List<uint> indicesArray = new(500000);
 
-            List<float> verticesArray = new List<float>();
-            List<uint> indicesArray = new List<uint>();
             StringReader sr = new StringReader(readText);
             while (true)
             {
@@ -133,7 +132,7 @@ namespace OpenTKGUI
             {
                 Name = "Stall"
             };
-            Parte newParte = new Parte("Default", verticesArray, indicesArray, "OpenTKGUI.Resources.Images.stallTexture.png", camera);
+            Parte newParte = new Parte("Default", verticesArray, indicesArray, "OpenTKGUI.Resources.Images.Gray.jpg", camera);
             newParte.Transformation.Position = new Vector3(0.0f, 0.0f, 0.0f);
             newObjeto.Add(newParte);
             return newObjeto;

@@ -34,7 +34,7 @@ public class Punto
     public float Z { get; set; }
 }
 
-class Modelo
+class JSONLoader
 {
     public static Objeto CargarObjeto(string path, ArcRotateCamera camera)
     {
