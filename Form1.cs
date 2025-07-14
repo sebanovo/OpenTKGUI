@@ -50,14 +50,22 @@ namespace OpenTKGUI
             // _escenario.Add(tm);
 
 
-            Objeto tm = JSONLoader.CargarObjeto("./Objetos/Stall.json", _camera);
-            // Objeto tm = OBJLoader.Cargar("C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Modelos\\Rockwell B-1B Lancer.obj", _camera);
+            Objeto blaze = JSONLoader.CargarObjeto("./Modelos/JSON/Minecraft/Blaze.json", _camera);
+            Objeto creeper = JSONLoader.CargarObjeto("./Modelos/JSON/Minecraft/Creeper.json", _camera);
+            Objeto ghast = JSONLoader.CargarObjeto("./Modelos/JSON/Minecraft/Ghast.json", _camera);
+            Objeto zombie = JSONLoader.CargarObjeto("./Modelos/JSON/Minecraft/Zombie.json", _camera);
+
             // Objeto tm1 = JSONLoader.CargarObjeto("./Objetos/Stall.json", _camera);
             // tm1.Name = "Stall1";
             // tm1.Transformation.Position = new Vector3(2.0f, 1.0f, 1.0f);
-            _escenario.Add(tm);
-            // _escenario.Add(tm1);
-            // _escenario.Add(auto);
+            blaze.Transformation.Position = new Vector3(-2.0f, 0.0f, 0.0f);
+            creeper.Transformation.Position = new Vector3(-1.0f, 0.0f, 0.0f);
+            ghast.Transformation.Position = new Vector3(0.0f, 0.0f, 0.0f);
+            zombie.Transformation.Position = new Vector3(1.0f, 0.0f, 0.0f);
+            _escenario.Add(blaze);
+            _escenario.Add(creeper);
+            _escenario.Add(ghast);
+            _escenario.Add(zombie);
 
             // auto.Transformation.Position = new Vector3(1.0f, 1.0f, 1.0f);
             // tm.Transformation.Position = new Vector3(0.0f, 0.0f, 0.0f);

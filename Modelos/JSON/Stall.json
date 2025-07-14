@@ -20,7 +20,7 @@
   "Partes": [
     {
       "Name": "Default",
-      "Texture": "OpenTKGUI.Resources.Images.stallTexture.png",
+      "Texture": "OpenTKGUI.Resources.Images.ThinMatrix.Stall.png",
       "Transformation": {
         "Position": {
           "X": 0,

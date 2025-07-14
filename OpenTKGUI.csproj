@@ -33,7 +33,11 @@
 		<EmbeddedResource Include="Resources\Images\Cesped.jpg" />
 		<EmbeddedResource Include="Resources\Images\AutoPista.jpg" />
 		<EmbeddedResource Include="Resources\Images\AutoPistaSinLinea.png" />
-		<EmbeddedResource Include="Resources\Images\stallTexture.png" />
+		<EmbeddedResource Include="Resources\Images\ThinMatrix\Stall.png" />
+		<EmbeddedResource Include="Resources\Images\Minecraft\Blaze.png" />
+		<EmbeddedResource Include="Resources\Images\Minecraft\Creeper.png" />
+		<EmbeddedResource Include="Resources\Images\Minecraft\Ghast.png" />
+		<EmbeddedResource Include="Resources\Images\Minecraft\Zombie.png" />
 		<!-- Config -->
 		<EmbeddedResource Include="Resources\Config\U.jsonc" />
 		<EmbeddedResource Include="Resources\Config\Cube.jsonc" />
@@ -43,7 +47,7 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-		<Content Include="Objetos\**\*">
+		<Content Include="Modelos\**\*">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>

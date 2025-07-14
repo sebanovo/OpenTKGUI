@@ -12,7 +12,7 @@ namespace OpenTKGUI
 {
     class OBJLoader
     {
-        public static Objeto Cargar(string path, ArcRotateCamera camera)
+        public static Objeto CargarObjeto(string path, ArcRotateCamera camera)
         {
             string readText = File.ReadAllText(path);
             List<Vector3> vertices = new(500000);
@@ -42,7 +42,7 @@ namespace OpenTKGUI
                     string[] lineaActual = line.Split(" ");
                     Vector2 texture;
                     texture.X = float.Parse(lineaActual[1], CultureInfo.InvariantCulture);
-                    texture.Y = float.Parse(lineaActual[2], CultureInfo.InvariantCulture);
+                    texture.Y = 1.0f - float.Parse(lineaActual[2], CultureInfo.InvariantCulture);
                     textures.Add(texture);
                 }
                 else if (line.StartsWith("vn "))
@@ -132,7 +132,7 @@ namespace OpenTKGUI
             {
                 Name = "Stall"
             };
-            Parte newParte = new Parte("Default", verticesArray, indicesArray, "OpenTKGUI.Resources.Images.Gray.jpg", camera);
+            Parte newParte = new Parte("Default", verticesArray, indicesArray, "OpenTKGUI.Resources.Images.Minecraft.Zombie.png", camera);
             newParte.Transformation.Position = new Vector3(0.0f, 0.0f, 0.0f);
             newObjeto.Add(newParte);
             return newObjeto;
