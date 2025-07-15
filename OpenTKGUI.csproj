@@ -38,6 +38,7 @@
 		<EmbeddedResource Include="Resources\Images\Minecraft\Creeper.png" />
 		<EmbeddedResource Include="Resources\Images\Minecraft\Ghast.png" />
 		<EmbeddedResource Include="Resources\Images\Minecraft\Zombie.png" />
+		<EmbeddedResource Include="Resources\Images\AbandonedCottageHouse.png" />
 		<!-- Config -->
 		<EmbeddedResource Include="Resources\Config\U.jsonc" />
 		<EmbeddedResource Include="Resources\Config\Cube.jsonc" />

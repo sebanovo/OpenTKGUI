@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenTK.Mathematics;
 using System.Globalization;
+using System.Drawing.Drawing2D;
 
 namespace OpenTKGUI
 {
@@ -21,14 +22,10 @@ namespace OpenTKGUI
             List<uint> indicesArray = new(500000);
 
             StringReader sr = new StringReader(readText);
-            while (true)
+            string? line;
+            while ((line = sr.ReadLine()) != null)
             {
-                string? line = sr.ReadLine();
-                if (line == null)
-                {
-                    break;
-                }
-                else if (line.StartsWith("v "))
+                if (line.StartsWith("v "))
                 {
                     string[] lineaActual = line.Split(" ");
                     Vector3 vertice;
@@ -42,7 +39,7 @@ namespace OpenTKGUI
                     string[] lineaActual = line.Split(" ");
                     Vector2 texture;
                     texture.X = float.Parse(lineaActual[1], CultureInfo.InvariantCulture);
-                    texture.Y = 1.0f - float.Parse(lineaActual[2], CultureInfo.InvariantCulture);
+                    texture.Y = float.Parse(lineaActual[2], CultureInfo.InvariantCulture);
                     textures.Add(texture);
                 }
                 else if (line.StartsWith("vn "))
@@ -56,63 +53,37 @@ namespace OpenTKGUI
                 }
                 else if (line.StartsWith("f "))
                 {
-                    string[] lineActual = line.Split(" ");
-                    string[] v1 = lineActual[1].Split("/");
-                    string[] v2 = lineActual[2].Split("/");
-                    string[] v3 = lineActual[3].Split("/");
+                    string[] lineaActual = line.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                    List<uint> faceIndices = [];
+                    for (int i = 1; i < lineaActual.Length; i++)
+                    {
+                        string[] partesVertex = lineaActual[i].Split("/");
+                        int indiceVertice = int.Parse(partesVertex[0]) - 1;
 
-                    Vector3 vertice;
-                    Vector2 textura;
-                    int indiceVertice;
-                    int indiceTextura;
+                        int indiceTextura = (partesVertex.Length > 1 && partesVertex[1] != "")
+                            ? int.Parse(partesVertex[1]) - 1
+                            : -1;
 
-                    // v1
-                    indiceVertice = int.Parse(v1[0]) - 1;
-                    indiceTextura = int.Parse(v1[1]) - 1;
-                    vertice = vertices[indiceVertice];
-                    textura = textures[indiceTextura];
-                    verticesArray.Add(vertice.X);
-                    verticesArray.Add(vertice.Y);
-                    verticesArray.Add(vertice.Z);
-                    verticesArray.Add(textura.X);
-                    verticesArray.Add(textura.Y);
+                        Vector3 vertice = vertices[indiceVertice];
+                        Vector2 textura = (indiceTextura >= 0) ? textures[indiceTextura] : Vector2.Zero;
+                        verticesArray.Add(vertice.X);
+                        verticesArray.Add(vertice.Y);
+                        verticesArray.Add(vertice.Z);
+                        verticesArray.Add(textura.X);
+                        verticesArray.Add(textura.Y);
 
-                    // indicesArray.Add((uint)index++);
-
-                    // v2
-                    indiceVertice = int.Parse(v2[0]) - 1;
-                    indiceTextura = int.Parse(v2[1]) - 1;
-                    vertice = vertices[indiceVertice];
-                    textura = textures[indiceTextura];
-                    verticesArray.Add(vertice.X);
-                    verticesArray.Add(vertice.Y);
-                    verticesArray.Add(vertice.Z);
-                    verticesArray.Add(textura.X);
-                    verticesArray.Add(textura.Y);
-
-                    // indicesArray.Add((uint)index++);
-
-                    // v3
-                    indiceVertice = int.Parse(v3[0]) - 1;
-                    indiceTextura = int.Parse(v3[1]) - 1;
-                    vertice = vertices[indiceVertice];
-                    textura = textures[indiceTextura];
-                    verticesArray.Add(vertice.X);
-                    verticesArray.Add(vertice.Y);
-                    verticesArray.Add(vertice.Z);
-                    verticesArray.Add(textura.X);
-                    verticesArray.Add(textura.Y);
-
-                    // indicesArray.Add((uint)index++);
+                        uint index = (uint)(verticesArray.Count / 5 - 1);
+                        faceIndices.Add(index);
+                    }
+                    for (int i = 1; i < faceIndices.Count - 1; i++)
+                    {
+                        indicesArray.Add(faceIndices[0]);
+                        indicesArray.Add(faceIndices[i]);
+                        indicesArray.Add(faceIndices[i + 1]);
+                    }
                 }
             }
             sr.Close();
-            uint j = 0;
-            for (uint i = 0; i < verticesArray.Count; i += 5)
-            {
-                indicesArray.Add(j);
-                j++;
-            }
             int k = 0;
             for (int i = 0; i < verticesArray.Count; i += 5)
             {
@@ -132,7 +103,7 @@ namespace OpenTKGUI
             {
                 Name = "Stall"
             };
-            Parte newParte = new Parte("Default", verticesArray, indicesArray, "OpenTKGUI.Resources.Images.Minecraft.Zombie.png", camera);
+            Parte newParte = new Parte("Default", verticesArray, indicesArray, "OpenTKGUI.Resources.Images.AbandonedCottageHouse.png", camera);
             newParte.Transformation.Position = new Vector3(0.0f, 0.0f, 0.0f);
             newObjeto.Add(newParte);
             return newObjeto;
