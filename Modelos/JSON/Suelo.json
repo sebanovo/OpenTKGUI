@@ -20,7 +20,7 @@
   "Partes": [
     {
       "Name": "Suelo.Cesped",
-      "Texture": "OpenTKGUI.Resources.Images.Cesped.jpg",
+      "Texture": "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\Cesped.jpg",
       "Transformation": {
         "Position": {
           "X": 0,
@@ -333,7 +333,7 @@
     },
     {
       "Name": "Suelo.PistaDerecha",
-      "Texture": "OpenTKGUI.Resources.Images.AutoPista.jpg",
+      "Texture": "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\AutoPista.jpg",
       "Transformation": {
         "Scale": {
           "X": 30,
@@ -646,7 +646,7 @@
     },
     {
       "Name": "Suelo.PistaIzquierda",
-      "Texture": "OpenTKGUI.Resources.Images.AutoPista.jpg",
+      "Texture": "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\AutoPista.jpg",
       "Transformation": {
         "Scale": {
           "X": 30,
@@ -959,7 +959,7 @@
     },
     {
       "Name": "Suelo.PistaArriba",
-      "Texture": "OpenTKGUI.Resources.Images.AutoPistaSinLinea.png",
+      "Texture": "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\AutoPistaSinLinea.png",
       "Transformation": {
         "Scale": {
           "X": 16,
@@ -1272,7 +1272,7 @@
     },
     {
       "Name": "Suelo.PistaAbajo",
-      "Texture": "OpenTKGUI.Resources.Images.AutoPistaSinLinea.png",
+      "Texture": "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\AutoPistaSinLinea.png",
       "Transformation": {
         "Scale": {
           "X": 16,

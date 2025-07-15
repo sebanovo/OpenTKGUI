@@ -20,7 +20,7 @@
   "Partes": [
     {
       "Name": "parteEsfera",
-      "Texture": "OpenTKGUI.Resources.Images.BlueMetal.jpg",
+      "Texture": "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\BlueMetal.jpg",
       "Transformation": {
         "Position": {
           "X": 0,

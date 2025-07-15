@@ -20,7 +20,7 @@
   "Partes": [
     {
       "Name": "Default",
-      "Texture": "OpenTKGUI.Resources.Images.Minecraft.Ghast.png",
+      "Texture": "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\Minecraft\\Ghast.png",
       "Transformation": {
         "Position": {
           "X": 0,

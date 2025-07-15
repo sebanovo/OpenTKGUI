@@ -10,10 +10,10 @@ public class Texture(int ID)
 {
     public int ID { get; private set; } = ID;
 
-    public static Texture LoadFromResource(string resourcePath)
+    public static Texture LoadFromResource(string path)
     {
         StbImage.stbi_set_flip_vertically_on_load(1);
-        ImageResult image = Resources.Images.LoadEmbeddedImage(resourcePath);
+        ImageResult image = ImageResult.FromStream(File.OpenRead(path), ColorComponents.RedGreenBlueAlpha);
 
         int id = GL.GenTexture();
         GL.ActiveTexture(TextureUnit.Texture0);

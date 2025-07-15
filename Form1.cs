@@ -56,6 +56,8 @@ namespace OpenTKGUI
             // Objeto zombie = JSONLoader.CargarObjeto("./Modelos/JSON/Minecraft/Zombie.json", _camera);
             // Objeto casa = OBJLoader.CargarObjeto("./Modelos/OBJ/abandoned_cottage_house.obj", _camera);
             Objeto casa = JSONLoader.CargarObjeto("./Modelos/JSON/AbandonedCottageHouse.json", _camera);
+            // Objeto f1 = OBJLoader.CargarObjeto("./Modelos/OBJ/formula1.obj", _camera);
+            // Objeto f1 = OBJLoader.CargarObjeto("./Modelos/JSON/Hola.json", _camera);
 
             // Objeto tm1 = JSONLoader.CargarObjeto("./Objetos/Stall.json", _camera);
             // tm1.Name = "Stall1";
@@ -69,6 +71,7 @@ namespace OpenTKGUI
             // _escenario.Add(ghast);
             // _escenario.Add(zombie);
             _escenario.Add(casa);
+            // _escenario.Add(f1);
 
             // auto.Transformation.Position = new Vector3(1.0f, 1.0f, 1.0f);
             // tm.Transformation.Position = new Vector3(0.0f, 0.0f, 0.0f);

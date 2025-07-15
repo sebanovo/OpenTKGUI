@@ -20,7 +20,7 @@
   "Partes": [
     {
       "Name": "partePiramide",
-      "Texture": "OpenTKGUI.Resources.Images.Wall.png",
+      "Texture": "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\Wall.png",
       "Transformation": {
         "Position": {
           "X": 0,

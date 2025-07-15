@@ -20,31 +20,6 @@
 		<EmbeddedResource Include="Resources\Shaders\Objeto3D.frag" />
 		<EmbeddedResource Include="Resources\Shaders\Axis.vert" />
 		<EmbeddedResource Include="Resources\Shaders\Axis.frag" />
-		<!-- Images -->
-		<EmbeddedResource Include="Resources\Images\Wood.jpg" />
-		<EmbeddedResource Include="Resources\Images\Wall.png" />
-		<EmbeddedResource Include="Resources\Images\BlueMetal.jpg" />
-		<EmbeddedResource Include="Resources\Images\Bricks.jpg" />
-		<EmbeddedResource Include="Resources\Images\Red.jpg" />
-		<EmbeddedResource Include="Resources\Images\Black.jpg" />
-		<EmbeddedResource Include="Resources\Images\White.jpg" />
-		<EmbeddedResource Include="Resources\Images\Yellow.jpg" />
-		<EmbeddedResource Include="Resources\Images\Gray.jpg" />
-		<EmbeddedResource Include="Resources\Images\Cesped.jpg" />
-		<EmbeddedResource Include="Resources\Images\AutoPista.jpg" />
-		<EmbeddedResource Include="Resources\Images\AutoPistaSinLinea.png" />
-		<EmbeddedResource Include="Resources\Images\ThinMatrix\Stall.png" />
-		<EmbeddedResource Include="Resources\Images\Minecraft\Blaze.png" />
-		<EmbeddedResource Include="Resources\Images\Minecraft\Creeper.png" />
-		<EmbeddedResource Include="Resources\Images\Minecraft\Ghast.png" />
-		<EmbeddedResource Include="Resources\Images\Minecraft\Zombie.png" />
-		<EmbeddedResource Include="Resources\Images\AbandonedCottageHouse.png" />
-		<!-- Config -->
-		<EmbeddedResource Include="Resources\Config\U.jsonc" />
-		<EmbeddedResource Include="Resources\Config\Cube.jsonc" />
-		<EmbeddedResource Include="Resources\Config\Pyramid.jsonc" />
-		<EmbeddedResource Include="Resources\Config\Sphere.jsonc" />
-		<EmbeddedResource Include="Resources\Config\Cylinder.jsonc" />
 	</ItemGroup>
 	
 	<ItemGroup>

@@ -20,7 +20,7 @@
   "Partes": [
     {
       "Name": "Auto.CuboAbajo",
-      "Texture": "OpenTKGUI.Resources.Images.Red.jpg",
+      "Texture": "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\Red.jpg",
       "Transformation": {
         "Scale": {
           "X": 3,
@@ -333,7 +333,7 @@
     },
     {
       "Name": "Auto.CuboArriba",
-      "Texture": "OpenTKGUI.Resources.Images.Red.jpg",
+      "Texture": "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\Red.jpg",
       "Transformation": {
         "Scale": {
           "X": 2.7,
@@ -646,7 +646,7 @@
     },
     {
       "Name": "Auto.VidrioFrontalYTrasero",
-      "Texture": "OpenTKGUI.Resources.Images.Black.jpg",
+      "Texture": "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\Black.jpg",
       "Transformation": {
         "Scale": {
           "X": 2.4,
@@ -959,7 +959,7 @@
     },
     {
       "Name": "Auto.VidrioIzqYDer1",
-      "Texture": "OpenTKGUI.Resources.Images.Black.jpg",
+      "Texture": "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\Black.jpg",
       "Transformation": {
         "Scale": {
           "X": 2.71,
@@ -1272,7 +1272,7 @@
     },
     {
       "Name": "Auto.VidrioIzqYDer2",
-      "Texture": "OpenTKGUI.Resources.Images.Black.jpg",
+      "Texture": "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\Black.jpg",
       "Transformation": {
         "Scale": {
           "X": 2.71,
@@ -1585,7 +1585,7 @@
     },
     {
       "Name": "Auto.RuedaDelanteraIzquierda",
-      "Texture": "OpenTKGUI.Resources.Images.Black.jpg",
+      "Texture": "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\Black.jpg",
       "Transformation": {
         "Position": {
           "X": -0.5,
@@ -3078,7 +3078,7 @@
     },
     {
       "Name": "Auto.ParteRuedaDelanteraIzquierda",
-      "Texture": "OpenTKGUI.Resources.Images.Gray.jpg",
+      "Texture": "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\Gray.jpg",
       "Transformation": {
         "Position": {
           "X": -0.5,
@@ -4571,7 +4571,7 @@
     },
     {
       "Name": "Auto.RuedaDelanteraDerecha",
-      "Texture": "OpenTKGUI.Resources.Images.Black.jpg",
+      "Texture": "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\Black.jpg",
       "Transformation": {
         "Position": {
           "X": 0.5,
@@ -6064,7 +6064,7 @@
     },
     {
       "Name": "Auto.ParteRuedaDelanteraDerecha",
-      "Texture": "OpenTKGUI.Resources.Images.Gray.jpg",
+      "Texture": "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\Gray.jpg",
       "Transformation": {
         "Position": {
           "X": 0.5,
@@ -7557,7 +7557,7 @@
     },
     {
       "Name": "Auto.RuedaTraseraIzquierda",
-      "Texture": "OpenTKGUI.Resources.Images.Black.jpg",
+      "Texture": "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\Black.jpg",
       "Transformation": {
         "Position": {
           "X": -0.5,
@@ -9050,7 +9050,7 @@
     },
     {
       "Name": "Auto.ParteRuedaTraseraIzquierda",
-      "Texture": "OpenTKGUI.Resources.Images.Gray.jpg",
+      "Texture": "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\Gray.jpg",
       "Transformation": {
         "Position": {
           "X": -0.5,
@@ -10543,7 +10543,7 @@
     },
     {
       "Name": "Auto.RuedaTraseraDerecha",
-      "Texture": "OpenTKGUI.Resources.Images.Black.jpg",
+      "Texture": "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\Black.jpg",
       "Transformation": {
         "Position": {
           "X": 0.5,
@@ -12036,7 +12036,7 @@
     },
     {
       "Name": "Auto.ParteRuedaTraseraDerecha",
-      "Texture": "OpenTKGUI.Resources.Images.Gray.jpg",
+      "Texture": "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\Gray.jpg",
       "Transformation": {
         "Position": {
           "X": 0.5,
@@ -13529,7 +13529,7 @@
     },
     {
       "Name": "Auto.FocoDerecho",
-      "Texture": "OpenTKGUI.Resources.Images.Yellow.jpg",
+      "Texture": "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\Yellow.jpg",
       "Transformation": {
         "Position": {
           "X": 0.4,
@@ -15022,7 +15022,7 @@
     },
     {
       "Name": "Auto.FocoIzquierdo",
-      "Texture": "OpenTKGUI.Resources.Images.Yellow.jpg",
+      "Texture": "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\Yellow.jpg",
       "Transformation": {
         "Position": {
           "X": -0.4,

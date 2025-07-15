@@ -20,7 +20,7 @@
   "Partes": [
     {
       "Name": "U.PaloIzquierdo",
-      "Texture": "OpenTKGUI.Resources.Images.Wood.jpg",
+      "Texture": "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\Wood.jpg",
       "Transformation": {
         "Position": {
           "X": -0.4,
@@ -333,7 +333,7 @@
     },
     {
       "Name": "U.PaloDerecho",
-      "Texture": "OpenTKGUI.Resources.Images.Wood.jpg",
+      "Texture": "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\Wood.jpg",
       "Transformation": {
         "Position": {
           "X": 0.4,
@@ -646,7 +646,7 @@
     },
     {
       "Name": "U.Cubo",
-      "Texture": "OpenTKGUI.Resources.Images.Wood.jpg",
+      "Texture": "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\Wood.jpg",
       "Transformation": {
         "Position": {
           "X": 0,
