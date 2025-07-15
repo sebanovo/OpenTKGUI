@@ -14,10 +14,11 @@ namespace OpenTKGUI
         Escenario _escenario;
         Libreto _libreto;
         ArcRotateCamera _camera;
+        Luz _luz = new Luz(new Vector3(0, 20, 0), new Vector3(1, 1, 1));
         System.Windows.Forms.Timer _timer;
         Stopwatch _sw;
-
         Color4 backGroundColor = new(0.2f, 0.3f, 0.3f, 1.0f);
+
         public Form1()
         {
             InitializeComponent();
@@ -42,40 +43,9 @@ namespace OpenTKGUI
         public void InicializarFormas()
         {
             _escenario = new Escenario(_camera);
-            // Objeto suelo = JSONLoader.CargarObjeto("./Objetos/Suelo.json", _camera);
-
-            // Objeto auto = JSONLoader.CargarObjeto("./Objetos/U.json", _camera);
-            // _escenario.Add(auto);
-            // Objeto tm = JSONLoader.CargarObjeto("./Objetos/Stall.json", _camera);
-            // _escenario.Add(tm);
-
-
-            // Objeto blaze = JSONLoader.CargarObjeto("./Modelos/JSON/Minecraft/Blaze.json", _camera);
-            // Objeto creeper = JSONLoader.CargarObjeto("./Modelos/JSON/Minecraft/Creeper.json", _camera);
-            // Objeto ghast = JSONLoader.CargarObjeto("./Modelos/JSON/Minecraft/Ghast.json", _camera);
-            // Objeto zombie = JSONLoader.CargarObjeto("./Modelos/JSON/Minecraft/Zombie.json", _camera);
-            // Objeto casa = OBJLoader.CargarObjeto("./Modelos/OBJ/abandoned_cottage_house.obj", _camera);
-            Objeto casa = JSONLoader.CargarObjeto("./Modelos/JSON/AbandonedCottageHouse.json", _camera);
-            // Objeto f1 = OBJLoader.CargarObjeto("./Modelos/OBJ/formula1.obj", _camera);
-            // Objeto f1 = OBJLoader.CargarObjeto("./Modelos/JSON/Hola.json", _camera);
-
-            // Objeto tm1 = JSONLoader.CargarObjeto("./Objetos/Stall.json", _camera);
-            // tm1.Name = "Stall1";
-            // tm1.Transformation.Position = new Vector3(2.0f, 1.0f, 1.0f);
-            // blaze.Transformation.Position = new Vector3(-2.0f, 0.0f, 0.0f);
-            // creeper.Transformation.Position = new Vector3(-1.0f, 0.0f, 0.0f);
-            // ghast.Transformation.Position = new Vector3(0.0f, 0.0f, 0.0f);
-            // zombie.Transformation.Position = new Vector3(1.0f, 0.0f, 0.0f);
-            // _escenario.Add(blaze);
-            // _escenario.Add(creeper);
-            // _escenario.Add(ghast);
-            // _escenario.Add(zombie);
-            _escenario.Add(casa);
-            // _escenario.Add(f1);
-
-            // auto.Transformation.Position = new Vector3(1.0f, 1.0f, 1.0f);
-            // tm.Transformation.Position = new Vector3(0.0f, 0.0f, 0.0f);
-            //_escenario.Add(suelo);
+            Objeto f1 = JSONLoader.CargarObjeto("./Modelos/JSON/Formula1.json", _camera, _luz);
+            // Objeto f1 = OBJLoader.CargarObjeto("./Modelos/OBJ/Minecraft/zombie.obj", _camera, _luz);
+            _escenario.Add(f1);
         }
 
         public void InicializarLibreto()
@@ -260,7 +230,7 @@ namespace OpenTKGUI
             {
                 foreach (var fileName in openFileDialog1.FileNames)
                 {
-                    Objeto newObject = JSONLoader.CargarObjeto(fileName, _camera);
+                    Objeto newObject = JSONLoader.CargarObjeto(fileName, _camera, _luz);
                     _escenario.Add(newObject);
                 }
             }
@@ -302,7 +272,7 @@ namespace OpenTKGUI
         private void buttonResetAnimation_Click(object sender, EventArgs e)
         {
             var auto1 = _escenario.Get("Auto");
-            Objeto auto2 = JSONLoader.CargarObjeto("./Objetos/Auto.json", _camera);
+            Objeto auto2 = JSONLoader.CargarObjeto("./Objetos/Auto.json", _camera, _luz);
             auto1.Transformation.Position = auto2.Transformation.Position;
             auto1.Transformation.Scale = auto2.Transformation.Scale;
             auto1.Transformation.Rotation = auto2.Transformation.Rotation;

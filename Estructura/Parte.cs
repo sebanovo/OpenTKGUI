@@ -4,6 +4,7 @@ using OpenTKGUI.Utils;
 using static OpenTKGUI.Resources;
 
 namespace OpenTKGUI.Estructura;
+
 public class Transformation
 {
     public Vector3 Position { get; set; } = Vector3.Zero;
@@ -11,44 +12,47 @@ public class Transformation
     public Vector3 Scale { get; set; } = Vector3.One;
 }
 
+
 public class Parte : IModelo
 {
     private int _vao, _vbo, _ebo;
     public string Name { get; set; } = "Default";
     public Transformation Transformation { get; set; } = new Transformation();
     public List<float> Vertices { get; } = [];
-    public List<uint> Indices { get; set;  } = [];
+    public List<uint> Indices { get; set; } = [];
     public Shader Shader { get; } = new Shader(Shaders.Objeto3DVert, Shaders.Objeto3DFrag);
     public string Texture { get; }
     private Texture TextureObj { get; }
     private ArcRotateCamera Camera { get; }
     private readonly TextureUnit _textureUnit;
+    public Luz LuzMundo { get; set; }
 
     public Parte() { }
 
-    public Parte(string name, List<float> vertices, List<uint> indices, string texture, ArcRotateCamera camera)
+    public Parte(string name, List<float> vertices, List<uint> indices, string texture, ArcRotateCamera camera, Luz luz)
     {
         Name = name;
-        Vertices.AddRange(CenterVerticesXYZ([..vertices]));
+        Vertices.AddRange(CenterVerticesXYZ([.. vertices]));
         Indices.AddRange(indices);
         Texture = texture;
         TextureObj = TextureManager.LoadTexture(texture);
         _textureUnit = TextureManager.GetNextTextureUnit(texture);
         Camera = camera;
+        LuzMundo = luz;
         Load();
     }
 
     private static float[] CenterVerticesXYZ(float[] vertices)
     {
-        // 1. Extraer todas las coordenadas X, Y, Z (cada vértice tiene 5 valores: x, y, z, u, v)
-        int vertexCount = vertices.Length / 5;
+        // 1. Extraer todas las coordenadas X, Y, Z (cada vértice tiene 8 valores: x, y, z, u, v, xNormal, yNormal, zNormal)
+        int vertexCount = vertices.Length / 8;
         float[] xCoords = new float[vertexCount];
         float[] yCoords = new float[vertexCount];
         float[] zCoords = new float[vertexCount];
 
         for (int i = 0; i < vertexCount; i++)
         {
-            int baseIndex = i * 5;
+            int baseIndex = i * 8;
             xCoords[i] = vertices[baseIndex];
             yCoords[i] = vertices[baseIndex + 1];
             zCoords[i] = vertices[baseIndex + 2];
@@ -63,7 +67,7 @@ public class Parte : IModelo
         float[] centeredVertices = new float[vertices.Length];
         for (int i = 0; i < vertices.Length; i++)
         {
-            centeredVertices[i] = (i % 5) switch
+            centeredVertices[i] = (i % 8) switch
             {
                 0 => vertices[i] - centerX,
                 1 => vertices[i] - centerY,
@@ -88,10 +92,12 @@ public class Parte : IModelo
         GL.BindBuffer(BufferTarget.ElementArrayBuffer, _ebo);
         GL.BufferData(BufferTarget.ElementArrayBuffer, Indices.Count * sizeof(uint), Indices.ToArray(), BufferUsageHint.StaticDraw);
 
-        GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 5 * sizeof(float), 0);
+        GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 8 * sizeof(float), 0);
         GL.EnableVertexAttribArray(0);
-        GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, 5 * sizeof(float), 3 * sizeof(float));
+        GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, 8 * sizeof(float), 3 * sizeof(float));
         GL.EnableVertexAttribArray(1);
+        GL.VertexAttribPointer(2, 3, VertexAttribPointerType.Float, false, 8 * sizeof(float), 5 * sizeof(float));
+        GL.EnableVertexAttribArray(2);
     }
 
     public Matrix4 CalculateModelMatrix()
@@ -145,6 +151,8 @@ public class Parte : IModelo
         TextureObj.Use(_textureUnit);
         Shader
             //.SetInt("u_Texture", 0)
+            .SetVec3("ligthColor", LuzMundo.color)
+            .SetVec3("ligthPosition", LuzMundo.position)
             .SetInt("u_Texture", TextureManager.ConvertUnitToInt(_textureUnit))
             .SetMat4("model", finalModel)
             .SetMat4("view", Camera.GetViewMatrix())

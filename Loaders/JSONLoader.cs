@@ -36,7 +36,7 @@ public class Punto
 
 class JSONLoader
 {
-    public static Objeto CargarObjeto(string path, ArcRotateCamera camera)
+    public static Objeto CargarObjeto(string path, ArcRotateCamera camera, Luz luz)
     {
         string jsonContent = File.ReadAllText(path);
         ModeloObjeto modeloObjeto = JsonSerializer.Deserialize<ModeloObjeto>(jsonContent) ??
@@ -73,8 +73,11 @@ class JSONLoader
                 listaVertices.Add(vertice.Z);
                 listaVertices.Add(vertice.U);
                 listaVertices.Add(vertice.V);
+                listaVertices.Add(vertice.NX);
+                listaVertices.Add(vertice.NY);
+                listaVertices.Add(vertice.NZ);
             }
-            Parte newParte = new Parte(parte.Name, listaVertices, parte.Indices, parte.Texture, camera);
+            Parte newParte = new Parte(parte.Name, listaVertices, parte.Indices, parte.Texture, camera, luz);
 
             newParte.Transformation.Position = new Vector3(
                     parte.Transformation.Position.X,
@@ -106,16 +109,19 @@ class JSONLoader
         foreach (var parte in objeto.Partes.Values)
         {
             List<Vertice> listaVertices = [];
-            for (int i = 0; i < parte.Vertices.Count; i += 5)
+            for (int i = 0; i < parte.Vertices.Count; i += 8)
             {
-                if (i + 4 >= parte.Vertices.Count) break;
+                if (i + 7 >= parte.Vertices.Count) break;
                 listaVertices.Add(new Vertice()
                 {
                     X = parte.Vertices[i],
                     Y = parte.Vertices[i + 1],
                     Z = parte.Vertices[i + 2],
                     U = parte.Vertices[i + 3],
-                    V = parte.Vertices[i + 4]
+                    V = parte.Vertices[i + 4],
+                    NX = parte.Vertices[i + 5],
+                    NY = parte.Vertices[i + 6],
+                    NZ = parte.Vertices[i + 7]
                 });
             }
 

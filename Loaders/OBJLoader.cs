@@ -1,19 +1,13 @@
 ﻿using OpenTKGUI.Estructura;
 using OpenTKGUI.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenTK.Mathematics;
 using System.Globalization;
-using System.Drawing.Drawing2D;
 
 namespace OpenTKGUI
 {
     class OBJLoader
     {
-        public static Objeto CargarObjeto(string path, ArcRotateCamera camera)
+        public static Objeto CargarObjeto(string path, ArcRotateCamera camera, Luz luz)
         {
             string readText = File.ReadAllText(path);
             List<Vector3> vertices = new(500000);
@@ -64,15 +58,23 @@ namespace OpenTKGUI
                             ? int.Parse(partesVertex[1]) - 1
                             : -1;
 
+                        int indiceNormal = int.Parse(partesVertex[2]) - 1;
+
                         Vector3 vertice = vertices[indiceVertice];
                         Vector2 textura = (indiceTextura >= 0) ? textures[indiceTextura] : Vector2.Zero;
+                        Vector3 normal = (indiceNormal >= 0) ? normales[indiceNormal] : Vector3.UnitZ;
+
                         verticesArray.Add(vertice.X);
                         verticesArray.Add(vertice.Y);
                         verticesArray.Add(vertice.Z);
                         verticesArray.Add(textura.X);
                         verticesArray.Add(textura.Y);
 
-                        uint index = (uint)(verticesArray.Count / 5 - 1);
+                        verticesArray.Add(normal.X);
+                        verticesArray.Add(normal.Y);
+                        verticesArray.Add(normal.Z);
+
+                        uint index = (uint)(verticesArray.Count / 8 - 1);
                         faceIndices.Add(index);
                     }
                     for (int i = 1; i < faceIndices.Count - 1; i++)
@@ -85,7 +87,7 @@ namespace OpenTKGUI
             }
             sr.Close();
             int k = 0;
-            for (int i = 0; i < verticesArray.Count; i += 5)
+            for (int i = 0; i < verticesArray.Count; i += 8)
             {
                 k++;
                 Console.WriteLine("{" + $"{verticesArray[i]}, {verticesArray[i + 1]}, {verticesArray[i + 2]}, {verticesArray[i + 3]}, {verticesArray[i + 4]}" + "}");
@@ -103,11 +105,10 @@ namespace OpenTKGUI
             {
                 Name = "Stall"
             };
-            Parte newParte = new Parte("Default", verticesArray, indicesArray, "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\Formula1.png", camera);
+            Parte newParte = new Parte("Default", verticesArray, indicesArray, "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\Minecraft\\Zombie.png", camera, luz);
             newParte.Transformation.Position = new Vector3(0.0f, 0.0f, 0.0f);
             newObjeto.Add(newParte);
-            float Scale = 1.0f;
-            newObjeto.Transformation.Scale = new Vector3(0.1f / 20);
+            // newObjeto.Transformation.Scale = new Vector3(0.1f / 20);
             return newObjeto;
         }
     }

@@ -10,15 +10,14 @@ using System.Globalization;
 
 namespace OpenTKGUI
 {
-    class Light
+    public class Luz 
     {
         public Vector3 position { get; set; }
         public Vector3 color { get; set; }
-        public Light(Vector3 position, Vector3 color)
+        public Luz(Vector3 position, Vector3 color)
         {
             this.position = position;
             this.color = color;
         }
-
     }
 }
