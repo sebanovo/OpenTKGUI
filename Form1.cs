@@ -14,7 +14,7 @@ namespace OpenTKGUI
         Escenario _escenario;
         Libreto _libreto;
         ArcRotateCamera _camera;
-        Luz _luz = new Luz(new Vector3(0, 20, 0), new Vector3(1, 1, 1));
+        Luz _luz = new Luz(new Vector3(0, 100, 0), new Vector3(1, 1, 1));
         System.Windows.Forms.Timer _timer;
         Stopwatch _sw;
         Color4 backGroundColor = new(0.2f, 0.3f, 0.3f, 1.0f);

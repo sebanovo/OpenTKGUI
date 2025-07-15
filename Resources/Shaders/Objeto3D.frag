@@ -3,9 +3,12 @@
 in vec2 TexCoord;
 in vec3 surfaceNormal;
 in vec3 toLigthVector;
+in vec3 toCameraVector;
 
 uniform sampler2D u_Texture;
 uniform vec3 ligthColor;
+uniform float shineDamper;
+uniform float reflectivity;
 
 void main() {
     // gl_FragColor = vec4(ourColor, 0.1);
@@ -17,5 +20,15 @@ void main() {
     float nDot = dot(unitNormal, unitLightVector);
     float brightness = max(nDot, 0.0);
     vec3 diffuse = brightness * ligthColor;
-    gl_FragColor =  vec4(diffuse, 1.0) * texture(u_Texture, TexCoord);
+
+    vec3 unitVectorToCamera = normalize(toCameraVector);
+    vec3 lightDirection = -unitLightVector;
+    vec3 reflectedLigthDirection = reflect(lightDirection, unitNormal);
+
+    float specularFactor = dot(reflectedLigthDirection, unitVectorToCamera);
+    specularFactor = max(specularFactor, 0.0);
+    float dampedFactor = pow(specularFactor, shineDamper);
+    vec3 finalSpecular = dampedFactor * reflectivity * ligthColor;
+
+    gl_FragColor =  vec4(diffuse, 1.0) * texture(u_Texture, TexCoord) + vec4(finalSpecular, 1.0);
 }

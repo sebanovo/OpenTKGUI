@@ -151,6 +151,8 @@ public class Parte : IModelo
         TextureObj.Use(_textureUnit);
         Shader
             //.SetInt("u_Texture", 0)
+            .SetFloat("shineDamper", 10)
+            .SetFloat("reflectivity", 1)
             .SetVec3("ligthColor", LuzMundo.color)
             .SetVec3("ligthPosition", LuzMundo.position)
             .SetInt("u_Texture", TextureManager.ConvertUnitToInt(_textureUnit))
