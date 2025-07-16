@@ -15,9 +15,9 @@ public class Escenario : IModelo
     {
         Ejes = new Ejes(camera);
         Ejes.Load();
-        terreno = new Terreno("C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\ThinMatrix\\Grass.png", camera);
+        terreno = new Terreno(camera);
     }
-    
+
     private bool EsNombreRepetido(string name)
     {
         return Objetos.ContainsKey(name);

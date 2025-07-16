@@ -15,16 +15,16 @@ public class Transformation
 
 public class Parte : IModelo
 {
-    private int _vao, _vbo, _ebo;
+    protected int _vao, _vbo, _ebo;
     public string Name { get; set; } = "Default";
     public Transformation Transformation { get; set; } = new Transformation();
-    public List<float> Vertices { get; } = [];
+    public List<float> Vertices { get; set; } = [];
     public List<uint> Indices { get; set; } = [];
     public Shader Shader { get; set;  } = new Shader(Shaders.Objeto3DVert, Shaders.Objeto3DFrag);
-    public string Texture { get; }
-    private Texture TextureObj { get; }
-    private ArcRotateCamera Camera { get; }
-    private readonly TextureUnit _textureUnit;
+    public string Texture { get; set; }
+    protected Texture TextureObj { get; set; }
+    protected ArcRotateCamera Camera { get; set; }
+    protected TextureUnit _textureUnit { get; set; }
     public Luz LuzMundo { get; set; }
 
     public Parte() { }
@@ -42,7 +42,7 @@ public class Parte : IModelo
         Load();
     }
 
-    private static float[] CenterVerticesXYZ(float[] vertices)
+    protected static float[] CenterVerticesXYZ(float[] vertices)
     {
         // 1. Extraer todas las coordenadas X, Y, Z (cada vértice tiene 8 valores: x, y, z, u, v, xNormal, yNormal, zNormal)
         int vertexCount = vertices.Length / 8;
@@ -139,7 +139,7 @@ public class Parte : IModelo
         );
     }
 
-    public void Draw(Matrix4? modelPadre = null)
+    public virtual void Draw(Matrix4? modelPadre = null)
     {
         modelPadre ??= Matrix4.Identity;
         Matrix4 finalModel = CalculateModelMatrix() * (Matrix4)modelPadre;
@@ -164,6 +164,8 @@ public class Parte : IModelo
 
         GL.BindBuffer(BufferTarget.ElementArrayBuffer, _ebo);
         GL.DrawElements(PrimitiveType.Triangles, Indices.Count, DrawElementsType.UnsignedInt, 0);
+
+        GL.Disable(EnableCap.CullFace);
     }
 
     public void Dispose()

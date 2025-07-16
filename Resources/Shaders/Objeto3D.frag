@@ -30,5 +30,10 @@ void main() {
     float dampedFactor = pow(specularFactor, shineDamper);
     vec3 finalSpecular = dampedFactor * reflectivity * ligthColor;
 
-    gl_FragColor =  vec4(diffuse, 1.0) * texture(u_Texture, TexCoord) + vec4(finalSpecular, 1.0);
+    vec4 textureColor = texture(u_Texture, TexCoord);
+    if(textureColor.a < 0.5) 
+    {
+        discard;
+    }
+    gl_FragColor =  vec4(diffuse, 1.0) * textureColor + vec4(finalSpecular, 1.0);
 }
