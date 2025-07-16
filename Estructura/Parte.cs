@@ -145,6 +145,8 @@ public class Parte : IModelo
         Matrix4 finalModel = CalculateModelMatrix() * (Matrix4)modelPadre;
         GL.BindVertexArray(_vao);
         GL.Enable(EnableCap.DepthTest);
+        GL.Enable(EnableCap.CullFace);
+        GL.CullFace(TriangleFace.Back);
 
         Shader.Use();
         // TextureObj.Use();
