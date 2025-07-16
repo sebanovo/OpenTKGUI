@@ -20,6 +20,8 @@
 		<EmbeddedResource Include="Resources\Shaders\Objeto3D.frag" />
 		<EmbeddedResource Include="Resources\Shaders\Axis.vert" />
 		<EmbeddedResource Include="Resources\Shaders\Axis.frag" />
+		<EmbeddedResource Include="Resources\Shaders\Terreno.vert" />
+		<EmbeddedResource Include="Resources\Shaders\Terreno.frag" />
 	</ItemGroup>
 	
 	<ItemGroup>

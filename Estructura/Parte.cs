@@ -20,7 +20,7 @@ public class Parte : IModelo
     public Transformation Transformation { get; set; } = new Transformation();
     public List<float> Vertices { get; } = [];
     public List<uint> Indices { get; set; } = [];
-    public Shader Shader { get; } = new Shader(Shaders.Objeto3DVert, Shaders.Objeto3DFrag);
+    public Shader Shader { get; set;  } = new Shader(Shaders.Objeto3DVert, Shaders.Objeto3DFrag);
     public string Texture { get; }
     private Texture TextureObj { get; }
     private ArcRotateCamera Camera { get; }

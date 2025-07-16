@@ -9,12 +9,15 @@ public class Escenario : IModelo
     public Dictionary<string, Objeto> Objetos { get; } = [];
     public Transformation Transformation { get; } = new Transformation();
     public Ejes Ejes;
+    public Terreno terreno;
     public Escenario() { }
     public Escenario(ArcRotateCamera camera)
     {
         Ejes = new Ejes(camera);
         Ejes.Load();
+        terreno = new Terreno("C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\ThinMatrix\\Grass.png", camera);
     }
+    
     private bool EsNombreRepetido(string name)
     {
         return Objetos.ContainsKey(name);
@@ -84,9 +87,14 @@ public class Escenario : IModelo
         Ejes.Draw();
     }
 
+    public void DrawTerreno()
+    {
+        terreno.Draw();
+    }
+
     public IModelo Get(string name)
     {
-        if(Objetos.TryGetValue(name, out var obj))
+        if (Objetos.TryGetValue(name, out var obj))
         {
             return obj;
         }

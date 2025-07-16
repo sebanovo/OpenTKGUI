@@ -43,8 +43,8 @@ namespace OpenTKGUI
         public void InicializarFormas()
         {
             _escenario = new Escenario(_camera);
-            // Objeto f1 = JSONLoader.CargarObjeto("./Modelos/JSON/AbjandonedCottageHouse.json", _camera, _luz);
-            // Objeto f1 = OBJLoader.CargarObjeto("./Modelos/OBJ/abandoned_cottage_house.obj", _camera, _luz);
+            // Objeto f1 = JSONLoader.CargarObjeto("./Modelos/JSON/Formula1.json", _camera, _luz);
+            // Objeto f1 = OBJLoader.CargarObjeto("./Modelos/OBJ/bunny.obj", _camera, _luz);
             // _escenario.Add(f1);
         }
 
@@ -157,10 +157,10 @@ namespace OpenTKGUI
             //if (_sw.Elapsed.TotalSeconds > 42)
             //{
             //    _sw.Reset();
-            //}
 
             _escenario.Draw();
             _escenario.DrawEjes();
+            _escenario.DrawTerreno();
             glControl1.SwapBuffers();
         }
 

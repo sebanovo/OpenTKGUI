@@ -105,7 +105,7 @@ namespace OpenTKGUI
             {
                 Name = "Stall"
             };
-            Parte newParte = new Parte("Default", verticesArray, indicesArray, "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\AbandonedCottageHouse.png", camera, luz);
+            Parte newParte = new Parte("Default", verticesArray, indicesArray, "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\Gray.jpg", camera, luz);
             newParte.Transformation.Position = new Vector3(0.0f, 0.0f, 0.0f);
             newObjeto.Add(newParte);
             // newObjeto.Transformation.Scale = new Vector3(0.1f / 20);
