@@ -10,11 +10,12 @@ public class Texture(int ID)
 {
     public int ID { get; private set; } = ID;
 
-    public static Texture LoadFromResource(string path)
+    public static (Texture, bool) LoadFromResource(string path)
     {
         StbImage.stbi_set_flip_vertically_on_load(1);
         ImageResult image = ImageResult.FromStream(File.OpenRead(path), ColorComponents.RedGreenBlueAlpha);
 
+        bool isTransparency = CheckForTransparency(image.Data);
         int id = GL.GenTexture();
         GL.ActiveTexture(TextureUnit.Texture0);
         GL.BindTexture(TextureTarget.Texture2D, id);
@@ -23,7 +24,17 @@ public class Texture(int ID)
 
         GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.LinearMipmapLinear); // Para mipmaps
         GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
-        return new Texture(id);
+        return (new Texture(id), isTransparency);
+    }
+
+    private static bool CheckForTransparency(byte[] imageData)
+    {
+        for (int i = 3; i < imageData.Length; i += 4)
+        {
+            if (imageData[i] == 0)
+                return true;
+        }
+        return false;
     }
 
     public void Use(TextureUnit unit = TextureUnit.Texture0)

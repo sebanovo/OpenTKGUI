@@ -4,11 +4,11 @@ namespace OpenTKGUI.Utils;
 
 class TextureManager
 {
-    private static readonly Dictionary<string, Texture> _texturas = new Dictionary<string, Texture>();
+    private static readonly Dictionary<string, (Texture, bool)> _texturas = new Dictionary<string, (Texture, bool)>();
     private static readonly Dictionary<string, TextureUnit> _texturaUnidades = new();
     private static int _nextUnit = 0;
 
-    public static Texture LoadTexture(string textureName)
+    public static (Texture, bool) LoadTexture(string textureName)
     {
         if (!_texturas.TryGetValue(textureName, out var texture))
         {

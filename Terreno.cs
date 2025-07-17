@@ -60,7 +60,7 @@ public class Terreno : Parte
             this.Name = "Terreno";
             this.Shader = new Shader(Shaders.TerrenoVert, Shaders.TerrenoFrag);
             this.Texture = "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\ThinMatrix\\Grass.png";
-            this.TextureObj = TextureManager.LoadTexture(this.Texture);
+            (this.TextureObj, _) = TextureManager.LoadTexture(this.Texture);
             this._textureUnit = TextureManager.GetNextTextureUnit(this.Texture);
             this.Camera = camera;
             Load();
@@ -71,9 +71,9 @@ public class Terreno : Parte
         modelPadre ??= Matrix4.Identity;
         Matrix4 finalModel = CalculateModelMatrix() * (Matrix4)modelPadre;
         GL.BindVertexArray(_vao);
-        // GL.Enable(EnableCap.DepthTest);
-        // GL.Enable(EnableCap.CullFace);
-        // GL.CullFace(TriangleFace.Back);
+        GL.Enable(EnableCap.DepthTest);
+        GL.Enable(EnableCap.CullFace);
+        GL.CullFace(TriangleFace.Back);
 
         Shader.Use();
         // TextureObj.Use();

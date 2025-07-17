@@ -23,6 +23,7 @@ public class Parte : IModelo
     public Shader Shader { get; set;  } = new Shader(Shaders.Objeto3DVert, Shaders.Objeto3DFrag);
     public string Texture { get; set; }
     protected Texture TextureObj { get; set; }
+    public bool isTransparency { get; set; }
     protected ArcRotateCamera Camera { get; set; }
     protected TextureUnit _textureUnit { get; set; }
     public Luz LuzMundo { get; set; }
@@ -35,7 +36,7 @@ public class Parte : IModelo
         Vertices.AddRange(CenterVerticesXYZ([.. vertices]));
         Indices.AddRange(indices);
         Texture = texture;
-        TextureObj = TextureManager.LoadTexture(texture);
+        (TextureObj, isTransparency) = TextureManager.LoadTexture(texture);
         _textureUnit = TextureManager.GetNextTextureUnit(texture);
         Camera = camera;
         LuzMundo = luz;
@@ -144,9 +145,13 @@ public class Parte : IModelo
         modelPadre ??= Matrix4.Identity;
         Matrix4 finalModel = CalculateModelMatrix() * (Matrix4)modelPadre;
         GL.BindVertexArray(_vao);
-        GL.Enable(EnableCap.DepthTest);
-        GL.Enable(EnableCap.CullFace);
-        GL.CullFace(TriangleFace.Back);
+
+        if (!isTransparency)
+        {
+            GL.Enable(EnableCap.DepthTest);
+            GL.Enable(EnableCap.CullFace);
+            GL.CullFace(TriangleFace.Back);
+        }
 
         Shader.Use();
         // TextureObj.Use();
