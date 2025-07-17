@@ -16,6 +16,10 @@ public class Texture(int ID)
         ImageResult image = ImageResult.FromStream(File.OpenRead(path), ColorComponents.RedGreenBlueAlpha);
 
         bool isTransparency = CheckForTransparency(image.Data);
+        if (isTransparency)
+        {
+            MessageBox.Show(path + "Es Trasnparency");
+        }
         int id = GL.GenTexture();
         GL.ActiveTexture(TextureUnit.Texture0);
         GL.BindTexture(TextureTarget.Texture2D, id);

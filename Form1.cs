@@ -43,9 +43,9 @@ namespace OpenTKGUI
         public void InicializarFormas()
         {
             _escenario = new Escenario(_camera);
-            Objeto f1 = JSONLoader.CargarObjeto("./Modelos/JSON/Formula1.json", _camera, _luz);
-            Objeto f2 = OBJLoader.CargarObjeto("./Modelos/OBJ/fern.obj", _camera, _luz);
-            _escenario.Add(f1);
+            // Objeto f1 = JSONLoader.CargarObjeto("./Modelos/JSON/Formula1.json", _camera, _luz);
+            Objeto f2 = OBJLoader.CargarObjeto("./Modelos/OBJ/grass.obj", _camera, _luz);
+            // _escenario.Add(f1);
             _escenario.Add(f2);
         }
 

@@ -31,7 +31,7 @@ void main() {
     vec3 finalSpecular = dampedFactor * reflectivity * ligthColor;
 
     vec4 textureColor = texture(u_Texture, TexCoord);
-    if(textureColor.a == 0) 
+    if(textureColor.a < 0.5) 
     {
         discard;
     }

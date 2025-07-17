@@ -145,12 +145,15 @@ public class Parte : IModelo
         modelPadre ??= Matrix4.Identity;
         Matrix4 finalModel = CalculateModelMatrix() * (Matrix4)modelPadre;
         GL.BindVertexArray(_vao);
-
+        GL.Enable(EnableCap.DepthTest);
         if (!isTransparency)
         {
-            GL.Enable(EnableCap.DepthTest);
             GL.Enable(EnableCap.CullFace);
             GL.CullFace(TriangleFace.Back);
+        }
+        else
+        {
+            GL.Disable(EnableCap.CullFace);
         }
 
         Shader.Use();
