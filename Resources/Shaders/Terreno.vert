@@ -13,8 +13,7 @@ uniform mat4 projection;
 void main()
 {
     vec3 noborrar1 = normal;
-    TexCoord = aTexCoord * 2.0;
+    TexCoord = aTexCoord;
     mat4 PVM = projection * view * model;
     gl_Position = PVM * vec4(aPosition, 1.0);
-
 }
