@@ -60,11 +60,6 @@ public class Terreno : Parte
         this.Indices.AddRange(indicesList);
         this.Name = "Terreno";
         this.Shader = new Shader(Shaders.TerrenoVert, Shaders.TerrenoFrag);
-        // this.Texture = "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\ThinMatrix\\Grass.png";
-        // this.Texture = "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\Terreno\\grassy2.png";
-        // (this.TextureObj, _) = TextureManager.LoadTexture(this.Texture);
-        // this._textureUnit = TextureManager.GetNextTextureUnit(this.Texture);
-
         this.Texture = "C:\\Users\\HP\\Documents\\Visual Studio 2022\\Projects\\C#\\OpenTKGUI\\Resources\\Images\\Terreno\\Grass.png";
         (texture1, isTransparency) = TextureManager.LoadTexture(this.Texture);
         this.t1 = TextureManager.GetNextTextureUnit(this.Texture);
