@@ -1,11 +1,5 @@
 # OpenTKGUI
 
-```json
-{
-    "nombre": "Sebastian Cespedes Rodas",
-    "registro": 223047333
-}
-```
 link a los archivos de recursos del proyectos:
 https://drive.google.com/drive/folders/1j50286N9T9rpX3vLXvuhYjAlj-9gMPD0?usp=sharing
 
