@@ -13,15 +13,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!-- Shaders -->
     <EmbeddedResource Include="Resources\Shaders\uShape.vert" />
     <EmbeddedResource Include="Resources\Shaders\uShape.frag" />
     <EmbeddedResource Include="Resources\Shaders\axis.vert" />
     <EmbeddedResource Include="Resources\Shaders\axis.frag" />
     <EmbeddedResource Include="Resources\Shaders\crossHair.vert" />
     <EmbeddedResource Include="Resources\Shaders\crossHair.frag" />
-    <EmbeddedResource Include="Resources\Images\texture.png" />
-    <EmbeddedResource Include="Resources\Images\container.jpg" />
-    <EmbeddedResource Include="Resources\Images\awesomeface.png" />
+    <!-- Images -->
+    <EmbeddedResource Include="Resources\Images\wood.jpg" />
+    <EmbeddedResource Include="Resources\Images\wall.png" />
+    <EmbeddedResource Include="Resources\Images\blueMetal.jpg" />
+    <EmbeddedResource Include="Resources\Images\bricks.jpg" />
+    <!-- Config -->
+    <EmbeddedResource Include="Resources\Config\U.jsonc" />
+    <EmbeddedResource Include="Resources\Config\Cube.jsonc" />
+    <EmbeddedResource Include="Resources\Config\Pyramid.jsonc" />
   </ItemGroup>
   
 </Project>

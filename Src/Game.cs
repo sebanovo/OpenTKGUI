@@ -8,16 +8,18 @@ using OpenTK.Graphics.OpenGL4;
 using U.Src.Models._2D;
 using U.Src.Models._3D;
 using U.Src.Utils;
+using U.Properties;
 
 #pragma warning disable CS8618
 
 namespace U.src
 {
-    public class Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings)
-                : GameWindow(gameWindowSettings, nativeWindowSettings)
+    public class Game : GameWindow
     {
         // Shapes
-        U3D _u;
+        Entity _u1;
+        Entity _cube;
+        Entity _pyramid;
         CrossHair _crossHair;
         Axis _axis;
         // Camera
@@ -29,26 +31,58 @@ namespace U.src
         float _x = 0.0f;
         float _y = 0.0f;
         float _z = 0.0f;
+
+        public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings)
+        {
+            _timer = new Stopwatch();
+            WindowState = WindowState.Maximized;
+            CursorState = CursorState.Grabbed;
+            _camera = new Camera(Vector3.UnitZ * 3, Size.X / (float)Size.Y);
+        }
+
         protected override void OnLoad()
         {
             base.OnLoad();
-            _timer = new Stopwatch();
             _timer.Start();
 
-            WindowState = WindowState.Maximized;
-            _camera = new Camera(Vector3.UnitZ * 3, Size.X / (float)Size.Y);
-            CursorState = CursorState.Grabbed;
-
             // Iniciatialize  Shapes
-            _u = new();
+            _u1 = new
+            (
+                Resources.Config.uShape,
+                Resources.Shaders.uShapeVert,
+                Resources.Shaders.uShapeFrag,
+                Resources.Images.bricks,
+                _camera
+            );
+
+            _cube = new
+            (
+                Resources.Config.cube,
+                Resources.Shaders.uShapeVert,
+                Resources.Shaders.uShapeFrag,
+                Resources.Images.wood,
+                _camera
+            );
+
+            _pyramid = new
+            (
+                Resources.Config.pyramid,
+                Resources.Shaders.uShapeVert,
+                Resources.Shaders.uShapeFrag,
+                Resources.Images.wall,
+                _camera
+            );
+
             _crossHair = new();
             _axis = new();
 
             // Load Shapes
-            _u.Load();
+            _u1.Load();
+            _cube.Load();
+            _pyramid.Load();
+
             _axis.Load();
             _crossHair.Load();
-
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
@@ -59,13 +93,10 @@ namespace U.src
             GL.ClearColor(backGroundColor);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            // Draw U
-            _u.Bind();
-            _u.ShaderProgram.SetInt("texture1", 0)
-                            .SetMat4("model", Matrix4.Identity)
-                            .SetMat4("view", _camera.GetViewMatrix())
-                            .SetMat4("projection", _camera.GetProjectionMatrix());
-            _u.Draw(new Vector3(_x, _y, _z));
+            // Draw Entities
+            _u1.Draw(_x, _y, _z);
+            _cube.Draw(-1.0f, 0.0f, 0.0f);
+            _pyramid.Draw(1.0f, 0.0f, 0.0f);
 
             // Draw Axis (xyz)
             _axis.Bind();
@@ -200,7 +231,10 @@ namespace U.src
         {
             base.OnUnload();
 
-            _u.Dispose();
+            _u1.Dispose();
+            _cube.Dispose();
+            _pyramid.Dispose();
+
             _axis.Dispose();
             _crossHair.Dispose();
 

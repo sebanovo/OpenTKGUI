@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using System.Text.Json;
 using StbImageSharp;
 
 namespace U.Properties;
@@ -8,27 +9,35 @@ public class Resources
 {
     public class Images
     {
-        public static ImageResult awesomeface
+        public static ImageResult wood
         {
             get
             {
-                return LoadEmbeddedImage("U.Resources.Images.awesomeface.png");
+                return LoadEmbeddedImage("U.Resources.Images.wood.jpg");
             }
         }
 
-        public static ImageResult container
+        public static ImageResult blueMetal
         {
             get
             {
-                return LoadEmbeddedImage("U.Resources.Images.container.jpg");
+                return LoadEmbeddedImage("U.Resources.Images.blueMetal.jpg");
             }
         }
 
-        public static ImageResult texture
+        public static ImageResult wall
         {
             get
             {
-                return LoadEmbeddedImage("U.Resources.Images.texture.png");
+                return LoadEmbeddedImage("U.Resources.Images.wall.png");
+            }
+        }
+
+        public static ImageResult bricks
+        {
+            get
+            {
+                return LoadEmbeddedImage("U.Resources.Images.bricks.jpg");
             }
         }
 
@@ -98,6 +107,59 @@ public class Resources
                              throw new Exception($"Shader resource {resourceName} not found.");
             StreamReader reader = new(stream);
             return reader.ReadToEnd();
+        }
+    }
+    public static class Config
+    {
+        public static float[] uShape
+        {
+            get
+            {
+                return LoadEmbeddedConfig("U.Resources.Config.U.jsonc");
+            }
+        }
+
+        public static float[] cube
+        {
+            get
+            {
+                return LoadEmbeddedConfig("U.Resources.Config.Cube.jsonc");
+            }
+        }
+
+        public static float[] pyramid
+        {
+            get
+            {
+                return LoadEmbeddedConfig("U.Resources.Config.Pyramid.jsonc");
+            }
+        }
+
+        private class Json
+        {
+            public float[]? Vertices { get; set; }
+        }
+
+        private static float[] LoadEmbeddedConfig(string resourceName)
+        {
+            Stream stream = (Assembly.GetExecutingAssembly()?.GetManifestResourceStream(resourceName)) ??
+                             throw new Exception($"Json resource {resourceName} not found.");
+            StreamReader reader = new(stream);
+
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+                ReadCommentHandling = JsonCommentHandling.Skip
+            };
+
+            Json? shape = JsonSerializer.Deserialize<Json>(reader.ReadToEnd(), options)
+            ?? throw new Exception("No se pudo cargar deserializar el archivo: " + resourceName);
+
+            if (shape.Vertices == null)
+            {
+                throw new Exception("No se puedo cargar los vertices de: " + resourceName);
+            }
+            return [.. shape.Vertices];
         }
     }
 }
