@@ -1,17 +1,19 @@
-namespace OpenTKGUI
+﻿using OpenTK.Mathematics;
+using OpenTK.Windowing.Desktop;
+using U.src;
+
+namespace U;
+class Program
 {
-    internal static class Program
+    [STAThread]
+    public static void Main(string[] args)
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        static void Main()
+        var nativeWindowSettings = new NativeWindowSettings()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
-        }
+            ClientSize = new Vector2i(800, 600),
+            Title = "U"
+        };
+        using Game game = new(GameWindowSettings.Default, nativeWindowSettings);
+        game.Run();
     }
 }

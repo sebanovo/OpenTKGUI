@@ -1,9 +1,8 @@
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
-using OpenTKGUI.Src.Utils;
-using OpenTKGUI.Properties;
+using U.Src.Utils;
 
-namespace OpenTKGUI.Src.Models._3D;
+namespace U.Src.Models._3D;
 
 public class Axis
 {
@@ -22,13 +21,10 @@ public class Axis
         0.0f, 0.0f, 10.0f,
         0.0f, 0.0f, -10.0f
     ];
-    ArcRotateCamera _camera;
 
-    public Axis() { }
-    public Axis(ArcRotateCamera camera)
+    public Axis()
     {
-        _camera = camera;
-        ShaderProgram = new Shader(Resources.Shaders.AxisVert, Resources.Shaders.AxisFrag);
+        ShaderProgram = new Shader("U.Resources.Shaders.axis.vert", "U.Resources.Shaders.axis.frag");
     }
 
     public void Load()
@@ -44,20 +40,16 @@ public class Axis
         GL.EnableVertexAttribArray(0);
     }
 
+
     public void Bind()
     {
         ShaderProgram.Use();
         GL.BindVertexArray(VAO);
-        ShaderProgram
-                .SetMat4("model", Matrix4.Identity)
-                .SetMat4("view", _camera.GetViewMatrix())
-                .SetMat4("projection", _camera.GetProjectionMatrix());
     }
 
     public void Draw()
     {
-        Bind();
-        GL.LineWidth(3.0f);
+        GL.LineWidth(5.0f);
         ShaderProgram.SetVec3("u_Color", new Vector3(1.0f, 0.0f, 0.0f));
         GL.DrawArrays(PrimitiveType.Lines, 0, 2);
         ShaderProgram.SetVec3("u_Color", new Vector3(0.0f, 1.0f, 0.0f));
@@ -68,6 +60,7 @@ public class Axis
 
     public void Dispose()
     {
+        // crossHair
         GL.DeleteBuffer(VBO);
         GL.DeleteVertexArray(VAO);
     }

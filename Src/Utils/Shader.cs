@@ -2,21 +2,25 @@ using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 using System.Reflection;
 
-namespace OpenTKGUI.Src.Utils;
+namespace U.Src.Utils;
 
 public class Shader
 {
     public int ID;
     public Shader(string vertexResourceName, string fragmentResourceName)
     {
+        string vertexCode, fragmentCode;
         try
         {
+            vertexCode = LoadEmbeddedShader(vertexResourceName);
+            fragmentCode = LoadEmbeddedShader(fragmentResourceName);
+
             int vertexShader = GL.CreateShader(ShaderType.VertexShader);
-            GL.ShaderSource(vertexShader, vertexResourceName);
+            GL.ShaderSource(vertexShader, vertexCode);
             GL.CompileShader(vertexShader);
 
             int fragmentShader = GL.CreateShader(ShaderType.FragmentShader);
-            GL.ShaderSource(fragmentShader, fragmentResourceName);
+            GL.ShaderSource(fragmentShader, fragmentCode);
             GL.CompileShader(fragmentShader);
 
             ID = GL.CreateProgram();
@@ -31,6 +35,14 @@ public class Shader
         {
             Console.Write(e.Message);
         }
+    }
+
+    private static string LoadEmbeddedShader(string resourceName)
+    {
+
+        using Stream? stream = (Assembly.GetExecutingAssembly()?.GetManifestResourceStream(resourceName)) ?? throw new Exception($"Shader resource {resourceName} not found.");
+        using StreamReader reader = new(stream);
+        return reader.ReadToEnd();
     }
 
     public void Use()
@@ -52,7 +64,7 @@ public class Shader
 
     public Shader SetMat4(string name, Matrix4 value)
     {
-        GL.UniformMatrix4(GL.GetUniformLocation(ID, name), false, ref value);
+        GL.UniformMatrix4(GL.GetUniformLocation(ID, name), true, ref value);
         return this;
     }
 
