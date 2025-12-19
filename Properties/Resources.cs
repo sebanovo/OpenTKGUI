@@ -9,37 +9,10 @@ public class Resources
 {
     public class Images
     {
-        public static ImageResult wood
-        {
-            get
-            {
-                return LoadEmbeddedImage("U.Resources.Images.wood.jpg");
-            }
-        }
-
-        public static ImageResult blueMetal
-        {
-            get
-            {
-                return LoadEmbeddedImage("U.Resources.Images.blueMetal.jpg");
-            }
-        }
-
-        public static ImageResult wall
-        {
-            get
-            {
-                return LoadEmbeddedImage("U.Resources.Images.wall.png");
-            }
-        }
-
-        public static ImageResult bricks
-        {
-            get
-            {
-                return LoadEmbeddedImage("U.Resources.Images.bricks.jpg");
-            }
-        }
+        public static ImageResult Wood => LoadEmbeddedImage("U.Resources.Images.Wood.jpg");
+        public static ImageResult BlueMetal => LoadEmbeddedImage("U.Resources.Images.BlueMetal.jpg");
+        public static ImageResult Wall => LoadEmbeddedImage("U.Resources.Images.Wall.png");
+        public static ImageResult Bricks => LoadEmbeddedImage("U.Resources.Images.Bricks.jpg");
 
         private static ImageResult LoadEmbeddedImage(string textureResourceName)
         {
@@ -52,53 +25,12 @@ public class Resources
 
     public static class Shaders
     {
-        public static string uShapeVert
-        {
-            get
-            {
-                return LoadEmbeddedShader("U.Resources.Shaders.uShape.vert");
-            }
-        }
-
-        public static string uShapeFrag
-        {
-            get
-            {
-                return LoadEmbeddedShader("U.Resources.Shaders.uShape.frag");
-            }
-        }
-
-        public static string axisVert
-        {
-            get
-            {
-                return LoadEmbeddedShader("U.Resources.Shaders.axis.vert");
-            }
-        }
-
-        public static string axisFrag
-        {
-            get
-            {
-                return LoadEmbeddedShader("U.Resources.Shaders.axis.frag");
-            }
-        }
-
-        public static string crossHairVert
-        {
-            get
-            {
-                return LoadEmbeddedShader("U.Resources.Shaders.crossHair.vert");
-            }
-        }
-
-        public static string crossHairFrag
-        {
-            get
-            {
-                return LoadEmbeddedShader("U.Resources.Shaders.crossHair.frag");
-            }
-        }
+        public static string Objeto3DVert => LoadEmbeddedShader("U.Resources.Shaders.Objeto3D.vert");
+        public static string Objeto3DFrag => LoadEmbeddedShader("U.Resources.Shaders.Objeto3D.frag");
+        public static string AxisVert => LoadEmbeddedShader("U.Resources.Shaders.Axis.vert");
+        public static string AxisFrag => LoadEmbeddedShader("U.Resources.Shaders.Axis.frag");
+        public static string CrossHairVert => LoadEmbeddedShader("U.Resources.Shaders.CrossHair.vert");
+        public static string CrossHairFrag => LoadEmbeddedShader("U.Resources.Shaders.CrossHair.frag");
 
         private static string LoadEmbeddedShader(string resourceName)
         {
@@ -111,40 +43,24 @@ public class Resources
     }
     public static class Config
     {
-        public static float[] uShape
+        public class ShapeData
         {
-            get
-            {
-                return LoadEmbeddedConfig("U.Resources.Config.U.jsonc");
-            }
+            public float[] Vertices { get; set; } = [];
+            public uint[] Indices { get; set; } = [];
         }
 
-        public static float[] cube
-        {
-            get
-            {
-                return LoadEmbeddedConfig("U.Resources.Config.Cube.jsonc");
-            }
-        }
+        public static ShapeData U => LoadShapeConfig("U.Resources.Config.U.jsonc");
+        public static ShapeData Cube => LoadShapeConfig("U.Resources.Config.Cube.jsonc");
+        public static ShapeData Pyramid => LoadShapeConfig("U.Resources.Config.Pyramid.jsonc");
+        public static ShapeData Sphere => LoadShapeConfig("U.Resources.Config.Sphere.jsonc");
+        public static ShapeData Cylinder => LoadShapeConfig("U.Resources.Config.Cylinder.jsonc");
 
-        public static float[] pyramid
+        // Método de carga optimizado
+        private static ShapeData LoadShapeConfig(string resourceName)
         {
-            get
-            {
-                return LoadEmbeddedConfig("U.Resources.Config.Pyramid.jsonc");
-            }
-        }
-
-        private class Json
-        {
-            public float[]? Vertices { get; set; }
-        }
-
-        private static float[] LoadEmbeddedConfig(string resourceName)
-        {
-            Stream stream = (Assembly.GetExecutingAssembly()?.GetManifestResourceStream(resourceName)) ??
-                             throw new Exception($"Json resource {resourceName} not found.");
-            StreamReader reader = new(stream);
+            using Stream stream = Assembly.GetExecutingAssembly()?
+                .GetManifestResourceStream(resourceName)
+                ?? throw new FileNotFoundException($"Resource {resourceName} not found");
 
             var options = new JsonSerializerOptions
             {
@@ -152,14 +68,17 @@ public class Resources
                 ReadCommentHandling = JsonCommentHandling.Skip
             };
 
-            Json? shape = JsonSerializer.Deserialize<Json>(reader.ReadToEnd(), options)
-            ?? throw new Exception("No se pudo cargar deserializar el archivo: " + resourceName);
+            ShapeData? shape = JsonSerializer.Deserialize<ShapeData>(stream, options)
+                ?? throw new InvalidDataException($"Invalid JSON format in {resourceName}");
 
-            if (shape.Vertices == null)
+            if (shape.Vertices == null || shape.Vertices.Length == 0)
             {
-                throw new Exception("No se puedo cargar los vertices de: " + resourceName);
+                throw new InvalidDataException($"No vertices found in {resourceName}");
             }
-            return [.. shape.Vertices];
+
+            shape.Indices ??= [];
+
+            return shape;
         }
     }
 }

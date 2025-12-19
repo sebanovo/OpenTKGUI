@@ -2,7 +2,7 @@ using System.Reflection;
 using OpenTK.Graphics.OpenGL4;
 using StbImageSharp;
 
-namespace U.src.Utils;
+namespace U.Src.Utils;
 
 public class Texture
 {

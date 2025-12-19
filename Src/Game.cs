@@ -9,6 +9,8 @@ using U.Src.Models._2D;
 using U.Src.Models._3D;
 using U.Src.Utils;
 using U.Properties;
+using U.Src.Models._3D.Factories;
+using U.Src.Models._3D.Composite;
 
 #pragma warning disable CS8618
 
@@ -16,14 +18,9 @@ namespace U.src
 {
     public class Game : GameWindow
     {
-        // Shapes
-        Entity _u1;
-        Entity _cube;
-        Entity _pyramid;
-        CrossHair _crossHair;
-        Axis _axis;
+        Escenario _escenario;
         // Camera
-        Camera _camera;
+        FlyCamera _camera;
         Vector2 _lastPosition;
         Color4 backGroundColor = new(0.2f, 0.3f, 0.3f, 1.0f);
         Stopwatch _timer;
@@ -37,53 +34,60 @@ namespace U.src
             _timer = new Stopwatch();
             WindowState = WindowState.Maximized;
             CursorState = CursorState.Grabbed;
-            _camera = new Camera(Vector3.UnitZ * 3, Size.X / (float)Size.Y);
+            _camera = new FlyCamera(Vector3.UnitZ * 3, Size.X / (float)Size.Y);
         }
 
         protected override void OnLoad()
         {
             base.OnLoad();
             _timer.Start();
+            _escenario = new Escenario();
 
-            // Iniciatialize  Shapes
-            _u1 = new
-            (
-                Resources.Config.uShape,
-                Resources.Shaders.uShapeVert,
-                Resources.Shaders.uShapeFrag,
-                Resources.Images.bricks,
-                _camera
-            );
-
-            _cube = new
-            (
-                Resources.Config.cube,
-                Resources.Shaders.uShapeVert,
-                Resources.Shaders.uShapeFrag,
-                Resources.Images.wood,
-                _camera
-            );
-
-            _pyramid = new
-            (
-                Resources.Config.pyramid,
-                Resources.Shaders.uShapeVert,
-                Resources.Shaders.uShapeFrag,
-                Resources.Images.wall,
-                _camera
-            );
-
-            _crossHair = new();
-            _axis = new();
-
-            // Load Shapes
-            _u1.Load();
-            _cube.Load();
-            _pyramid.Load();
-
-            _axis.Load();
-            _crossHair.Load();
+            Initialize3DObjects();
         }
+        private void Initialize3DObjects()
+        {
+            // Configuración de objetos usando la fábrica
+            var u = EntityFactory.CreateFromShapeData(
+                "FormaU",
+                Resources.Config.Cylinder,
+                Resources.Images.Wood,
+                _camera
+            );
+
+            var cube = EntityFactory.CreateFromShapeData(
+                "Cubo",
+                Resources.Config.Cube,
+                Resources.Images.Bricks,
+                _camera
+            );
+
+            var pyramid = EntityFactory.CreateFromShapeData(
+                "Piramide",
+                Resources.Config.Pyramid,
+                Resources.Images.Wall,
+                _camera
+            );
+
+            var sphere = EntityFactory.CreateFromShapeData(
+                "Esfera",
+                Resources.Config.Sphere,
+                Resources.Images.BlueMetal,
+                _camera
+            );
+
+            var axis = new Axis(_camera);
+            var crossHair = new CrossHair(_camera, Size.X, Size.Y);
+
+            _escenario.Ejes = axis;
+            _escenario.CrossHair = crossHair;
+            // Agregado al escenario
+            _escenario.AddObjeto(u);
+            _escenario.AddObjeto(cube);
+            _escenario.AddObjeto(pyramid);
+            _escenario.AddObjeto(sphere);
+        }
+
 
         protected override void OnRenderFrame(FrameEventArgs e)
         {
@@ -93,24 +97,40 @@ namespace U.src
             GL.ClearColor(backGroundColor);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            // Draw Entities
-            _u1.Draw(_x, _y, _z);
-            _cube.Draw(-1.0f, 0.0f, 0.0f);
-            _pyramid.Draw(1.0f, 0.0f, 0.0f);
+            var u = _escenario.GetObjeto("FormaU");
+            var cubo = _escenario.GetObjeto("Cubo");
+            var piramide = _escenario.GetObjeto("Piramide");
+            var sphere = _escenario.GetObjeto("Esfera");
+            var axis = _escenario.Ejes;
+            var crossHair = _escenario.CrossHair;
 
-            // Draw Axis (xyz)
-            _axis.Bind();
-            _axis.ShaderProgram.SetMat4("model", Matrix4.Identity)
-                               .SetMat4("view", _camera.GetViewMatrix())
-                               .SetMat4("projection", _camera.GetProjectionMatrix());
-            _axis.Draw();
+            if (
+                u == null ||
+                cubo == null ||
+                piramide == null ||
+                sphere == null ||
+                axis == null ||
+                crossHair == null
+            ) return;
 
-            // Draw Cross Hair 
-            _crossHair.Bind();
-            _crossHair.ScaleX = 1.0f / (Size.X / (float)Size.Y);
-            _crossHair.ShaderProgram.SetVec3("u_Color", new Vector3(1.0f, 1.0f, 1.0f));
-            _crossHair.Draw();
+            u.Position = new Vector3(_x, _y, _z);
+            u.Rotation = new Vector3((float)_timer.Elapsed.TotalSeconds * 100, 0.0f, 0.0f);
+            u.Draw();
 
+            cubo.Position = new Vector3(-1.0f, 0.0f, 0.0f);
+            cubo.Rotation = new Vector3(0.0f, (float)_timer.Elapsed.TotalSeconds * 100, 0.0f);
+            cubo.Draw();
+
+            piramide.Position = new Vector3(1.0f, 0.0f, 0.0f);
+            piramide.Rotation = new Vector3(0.0f, 0.0f, (float)_timer.Elapsed.TotalSeconds * 100);
+            piramide.Draw();
+
+            sphere.Position = new Vector3(0.0f, 0.0f, -1.0f);
+            sphere.Rotation = new Vector3(0.0f, 0.0f, (float)_timer.Elapsed.TotalSeconds * 100);
+            sphere.Draw();
+
+            axis.Draw();
+            crossHair.Draw();
             base.SwapBuffers();
         }
 
@@ -165,7 +185,6 @@ namespace U.src
             {
                 _z += 1.0f;
             }
-
 
             const float cameraSpeed = 1.5f;
             const float sensitivity = 0.2f;
@@ -230,14 +249,7 @@ namespace U.src
         protected override void OnUnload()
         {
             base.OnUnload();
-
-            _u1.Dispose();
-            _cube.Dispose();
-            _pyramid.Dispose();
-
-            _axis.Dispose();
-            _crossHair.Dispose();
-
+            _escenario.Dispose();
             _timer.Stop();
         }
     }

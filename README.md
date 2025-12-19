@@ -7,4 +7,4 @@
 }
 ```
 
-![tarea3](https://github.com/user-attachments/assets/26b0e3d0-1eb7-4fcb-b125-4cf8518bbbee)
+![image](https://github.com/user-attachments/assets/a68c2b23-906b-4990-9318-6b43588d2aee)

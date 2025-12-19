@@ -1,5 +1,7 @@
 using System;
+using System.Drawing;
 using OpenTK.Graphics.OpenGL4;
+using OpenTK.Mathematics;
 using U.Properties;
 using U.Src.Utils;
 
@@ -8,6 +10,7 @@ namespace U.Src.Models._2D;
 public class CrossHair
 {
     public readonly Shader ShaderProgram;
+    public FlyCamera _camera;
     public int VBO, VAO;
     private float _scaleX = 1;
     public float ScaleX
@@ -26,11 +29,16 @@ public class CrossHair
         }
     }
     public float[] Vertices { get; set; }
-
-    public CrossHair()
+    public float SizeX;
+    public float SizeY;
+    public CrossHair(FlyCamera camera, float sizeX, float sizeY)
     {
+        SizeX = sizeX;
+        SizeY = sizeY;
+        _camera = camera;
+
         _scaleX = 1.0f;
-        ShaderProgram = new Shader(Resources.Shaders.crossHairVert, Resources.Shaders.crossHairFrag);
+        ShaderProgram = new Shader(Resources.Shaders.CrossHairVert, Resources.Shaders.CrossHairFrag);
 
         Vertices = [
             // x
@@ -56,15 +64,20 @@ public class CrossHair
         GL.EnableVertexAttribArray(0);
     }
 
+
+
     public void Bind()
     {
         GL.Disable(EnableCap.DepthTest);
         ShaderProgram.Use();
         GL.BindVertexArray(VAO);
+        ScaleX = 1.0f / (SizeX / SizeY);
+        ShaderProgram.SetVec3("u_Color", Vector3.One);
     }
 
     public void Draw()
     {
+        Bind();
         GL.LineWidth(3.0f);
         GL.DrawArrays(PrimitiveType.Lines, 0, 2);
         GL.DrawArrays(PrimitiveType.Lines, 2, 2);

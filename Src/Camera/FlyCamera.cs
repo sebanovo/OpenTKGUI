@@ -1,7 +1,7 @@
 ﻿using OpenTK.Mathematics;
 
 namespace U.Src.Utils;
-public class Camera(Vector3 position, float aspectRatio)
+public class FlyCamera(Vector3 position, float aspectRatio)
 {
     private Vector3 _front = -Vector3.UnitZ;
     private Vector3 _up = Vector3.UnitY;
