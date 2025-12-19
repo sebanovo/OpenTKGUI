@@ -1,5 +1,6 @@
 using System;
 using OpenTK.Graphics.OpenGL4;
+using U.Properties;
 using U.Src.Utils;
 
 namespace U.Src.Models._2D;
@@ -29,7 +30,7 @@ public class CrossHair
     public CrossHair()
     {
         _scaleX = 1.0f;
-        ShaderProgram = new Shader("U.Resources.Shaders.crossHair.vert", "U.Resources.Shaders.crossHair.frag");
+        ShaderProgram = new Shader(Resources.Shaders.crossHairVert, Resources.Shaders.crossHairFrag);
 
         Vertices = [
             // x

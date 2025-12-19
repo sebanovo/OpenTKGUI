@@ -9,18 +9,14 @@ public class Shader
     public int ID;
     public Shader(string vertexResourceName, string fragmentResourceName)
     {
-        string vertexCode, fragmentCode;
         try
         {
-            vertexCode = LoadEmbeddedShader(vertexResourceName);
-            fragmentCode = LoadEmbeddedShader(fragmentResourceName);
-
             int vertexShader = GL.CreateShader(ShaderType.VertexShader);
-            GL.ShaderSource(vertexShader, vertexCode);
+            GL.ShaderSource(vertexShader, vertexResourceName);
             GL.CompileShader(vertexShader);
 
             int fragmentShader = GL.CreateShader(ShaderType.FragmentShader);
-            GL.ShaderSource(fragmentShader, fragmentCode);
+            GL.ShaderSource(fragmentShader, fragmentResourceName);
             GL.CompileShader(fragmentShader);
 
             ID = GL.CreateProgram();
@@ -35,14 +31,6 @@ public class Shader
         {
             Console.Write(e.Message);
         }
-    }
-
-    private static string LoadEmbeddedShader(string resourceName)
-    {
-
-        using Stream? stream = (Assembly.GetExecutingAssembly()?.GetManifestResourceStream(resourceName)) ?? throw new Exception($"Shader resource {resourceName} not found.");
-        using StreamReader reader = new(stream);
-        return reader.ReadToEnd();
     }
 
     public void Use()

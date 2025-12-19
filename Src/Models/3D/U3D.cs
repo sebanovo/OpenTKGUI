@@ -2,6 +2,7 @@ using U.src.Utils;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using U.Src.Utils;
+using U.Properties;
 
 namespace U.Src.Models._3D;
 
@@ -143,8 +144,36 @@ public class U3D
 
     public U3D()
     {
-        ShaderProgram = new Shader("U.Resources.Shaders.uShape.vert", "U.Resources.Shaders.uShape.frag");
-        TextureImage = new("U.Resources.Images.container.jpg");
+        ShaderProgram = new Shader(Resources.Shaders.uShapeVert, Resources.Shaders.uShapeFrag);
+        TextureImage = new(Resources.Images.container);
+        CenterVertices();
+    }
+
+    public Vector3 CalculateCentroid()
+    {
+        float sumX = 0, sumY = 0, sumZ = 0;
+        int vertexCount = Vertices.Length / 5;
+
+        for (int i = 0; i < Vertices.Length; i += 5)
+        {
+            sumX += Vertices[i];
+            sumY += Vertices[i + 1];
+            sumZ += Vertices[i + 2];
+        }
+
+        return new Vector3(sumX / vertexCount, sumY / vertexCount, sumZ / vertexCount);
+    }
+
+    void CenterVertices()
+    {
+        Vector3 centroid = CalculateCentroid();
+
+        for (int i = 0; i < Vertices.Length; i += 5)
+        {
+            Vertices[i] -= centroid.X;
+            Vertices[i + 1] -= centroid.Y + 0.15f;
+            Vertices[i + 2] -= centroid.Z;
+        }
     }
 
     public void Load()
@@ -163,6 +192,7 @@ public class U3D
         GL.EnableVertexAttribArray(1);
     }
 
+
     public void Bind()
     {
         ShaderProgram.Use();
@@ -171,6 +201,21 @@ public class U3D
         TextureImage.Use(TextureUnit.Texture0);
     }
 
+    public void Draw(Vector3 position)
+    {
+        float[] copiedVertices = [.. Vertices];
+        for (int i = 0; i < copiedVertices.Length; i += 5)
+        {
+            copiedVertices[i] += position.X;
+            copiedVertices[i + 1] += position.Y;
+            copiedVertices[i + 2] += position.Z;
+        }
+
+        GL.BindBuffer(BufferTarget.ArrayBuffer, VBO);
+        GL.BufferData(BufferTarget.ArrayBuffer, copiedVertices.Length * sizeof(float), copiedVertices, BufferUsageHint.StaticDraw);
+
+        GL.DrawArrays(PrimitiveType.Triangles, 0, Vertices.Length / 5);
+    }
 
     public void Draw()
     {

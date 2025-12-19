@@ -26,7 +26,9 @@ namespace U.src
         Color4 backGroundColor = new(0.2f, 0.3f, 0.3f, 1.0f);
         Stopwatch _timer;
         bool _firstMove = true;
-
+        float _x = 0.0f;
+        float _y = 0.0f;
+        float _z = 0.0f;
         protected override void OnLoad()
         {
             base.OnLoad();
@@ -46,6 +48,7 @@ namespace U.src
             _u.Load();
             _axis.Load();
             _crossHair.Load();
+
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
@@ -57,14 +60,12 @@ namespace U.src
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             // Draw U
-
             _u.Bind();
             _u.ShaderProgram.SetInt("texture1", 0)
-                            .SetMat4("transform", Matrix4.Identity)
                             .SetMat4("model", Matrix4.Identity)
                             .SetMat4("view", _camera.GetViewMatrix())
                             .SetMat4("projection", _camera.GetProjectionMatrix());
-            _u.Draw();
+            _u.Draw(new Vector3(_x, _y, _z));
 
             // Draw Axis (xyz)
             _axis.Bind();
@@ -109,6 +110,30 @@ namespace U.src
                 GL.LineWidth(10.0f);
                 GL.PolygonMode(TriangleFace.FrontAndBack, PolygonMode.Line);
             }
+            else if (KeyboardState.IsKeyPressed(Keys.Left))
+            {
+                _x -= 1.0f;
+            }
+            else if (KeyboardState.IsKeyPressed(Keys.Right))
+            {
+                _x += 1.0f;
+            }
+            else if (KeyboardState.IsKeyPressed(Keys.Down))
+            {
+                _y -= 1.0f;
+            }
+            else if (KeyboardState.IsKeyPressed(Keys.Up))
+            {
+                _y += 1.0f;
+            }
+            else if (KeyboardState.IsKeyPressed(Keys.H))
+            {
+                _z -= 1.0f;
+            }
+            else if (KeyboardState.IsKeyPressed(Keys.Y))
+            {
+                _z += 1.0f;
+            }
 
 
             const float cameraSpeed = 1.5f;
@@ -137,8 +162,6 @@ namespace U.src
             {
                 _camera.Position -= _camera.Up * cameraSpeed * (float)e.Time;
             }
-
-
             if (input.IsKeyDown(Keys.Space))
             {
                 _camera.Position += _camera.Up * cameraSpeed * (float)e.Time;

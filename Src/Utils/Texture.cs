@@ -7,18 +7,14 @@ namespace U.src.Utils;
 public class Texture
 {
     public int Handle { get; private set; }
-    public Texture(string resourceName)
+    public Texture(ImageResult textureResourceName)
     {
         Handle = GL.GenTexture();
         GL.BindTexture(TextureTarget.Texture2D, Handle);
         StbImage.stbi__vertically_flip_on_load_global = 1;
 
-        using Stream? stream = Assembly.GetExecutingAssembly()?.GetManifestResourceStream(resourceName)
-                            ?? throw new Exception($"Texture resource {resourceName} not found.");
 
-        ImageResult image = ImageResult.FromStream(stream, ColorComponents.RedGreenBlueAlpha);
-
-        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, image.Width, image.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, image.Data);
+        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, textureResourceName.Width, textureResourceName.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, textureResourceName.Data);
         GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
 
         GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.LinearMipmapLinear); // Para mipmaps

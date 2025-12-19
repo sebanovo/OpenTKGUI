@@ -1,6 +1,7 @@
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using U.Src.Utils;
+using U.Properties;
 
 namespace U.Src.Models._3D;
 
@@ -24,7 +25,7 @@ public class Axis
 
     public Axis()
     {
-        ShaderProgram = new Shader("U.Resources.Shaders.axis.vert", "U.Resources.Shaders.axis.frag");
+        ShaderProgram = new Shader(Resources.Shaders.axisVert, Resources.Shaders.axisFrag);
     }
 
     public void Load()
