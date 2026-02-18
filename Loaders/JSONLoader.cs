@@ -185,4 +185,94 @@ class JSONLoader
             Partes = partes
         };
     }
+    public static ModeloObjeto ParsearDatos(string path)
+    {
+        string jsonContent = File.ReadAllText(path);
+
+        ModeloObjeto modeloObjeto =
+            JsonSerializer.Deserialize<ModeloObjeto>(jsonContent)
+            ?? throw new Exception("Error al deserializar el objeto JSON.");
+
+        return modeloObjeto;
+    }
+    public static Objeto ConstruirObjeto(
+    ModeloObjeto modeloObjeto,
+    ArcRotateCamera camera,
+    Luz luz)
+    {
+        Objeto newObjeto = new()
+        {
+            Name = modeloObjeto.Name
+        };
+
+        // ---------- Transform objeto ----------
+        newObjeto.Transformation.Scale = new Vector3(
+            modeloObjeto.Transformation.Scale.X,
+            modeloObjeto.Transformation.Scale.Y,
+            modeloObjeto.Transformation.Scale.Z
+        );
+
+        newObjeto.Transformation.Position = new Vector3(
+            modeloObjeto.Transformation.Position.X,
+            modeloObjeto.Transformation.Position.Y,
+            modeloObjeto.Transformation.Position.Z
+        );
+
+        newObjeto.Transformation.Rotation = new Vector3(
+            modeloObjeto.Transformation.Rotation.X,
+            modeloObjeto.Transformation.Rotation.Y,
+            modeloObjeto.Transformation.Rotation.Z
+        );
+
+        // ---------- Partes ----------
+        foreach (var parte in modeloObjeto.Partes)
+        {
+            List<float> listaVertices = new();
+
+            foreach (var vertice in parte.Vertices)
+            {
+                listaVertices.Add(vertice.X);
+                listaVertices.Add(vertice.Y);
+                listaVertices.Add(vertice.Z);
+                listaVertices.Add(vertice.U);
+                listaVertices.Add(vertice.V);
+                listaVertices.Add(vertice.NX);
+                listaVertices.Add(vertice.NY);
+                listaVertices.Add(vertice.NZ);
+            }
+
+            Parte newParte = new Parte(
+                parte.Name,
+                listaVertices,
+                parte.Indices,
+                parte.Texture,
+                camera,
+                luz
+            );
+
+            // ---------- Transform parte ----------
+            newParte.Transformation.Position = new Vector3(
+                parte.Transformation.Position.X,
+                parte.Transformation.Position.Y,
+                parte.Transformation.Position.Z
+            );
+
+            newParte.Transformation.Rotation = new Vector3(
+                parte.Transformation.Rotation.X,
+                parte.Transformation.Rotation.Y,
+                parte.Transformation.Rotation.Z
+            );
+
+            newParte.Transformation.Scale = new Vector3(
+                parte.Transformation.Scale.X,
+                parte.Transformation.Scale.Y,
+                parte.Transformation.Scale.Z
+            );
+
+            newObjeto.Add(newParte);
+        }
+
+        return newObjeto;
+    }
 }
+

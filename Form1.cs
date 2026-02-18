@@ -1,10 +1,10 @@
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
+using OpenTKGUI.Animation;
+using OpenTKGUI.Estructura;
+using OpenTKGUI.Utils;
 using System.Diagnostics;
 using System.Text.Json;
-using OpenTKGUI.Utils;
-using OpenTKGUI.Estructura;
-using OpenTKGUI.Animation;
 
 
 namespace OpenTKGUI
@@ -233,8 +233,16 @@ namespace OpenTKGUI
             {
                 foreach (var fileName in openFileDialog1.FileNames)
                 {
-                    Objeto newObject = JSONLoader.CargarObjeto(fileName, _camera, _luz);
-                    _escenario.Add(newObject);
+                    Task.Run(() =>
+                    {
+                        var datos = JSONLoader.ParsearDatos(fileName);
+
+                        this.BeginInvoke((Action)(() =>
+                        {
+                            Objeto obj = JSONLoader.ConstruirObjeto(datos, _camera, _luz);
+                            _escenario.Add(obj);
+                        }));
+                    });
                 }
             }
             catch (Exception ex)
